@@ -2,6 +2,8 @@ library(ggplot2)
 setwd("/Volumes/data/MPV/projects/SCCmec/QC/")
 assembly_stats = read.table("/Volumes/data/DB/refseq/Staphylococcus_contig_length_stats_reclassified.txt",sep="\t")
 
+setwd("E:/Github/SCCmec/QC")
+assembly_stats = read.table("Staphylococcus_contig_length_stats_reclassified.txt",sep="\t")
 
 
 sub_stats = assembly_stats[which(assembly_stats$species=="Staphylococcus_epidermidis"),]
@@ -12,11 +14,15 @@ p <- ggplot(plot_dist_table,aes(x=Contig_count)) + geom_histogram(position="dodg
 p
 
 ## Boxplot - number of contigs
-p <- ggplot(assembly_stats,aes(x=species,y=contigs,fill=species)) + geom_boxplot() + theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_text(angle=90))
+p <- ggplot(assembly_stats,aes(x=species,y=contigs,fill=species)) + geom_boxplot() + 
+  theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_text(angle=90)) +
+  ggtitle("Distribution of contig counts, no filtering")
 p
 
 ## Boxplot - genome size
-p <- ggplot(assembly_stats,aes(x=species,y=genome_size,fill=species)) + geom_boxplot() + theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_text(angle=90))
+p <- ggplot(assembly_stats,aes(x=species,y=genome_size,fill=species)) + geom_boxplot() + 
+  theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_text(angle=90)) +
+  ggtitle("Distribution of genome sizes, no filtering")
 p
 
 ## Filter 
@@ -31,28 +37,6 @@ write.table(x, "species_table.txt", quote = FALSE, sep="\t", row.names = FALSE)
 y <- table(filtered_set$species)
 
 table(filtered_set$species)/table(assembly_stats$species)*100
-
-
-
-filtered_set = assembly_stats[which(assembly_stats$genome_size>=3000000),]
-
-filtered_set = assembly_stats[which(assembly_stats$genome_size>=3000000 | assembly_stats$contigs >=300),]
-
-
-plot(sort(assembly_stats$contigs[which(assembly_stats$species=="Staphylococcus_aureus")]))
-
-plot(sort(assembly_stats$genome_size[which(assembly_stats$species=="Staphylococcus_aureus")]))
-
-
-
-
-filtered_set = assembly_stats[which(assembly_stats$contigs<=300),] 
-p <- ggplot(filtered_set,aes(x=species,y=contigs,fill=species)) + geom_boxplot() + theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_text(angle=90))
-p
-
-
-
-which(assembly_stats$species=="Staphylococcus_aureus" & assembly_stats$genome_size <= 2500000)
 
 
 
@@ -86,20 +70,14 @@ filtered_set = assembly_stats[which(assembly_stats$contigs<=300),]
 
 
 ### updated plot
-filtered_stats = IQR_species_apply(filtered_set,IQR_threshold_factor = 2.5)
-p <- ggplot(filtered_stats,aes(x=sp,y=genome_size,fill=sp)) + geom_boxplot() + theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_text(angle=90))
+filtered_stats = IQR_species_apply(filtered_set,IQR_threshold_factor = 2.0)
+p <- ggplot(filtered_stats,aes(x=sp,y=genome_size,fill=sp)) + geom_boxplot() + 
+  theme(legend.position = "none", axis.title.x = element_blank(), axis.text.x = element_text(angle=90)) +
+  ggtitle("Genome size distribution after filtering contig counts > 300 and genome sizes outside 2.0 IQR of the median for each species")
 p
 
 ### whats been removed
 table(assembly_stats$species)-table(filtered_stats$species)
-
-dim(assembly_stats)-dim(filtered_stats)
-
-length(which(filtered_stats$contigs>300))
-
-plot(sort(assembly_stats$genome_size[which(assembly_stats$sp=="aureus")]))
-plot(sort(filtered_stats$genome_size[which(filtered_stats$sp=="aureus")]))
-
 
 
 
@@ -118,7 +96,7 @@ species_removed_summary = data.frame('Species'=levels(assembly_stats$sp),'Origin
 
 
 
-write.table(species_removed_summary,"excluded_isolates_species_table.txt",sep="\t")
+write.table(species_removed_summary,"excluded_isolates_species_table.txt",sep="\t",quote = FALSE)
 
 original_IDs = as.vector(assembly_stats$sp_ID)
 final_IDs = as.vector(both_filtered_set$sp_ID)
@@ -126,7 +104,11 @@ final_IDs = as.vector(both_filtered_set$sp_ID)
 excluded_isolates = original_IDs[which(!original_IDs %in% final_IDs)]
 excluded_isolates = unlist(lapply(excluded_isolates, function(x) strsplit(x,'_genomic')[[1]][1]))
 
+writeLines(excluded_isolates,"excluded_isolates.txt")
+
 write.table(both_filtered_set,"assembly_stats_post_filtering.txt",sep = "\t")
+
+
 
 
 
