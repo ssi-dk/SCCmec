@@ -161,18 +161,18 @@ write.tree(ccrA_dist_phylo,file = "ccrA_dist_tree_QC.nwk")
 
 # ccrB #
 
-dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrB_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/ccrB_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+
+ccrB_exclude_idx = which(rownames(dist_mat) %in% exclude_uniq_seq_ID)
+dist_mat = dist_mat[-ccrB_exclude_idx,-ccrB_exclude_idx]
+
 aln_dist = as.dist(dist_mat)
 
-# aln = read.dna("protein_blast/ccr_haplotype_uniq_fastas/ccrB_aln.fasta","fasta")
-# aln_dist = dist.dna(aln)
-# aln_dist_mat = as.matrix(aln_dist)
-#aln_dist_mat[1:10,1:10]
 
 fit = hclust(aln_dist)
 plot(fit)
-ccr_groups = cutree(fit,h=20)
-rect.hclust(fit,h=20)
+ccr_groups = cutree(fit,h=22)
+rect.hclust(fit,h=22)
 tbl$ccrB_group = NA
 for (i in 1:length(ccr_groups)) {
   name = names(ccr_groups)[i]
@@ -184,6 +184,28 @@ for (i in 1:length(ccr_groups)) {
 IWG_ccrB_tbl = tbl[grep('ccrB',tbl$fasta_ID),]
 table(as.vector(IWG_ccrB_tbl$fasta_ID),as.vector(IWG_ccrB_tbl$ccrB_group))
 sort(unique(ccr_groups))
+
+ccrB_tbl = tbl[which(tbl$ccr_haplotype=="ccrB"),]
+allotype_colors = c(RColorBrewer::brewer.pal(12,"Paired"),"#d9d9d9")
+#allotype_colors = colorRamps::primary.colors(16)
+ccr_allotype_vec = unique(ccrB_tbl$ccr_allotype)
+ccrB_tbl$allotype_color = NA
+
+for (i in 1:length(allotype_colors)) {
+  col = allotype_colors[i]
+  ccr_type = ccr_allotype_vec[i]
+  idx = which(ccrA_tbl$ccr_allotype==ccr_type)
+  names = as.vector(ccrA_tbl$fasta_ID[idx])
+  test = names[grep('IWG',names)]
+  if (length(test)>0) {
+    print(test)
+    t = strsplit(test[1],'_')[[1]][1]
+    ccrA_tbl$ccr_allotype[idx] = t
+  }
+  ccrA_tbl$allotype_color[idx] = col
+}
+
+
 
 
 dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrC_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
@@ -238,6 +260,8 @@ for (i in 1:length(haplotype_colors)) {
 }
 
 uniq_tbl = tbl[which(!duplicated(as.vector(tbl$uniq_fasta_ID))),]
+
+
 
 
 
