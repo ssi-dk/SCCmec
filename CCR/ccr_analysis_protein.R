@@ -109,13 +109,22 @@ dist_mat = dist_mat[-ccrA_exclude_idx,-ccrA_exclude_idx]
 aln_dist = as.dist(dist_mat)
 
 
-fit = hclust(aln_dist)
+fit = hclust(aln_dist,method = "complete")
 
-plot(fit)
-ccr_groups = cutree(fit,h=22)
-rect.hclust(fit,h=22)
+v = c()
+for (i in 10:40) {
+  g = cutree(fit,h=i)
+  v = c(v,length(unique(g)))
+}
+v_A = v
+
+
+plot(10:40,v)
+ccr_groups = cutree(fit,h=18)
+rect.hclust(fit,h=18)
 tbl$ccrA_group = NA
 new_ccr_count = 1
+unique(ccr_groups)
 for (i in 1:length(ccr_groups)) {
   name = names(ccr_groups)[i]
   group = ccr_groups[i]
@@ -130,8 +139,8 @@ table(as.vector(IWG_ccrA_tbl$fasta_ID),as.vector(IWG_ccrA_tbl$ccrA_group))
 sort(unique(ccr_groups))
 
 ccrA_tbl = tbl[which(tbl$ccr_haplotype=="ccrA"),]
-allotype_colors = c(RColorBrewer::brewer.pal(12,"Paired"),"#d9d9d9")
-#allotype_colors = colorRamps::primary.colors(16)
+#allotype_colors = c(RColorBrewer::brewer.pal(12,"Paired"),"#d9d9d9")
+allotype_colors = colorRamps::primary.colors(19)
 ccr_allotype_vec = unique(ccrA_tbl$ccr_allotype)
 ccrA_tbl$allotype_color = NA
 
@@ -151,10 +160,10 @@ for (i in 1:length(allotype_colors)) {
 
 ccrA_uniq_tbl = ccrA_tbl[which(!duplicated(as.vector(ccrA_tbl$uniq_fasta_ID))),]
 
-write.table(ccrA_tbl,"ccrA_allotype_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
-write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(ccrA_tbl,"ccrA_allotype_table_QC_18.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC_18.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 to_print = paste0(ccrA_uniq_tbl$uniq_fasta_ID,' ',ccrA_uniq_tbl$allotype_color,' ',ccrA_uniq_tbl$ccr_allotype)
-writeLines(to_print,con = "ccrA_allotype_colors_QC.txt")
+writeLines(to_print,con = "ccrA_allotype_colors_QC_18.txt")
 
 ccrA_dist_phylo = as.phylo(fit)
 write.tree(ccrA_dist_phylo,file = "ccrA_dist_tree_QC.nwk")
@@ -167,11 +176,19 @@ ccrB_exclude_idx = which(rownames(dist_mat) %in% exclude_uniq_seq_ID)
 dist_mat = dist_mat[-ccrB_exclude_idx,-ccrB_exclude_idx]
 
 aln_dist = as.dist(dist_mat)
-
-
-fit = hclust(aln_dist)
+fit = hclust(aln_dist,method = "single")
 plot(fit)
-ccr_groups = cutree(fit,h=22)
+ccr_groups = cutree(fit,h=20)
+v = c()
+for (i in 10:40) {
+  g = cutree(fit,h=i)
+  v = c(v,length(unique(g)))
+}
+
+v_B = v
+plot(10:40,v)
+
+
 rect.hclust(fit,h=22)
 tbl$ccrB_group = NA
 for (i in 1:length(ccr_groups)) {
@@ -180,13 +197,14 @@ for (i in 1:length(ccr_groups)) {
   tbl$ccrB_group[which(tbl$uniq_fasta_ID==name)] = group
   
 }
+tbl$ccr_allotype = paste0(as.vector(tbl$ccr_haplotype),'n',as.vector(tbl$ccrB_group))
 
 IWG_ccrB_tbl = tbl[grep('ccrB',tbl$fasta_ID),]
 table(as.vector(IWG_ccrB_tbl$fasta_ID),as.vector(IWG_ccrB_tbl$ccrB_group))
 sort(unique(ccr_groups))
 
 ccrB_tbl = tbl[which(tbl$ccr_haplotype=="ccrB"),]
-allotype_colors = c(RColorBrewer::brewer.pal(12,"Paired"),"#d9d9d9")
+allotype_colors = c(RColorBrewer::brewer.pal(12,"Paired"))
 #allotype_colors = colorRamps::primary.colors(16)
 ccr_allotype_vec = unique(ccrB_tbl$ccr_allotype)
 ccrB_tbl$allotype_color = NA
@@ -194,29 +212,55 @@ ccrB_tbl$allotype_color = NA
 for (i in 1:length(allotype_colors)) {
   col = allotype_colors[i]
   ccr_type = ccr_allotype_vec[i]
-  idx = which(ccrA_tbl$ccr_allotype==ccr_type)
-  names = as.vector(ccrA_tbl$fasta_ID[idx])
+  idx = which(ccrB_tbl$ccr_allotype==ccr_type)
+  names = as.vector(ccrB_tbl$fasta_ID[idx])
   test = names[grep('IWG',names)]
   if (length(test)>0) {
     print(test)
     t = strsplit(test[1],'_')[[1]][1]
-    ccrA_tbl$ccr_allotype[idx] = t
+    ccrB_tbl$ccr_allotype[idx] = t
   }
-  ccrA_tbl$allotype_color[idx] = col
+  ccrB_tbl$allotype_color[idx] = col
 }
+table(ccrB_tbl$ccr_allotype)
+
+ccrB_uniq_tbl = ccrB_tbl[which(!duplicated(as.vector(ccrB_tbl$uniq_fasta_ID))),]
+
+write.table(ccrB_tbl,"ccrB_allotype_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(ccrB_uniq_tbl,"ccrB_allotype_uniq_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+to_print = paste0(ccrB_uniq_tbl$uniq_fasta_ID,' ',ccrB_uniq_tbl$allotype_color,' ',ccrB_uniq_tbl$ccr_allotype)
+writeLines(to_print,con = "ccrB_allotype_colors_QC.txt")
+
+ccrB_dist_phylo = as.phylo(fit)
+write.tree(ccrB_dist_phylo,file = "ccrB_dist_tree_QC.nwk")
 
 
 
+#### ccrC ####
 
-dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrC_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/ccrC_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+
+ccrC_exclude_idx = which(rownames(dist_mat) %in% exclude_uniq_seq_ID)
+dist_mat = dist_mat[-ccrC_exclude_idx,-ccrC_exclude_idx]
+
+
 aln_dist = as.dist(dist_mat)
 
-# aln = read.dna("protein_blast/ccr_haplotype_uniq_fastas/ccrC_aln.fasta","fasta")
-# aln_dist = dist.dna(aln)
-# aln_dist_mat = as.matrix(aln_dist)
-#aln_dist_mat[1:10,1:10]
+fit = hclust(aln_dist,method = "single")
+v = c()
+for (i in 10:40) {
+  g = cutree(fit,h=i)
+  v = c(v,length(unique(g)))
+}
 
-fit = hclust(aln_dist)
+v_C = v
+plot(10:40,v)
+
+v_df = data.frame('type'=c(rep('A',31),rep('B',31),rep('C',31)),'groups'=c(v_A,v_B,v_C),'idx'=rep(10:40,3))
+
+p = ggplot(v_df,aes(x=idx,y=groups,color=type)) + geom_point()
+p
+
 plot(fit)
 ccr_groups = cutree(fit,h=22)
 rect.hclust(fit,h=22)
@@ -226,10 +270,49 @@ for (i in 1:length(ccr_groups)) {
   group = ccr_groups[i]
   tbl$ccrC_group[which(tbl$uniq_fasta_ID==name)] = group
 }
+tbl$ccr_allotype = paste0(as.vector(tbl$ccr_haplotype),'n',as.vector(tbl$ccrC_group))
 
 IWG_ccrC_tbl = tbl[grep('ccrC',tbl$fasta_ID),]
 table(as.vector(IWG_ccrC_tbl$fasta_ID),as.vector(IWG_ccrC_tbl$ccrC_group))
 sort(unique(ccr_groups))
+
+
+ccrC_tbl = tbl[which(tbl$ccr_haplotype=="ccrC"),]
+allotype_colors = c(RColorBrewer::brewer.pal(4,"Set1"))
+#allotype_colors = colorRamps::primary.colors(16)
+ccr_allotype_vec = unique(ccrC_tbl$ccr_allotype)
+ccrC_tbl$allotype_color = NA
+
+for (i in 1:length(allotype_colors)) {
+  col = allotype_colors[i]
+  ccr_type = ccr_allotype_vec[i]
+  idx = which(ccrC_tbl$ccr_allotype==ccr_type)
+  names = as.vector(ccrC_tbl$fasta_ID[idx])
+  test = names[grep('IWG',names)]
+  if (length(test)>0) {
+    print(test)
+    t = strsplit(test[1],'_')[[1]][1]
+    ccrC_tbl$ccr_allotype[idx] = t
+  }
+  ccrC_tbl$allotype_color[idx] = col
+}
+table(ccrC_tbl$ccr_allotype)
+
+ccrC_uniq_tbl = ccrC_tbl[which(!duplicated(as.vector(ccrC_tbl$uniq_fasta_ID))),]
+
+write.table(ccrC_tbl,"ccrC_allotype_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(ccrC_uniq_tbl,"ccrC_allotype_uniq_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+to_print = paste0(ccrC_uniq_tbl$uniq_fasta_ID,' ',ccrC_uniq_tbl$allotype_color,' ',ccrC_uniq_tbl$ccr_allotype)
+writeLines(to_print,con = "ccrC_allotype_colors_QC.txt")
+
+ccrC_dist_phylo = as.phylo(fit)
+write.tree(ccrC_dist_phylo,file = "ccrC_dist_tree_QC.nwk")
+
+
+
+
+
+
 
 
 tbl$ccr_group[grep('ccrA',tbl$fasta_ID)]
