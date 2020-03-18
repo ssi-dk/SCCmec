@@ -2,24 +2,52 @@ library(ape)
 library(phytools)
 library(alluvial)
 setwd("/Volumes/data/MPV/projects/SCCmec/CCR")
+setwd("E:/Github/SCCmec/CCR")
 
 sp_count_table = read.table("/Volumes/data/DB/refseq/Staphylococcus_species_counts_191128.txt",sep = "\t")
+sp_count_table = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/Staphylococcus_species_counts_191128.txt",sep = "\t")
 sp_count_vec = sp_count_table$V2
 names(sp_count_vec) = sp_count_table$V1
+
+excluded_isolates = readLines("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/QC/excluded_isolates.txt")
+excluded_GCF_IDs = unlist(lapply(as.vector(excluded_isolates), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
+
 
 #### ccr all ####
 
 tbl = read.table("protein_blast/ccr_all_with_IWG_uniq_table.txt",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
+tbl = read.table("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_all_with_IWG_uniq_table.txt?raw=true",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
+
+tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
 
 aln = read.dna("protein_blast/ccr_all_uniq_mafft.fasta","fasta")
+aln = read.dna("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_all_uniq_mafft.fasta?raw=true","fasta")
 
-dist_mat = read.table("protein_blast/ccr_muscle_percent_distance.txt",sep="\t",header=T,row.names=1)
+dist_mat = read.table("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_muscle_percent_distance.txt?raw=true",sep="\t",header=T,row.names=1)
 dist_mat = as.matrix(dist_mat)
+
+
+
+
+  
+#### QC filter ####
+
+exclude_index = which(tbl$GCF_ID %in% excluded_GCF_IDs)
+exclude_uniq_seq_ID = as.vector(tbl$uniq_fasta_ID)[which(tbl$GCF_ID %in% excluded_GCF_IDs & tbl$seq_count==1)]
+
+tbl = tbl[-exclude_index,]
+
+aln_exclude_idx = which(labels(aln) %in% exclude_uniq_seq_ID)
+aln_filtered = aln[-aln_exclude_idx,]
+aln_original = aln
+
+dist_mat_original = dist_mat
+dist_mat_exclude_idx = which(rownames(dist_mat_original) %in% exclude_uniq_seq_ID)
+dist_mat = dist_mat_original[-dist_mat_exclude_idx,-dist_mat_exclude_idx]
 dist_obj = as.dist(dist_mat)
 
-plot(sort(rowSums(dist_mat)))
-
 fit = hclust(dist_obj,method = "complete")
+
 
 #### Haplotyes ####
 
@@ -59,10 +87,10 @@ for (i in 1:length(haplotype_colors)) {
 
 uniq_tbl = tbl[which(!duplicated(as.vector(tbl$uniq_fasta_ID))),]
 
-#write.table(tbl,"protein_blast/ccr_haplotype_table.txt",sep = "\t",quote = F,row.names=F)
-#write.table(uniq_tbl,"protein_blast/ccr_haplotype_uniq_table.txt",sep = "\t",quote = F,row.names=F)
-# to_print = paste0(uniq_tbl$uniq_fasta_ID,' ',uniq_tbl$haplotype_color,' ',uniq_tbl$ccr_haplotype)
-# writeLines(to_print,con = "protein_blast/col_test.txt")
+write.table(tbl,"ccr_haplotype_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(uniq_tbl,"ccr_haplotype_uniq_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+to_print = paste0(uniq_tbl$uniq_fasta_ID,' ',uniq_tbl$haplotype_color,' ',uniq_tbl$ccr_haplotype)
+writeLines(to_print,con = "ccr_haplotype_colors_QC.txt")
 
 
 #### Separate into 7 haplotype and align/analyze each haplotype ####
@@ -75,17 +103,17 @@ as.hclust(tree)
 # ccrA #
 
 dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrA_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/ccrA_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+ccrA_exclude_idx = which(rownames(dist_mat) %in% exclude_uniq_seq_ID)
+dist_mat = dist_mat[-ccrA_exclude_idx,-ccrA_exclude_idx]
 aln_dist = as.dist(dist_mat)
-# aln = read.dna("protein_blast/ccr_haplotype_uniq_fastas/ccrA_aln.fasta","fasta")
-# aln_dist = dist.dna(aln)
-# aln_dist_mat = as.matrix(aln_dist)
-# aln_dist_mat[1:10,1:10]
+
 
 fit = hclust(aln_dist)
 
 plot(fit)
-ccr_groups = cutree(fit,h=25)
-rect.hclust(fit,h=25)
+ccr_groups = cutree(fit,h=22)
+rect.hclust(fit,h=22)
 tbl$ccrA_group = NA
 new_ccr_count = 1
 for (i in 1:length(ccr_groups)) {
@@ -102,7 +130,7 @@ table(as.vector(IWG_ccrA_tbl$fasta_ID),as.vector(IWG_ccrA_tbl$ccrA_group))
 sort(unique(ccr_groups))
 
 ccrA_tbl = tbl[which(tbl$ccr_haplotype=="ccrA"),]
-allotype_colors = RColorBrewer::brewer.pal(11,"Paired")
+allotype_colors = c(RColorBrewer::brewer.pal(12,"Paired"),"#d9d9d9")
 #allotype_colors = colorRamps::primary.colors(16)
 ccr_allotype_vec = unique(ccrA_tbl$ccr_allotype)
 ccrA_tbl$allotype_color = NA
@@ -123,13 +151,13 @@ for (i in 1:length(allotype_colors)) {
 
 ccrA_uniq_tbl = ccrA_tbl[which(!duplicated(as.vector(ccrA_tbl$uniq_fasta_ID))),]
 
-write.table(ccrA_tbl,"protein_blast/ccrA_allotype_table.txt",sep = "\t",quote = F,row.names=F)
-write.table(ccrA_uniq_tbl,"protein_blast/ccrA_allotype_uniq_table.txt",sep = "\t",quote = F,row.names=F)
+write.table(ccrA_tbl,"ccrA_allotype_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 to_print = paste0(ccrA_uniq_tbl$uniq_fasta_ID,' ',ccrA_uniq_tbl$allotype_color,' ',ccrA_uniq_tbl$ccr_allotype)
-#writeLines(to_print,con = "protein_blast/ccrA_allotype_colors.txt")
+writeLines(to_print,con = "ccrA_allotype_colors_QC.txt")
 
 ccrA_dist_phylo = as.phylo(fit)
-write.tree(ccrA_dist_phylo,file = "ccrA_dist_tree_2.nwk")
+write.tree(ccrA_dist_phylo,file = "ccrA_dist_tree_QC.nwk")
 
 # ccrB #
 
