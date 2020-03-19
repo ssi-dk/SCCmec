@@ -317,6 +317,8 @@ write.tree(ccrC_dist_phylo,file = "ccrC_dist_tree_QC.nwk")
 
 
 
+
+
 tbl$ccr_group[grep('ccrA',tbl$fasta_ID)]
 tbl$ccr_group[grep('ccrB',tbl$fasta_ID)]
 tbl$ccr_group[grep('ccrC',tbl$fasta_ID)]
