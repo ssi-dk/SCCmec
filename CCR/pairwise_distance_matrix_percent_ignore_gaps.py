@@ -42,6 +42,6 @@ print('\t'+'\t'.join(headers))
 for i in range(len(headers)):
 	printlist = [headers[i]]
 	for j in range(len(headers)):
-		printlist.append(str(int(dist_matrix[i][j])))
+		printlist.append(str(round(dist_matrix[i][j],2)))
 	print('\t'.join(printlist))
 	
