@@ -1,0 +1,1279 @@
+IQ-TREE multicore version 1.5.5 for Linux 64-bit built Jun 21 2017
+Copyright (c) 2011-2017 by Bui Quang Minh, Nguyen Lam Tung,
+Olga Chernomor, Heiko Schmidt, and Arndt von Haeseler.
+
+Host:    s-calc-fat01-p.ssi.ad (AVX2, FMA3, 143 GB RAM)
+Command: iqtree -s ccrB_all_uniq_aln.fasta -m GTR -bb 1000 -nt 8 -mem 8G
+Seed:    615958 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Thu Mar 19 18:43:47 2020
+Kernel:  AVX+FMA - 8 threads (16 CPU cores detected)
+
+Reading alignment file ccrB_all_uniq_aln.fasta ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+Alignment has 520 sequences with 1875 columns and 1431 patterns (1245 informative sites, 524 constant sites)
+WARNING: Some sequence names are changed as follows:
+seq_184|2 -> seq_184_2
+seq_183|2 -> seq_183_2
+seq_506|1 -> seq_506_1
+seq_507|1 -> seq_507_1
+seq_508|1 -> seq_508_1
+seq_509|1 -> seq_509_1
+seq_38|9 -> seq_38_9
+seq_121|3 -> seq_121_3
+seq_512|1 -> seq_512_1
+seq_120|3 -> seq_120_3
+seq_510|1 -> seq_510_1
+seq_511|1 -> seq_511_1
+seq_98|4 -> seq_98_4
+seq_513|1 -> seq_513_1
+seq_185|2 -> seq_185_2
+seq_424|1 -> seq_424_1
+seq_116|3 -> seq_116_3
+seq_437|1 -> seq_437_1
+seq_63|6 -> seq_63_6
+seq_64|6 -> seq_64_6
+seq_174|2 -> seq_174_2
+seq_429|1 -> seq_429_1
+seq_32|10 -> seq_32_10
+seq_434|1 -> seq_434_1
+seq_420|1 -> seq_420_1
+seq_421|1 -> seq_421_1
+seq_53|7 -> seq_53_7
+seq_176|2 -> seq_176_2
+seq_422|1 -> seq_422_1
+seq_439|1 -> seq_439_1
+seq_178|2 -> seq_178_2
+seq_43|8 -> seq_43_8
+seq_438|1 -> seq_438_1
+seq_28|11 -> seq_28_11
+seq_440|1 -> seq_440_1
+seq_94|4 -> seq_94_4
+seq_12|32 -> seq_12_32
+seq_445|1 -> seq_445_1
+seq_179|2 -> seq_179_2
+seq_433|1 -> seq_433_1
+seq_443|1 -> seq_443_1
+seq_446|1 -> seq_446_1
+seq_5|293 -> seq_5_293
+seq_444|1 -> seq_444_1
+seq_449|1 -> seq_449_1
+seq_54|7 -> seq_54_7
+seq_430|1 -> seq_430_1
+seq_431|1 -> seq_431_1
+seq_432|1 -> seq_432_1
+seq_436|1 -> seq_436_1
+seq_418|1 -> seq_418_1
+seq_450|1 -> seq_450_1
+seq_76|5 -> seq_76_5
+seq_447|1 -> seq_447_1
+seq_11|34 -> seq_11_34
+seq_77|5 -> seq_77_5
+seq_425|1 -> seq_425_1
+seq_448|1 -> seq_448_1
+seq_113|3 -> seq_113_3
+seq_170|2 -> seq_170_2
+seq_419|1 -> seq_419_1
+seq_175|2 -> seq_175_2
+seq_115|3 -> seq_115_3
+seq_16|17 -> seq_16_17
+seq_114|3 -> seq_114_3
+seq_441|1 -> seq_441_1
+seq_417|1 -> seq_417_1
+seq_172|2 -> seq_172_2
+seq_173|2 -> seq_173_2
+seq_426|1 -> seq_426_1
+seq_427|1 -> seq_427_1
+seq_428|1 -> seq_428_1
+seq_95|4 -> seq_95_4
+seq_171|2 -> seq_171_2
+seq_435|1 -> seq_435_1
+seq_62|6 -> seq_62_6
+seq_65|6 -> seq_65_6
+seq_66|6 -> seq_66_6
+seq_117|3 -> seq_117_3
+seq_177|2 -> seq_177_2
+seq_442|1 -> seq_442_1
+seq_423|1 -> seq_423_1
+seq_451|1 -> seq_451_1
+seq_514|1 -> seq_514_1
+seq_140|2 -> seq_140_2
+seq_240|1 -> seq_240_1
+seq_264|1 -> seq_264_1
+seq_150|2 -> seq_150_2
+seq_92|4 -> seq_92_4
+seq_251|1 -> seq_251_1
+seq_245|1 -> seq_245_1
+seq_243|1 -> seq_243_1
+seq_82|4 -> seq_82_4
+seq_102|3 -> seq_102_3
+seq_135|2 -> seq_135_2
+seq_241|1 -> seq_241_1
+seq_255|1 -> seq_255_1
+seq_242|1 -> seq_242_1
+seq_83|4 -> seq_83_4
+seq_84|4 -> seq_84_4
+seq_136|2 -> seq_136_2
+seq_254|1 -> seq_254_1
+seq_246|1 -> seq_246_1
+seq_103|3 -> seq_103_3
+seq_265|1 -> seq_265_1
+seq_355|1 -> seq_355_1
+seq_20|13 -> seq_20_13
+seq_47|7 -> seq_47_7
+seq_256|1 -> seq_256_1
+seq_101|3 -> seq_101_3
+seq_260|1 -> seq_260_1
+seq_139|2 -> seq_139_2
+seq_26|11 -> seq_26_11
+seq_252|1 -> seq_252_1
+seq_253|1 -> seq_253_1
+seq_268|1 -> seq_268_1
+seq_100|3 -> seq_100_3
+seq_250|1 -> seq_250_1
+seq_49|7 -> seq_49_7
+seq_90|4 -> seq_90_4
+seq_304|1 -> seq_304_1
+seq_305|1 -> seq_305_1
+seq_6|248 -> seq_6_248
+seq_13|31 -> seq_13_31
+seq_352|1 -> seq_352_1
+seq_353|1 -> seq_353_1
+seq_272|1 -> seq_272_1
+seq_144|2 -> seq_144_2
+seq_248|1 -> seq_248_1
+seq_249|1 -> seq_249_1
+seq_57|6 -> seq_57_6
+seq_239|1 -> seq_239_1
+seq_147|2 -> seq_147_2
+seq_354|1 -> seq_354_1
+seq_133|2 -> seq_133_2
+seq_142|2 -> seq_142_2
+seq_34|9 -> seq_34_9
+seq_81|4 -> seq_81_4
+seq_266|1 -> seq_266_1
+seq_300|1 -> seq_300_1
+seq_91|4 -> seq_91_4
+seq_152|2 -> seq_152_2
+seq_301|1 -> seq_301_1
+seq_351|1 -> seq_351_1
+seq_33|9 -> seq_33_9
+seq_134|2 -> seq_134_2
+seq_56|6 -> seq_56_6
+seq_138|2 -> seq_138_2
+seq_143|2 -> seq_143_2
+seq_141|2 -> seq_141_2
+seq_151|2 -> seq_151_2
+seq_238|1 -> seq_238_1
+seq_25|11 -> seq_25_11
+seq_61|6 -> seq_61_6
+seq_50|7 -> seq_50_7
+seq_85|4 -> seq_85_4
+seq_311|1 -> seq_311_1
+seq_263|1 -> seq_263_1
+seq_302|1 -> seq_302_1
+seq_10|39 -> seq_10_39
+seq_267|1 -> seq_267_1
+seq_261|1 -> seq_261_1
+seq_259|1 -> seq_259_1
+seq_346|1 -> seq_346_1
+seq_343|1 -> seq_343_1
+seq_109|3 -> seq_109_3
+seq_157|2 -> seq_157_2
+seq_269|1 -> seq_269_1
+seq_335|1 -> seq_335_1
+seq_336|1 -> seq_336_1
+seq_337|1 -> seq_337_1
+seq_338|1 -> seq_338_1
+seq_339|1 -> seq_339_1
+seq_340|1 -> seq_340_1
+seq_341|1 -> seq_341_1
+seq_342|1 -> seq_342_1
+seq_344|1 -> seq_344_1
+seq_345|1 -> seq_345_1
+seq_347|1 -> seq_347_1
+seq_348|1 -> seq_348_1
+seq_349|1 -> seq_349_1
+seq_3|1355 -> seq_3_1355
+seq_314|1 -> seq_314_1
+seq_107|3 -> seq_107_3
+seq_258|1 -> seq_258_1
+seq_8|57 -> seq_8_57
+seq_322|1 -> seq_322_1
+seq_72|5 -> seq_72_5
+seq_74|5 -> seq_74_5
+seq_106|3 -> seq_106_3
+seq_312|1 -> seq_312_1
+seq_108|3 -> seq_108_3
+seq_271|1 -> seq_271_1
+seq_36|9 -> seq_36_9
+seq_39|8 -> seq_39_8
+seq_60|6 -> seq_60_6
+seq_155|2 -> seq_155_2
+seq_310|1 -> seq_310_1
+seq_315|1 -> seq_315_1
+seq_320|1 -> seq_320_1
+seq_324|1 -> seq_324_1
+seq_326|1 -> seq_326_1
+seq_331|1 -> seq_331_1
+seq_334|1 -> seq_334_1
+seq_153|2 -> seq_153_2
+seq_317|1 -> seq_317_1
+seq_149|2 -> seq_149_2
+seq_319|1 -> seq_319_1
+seq_148|2 -> seq_148_2
+seq_307|1 -> seq_307_1
+seq_313|1 -> seq_313_1
+seq_154|2 -> seq_154_2
+seq_156|2 -> seq_156_2
+seq_316|1 -> seq_316_1
+seq_299|1 -> seq_299_1
+seq_327|1 -> seq_327_1
+seq_328|1 -> seq_328_1
+seq_329|1 -> seq_329_1
+seq_306|1 -> seq_306_1
+seq_73|5 -> seq_73_5
+seq_325|1 -> seq_325_1
+seq_309|1 -> seq_309_1
+seq_2|2078 -> seq_2_2078
+seq_308|1 -> seq_308_1
+seq_321|1 -> seq_321_1
+seq_330|1 -> seq_330_1
+seq_333|1 -> seq_333_1
+seq_318|1 -> seq_318_1
+seq_323|1 -> seq_323_1
+seq_332|1 -> seq_332_1
+seq_244|1 -> seq_244_1
+seq_58|6 -> seq_58_6
+seq_270|1 -> seq_270_1
+seq_247|1 -> seq_247_1
+seq_257|1 -> seq_257_1
+seq_51|7 -> seq_51_7
+seq_46|7 -> seq_46_7
+seq_237|1 -> seq_237_1
+seq_303|1 -> seq_303_1
+seq_350|1 -> seq_350_1
+seq_104|3 -> seq_104_3
+seq_145|2 -> seq_145_2
+seq_273|1 -> seq_273_1
+seq_274|1 -> seq_274_1
+seq_7|187 -> seq_7_187
+seq_59|6 -> seq_59_6
+seq_15|25 -> seq_15_25
+seq_275|1 -> seq_275_1
+seq_87|4 -> seq_87_4
+seq_71|5 -> seq_71_5
+seq_137|2 -> seq_137_2
+seq_17|14 -> seq_17_14
+seq_21|13 -> seq_21_13
+seq_35|9 -> seq_35_9
+seq_40|8 -> seq_40_8
+seq_88|4 -> seq_88_4
+seq_89|4 -> seq_89_4
+seq_105|3 -> seq_105_3
+seq_146|2 -> seq_146_2
+seq_276|1 -> seq_276_1
+seq_277|1 -> seq_277_1
+seq_278|1 -> seq_278_1
+seq_279|1 -> seq_279_1
+seq_280|1 -> seq_280_1
+seq_281|1 -> seq_281_1
+seq_282|1 -> seq_282_1
+seq_283|1 -> seq_283_1
+seq_286|1 -> seq_286_1
+seq_287|1 -> seq_287_1
+seq_288|1 -> seq_288_1
+seq_290|1 -> seq_290_1
+seq_293|1 -> seq_293_1
+seq_294|1 -> seq_294_1
+seq_295|1 -> seq_295_1
+seq_296|1 -> seq_296_1
+seq_297|1 -> seq_297_1
+seq_298|1 -> seq_298_1
+seq_1|2556 -> seq_1_2556
+seq_48|7 -> seq_48_7
+seq_284|1 -> seq_284_1
+seq_285|1 -> seq_285_1
+seq_289|1 -> seq_289_1
+seq_291|1 -> seq_291_1
+seq_262|1 -> seq_262_1
+seq_292|1 -> seq_292_1
+seq_86|4 -> seq_86_4
+seq_181|2 -> seq_181_2
+seq_473|1 -> seq_473_1
+seq_474|1 -> seq_474_1
+seq_480|1 -> seq_480_1
+seq_482|1 -> seq_482_1
+seq_481|1 -> seq_481_1
+seq_479|1 -> seq_479_1
+seq_477|1 -> seq_477_1
+seq_475|1 -> seq_475_1
+seq_476|1 -> seq_476_1
+seq_478|1 -> seq_478_1
+seq_483|1 -> seq_483_1
+seq_96|4 -> seq_96_4
+seq_472|1 -> seq_472_1
+seq_515|1 -> seq_515_1
+seq_517|1 -> seq_517_1
+seq_516|1 -> seq_516_1
+seq_68|6 -> seq_68_6
+seq_518|1 -> seq_518_1
+seq_520|1 -> seq_520_1
+seq_69|6 -> seq_69_6
+seq_122|3 -> seq_122_3
+seq_188|2 -> seq_188_2
+seq_186|2 -> seq_186_2
+seq_22|13 -> seq_22_13
+seq_187|2 -> seq_187_2
+seq_189|2 -> seq_189_2
+seq_519|1 -> seq_519_1
+seq_31|10 -> seq_31_10
+seq_400|1 -> seq_400_1
+seq_52|7 -> seq_52_7
+seq_164|2 -> seq_164_2
+seq_165|2 -> seq_165_2
+seq_404|1 -> seq_404_1
+seq_363|1 -> seq_363_1
+seq_492|1 -> seq_492_1
+seq_487|1 -> seq_487_1
+seq_495|1 -> seq_495_1
+seq_498|1 -> seq_498_1
+seq_118|3 -> seq_118_3
+seq_485|1 -> seq_485_1
+seq_23|12 -> seq_23_12
+seq_24|12 -> seq_24_12
+seq_97|4 -> seq_97_4
+seq_484|1 -> seq_484_1
+seq_497|1 -> seq_497_1
+seq_488|1 -> seq_488_1
+seq_496|1 -> seq_496_1
+seq_111|3 -> seq_111_3
+seq_373|1 -> seq_373_1
+seq_362|1 -> seq_362_1
+seq_369|1 -> seq_369_1
+seq_381|1 -> seq_381_1
+seq_167|2 -> seq_167_2
+seq_168|2 -> seq_168_2
+seq_405|1 -> seq_405_1
+seq_406|1 -> seq_406_1
+seq_30|10 -> seq_30_10
+seq_371|1 -> seq_371_1
+seq_372|1 -> seq_372_1
+seq_382|1 -> seq_382_1
+seq_391|1 -> seq_391_1
+seq_161|2 -> seq_161_2
+seq_407|1 -> seq_407_1
+seq_396|1 -> seq_396_1
+seq_119|3 -> seq_119_3
+seq_182|2 -> seq_182_2
+seq_504|1 -> seq_504_1
+seq_505|1 -> seq_505_1
+seq_502|1 -> seq_502_1
+seq_489|1 -> seq_489_1
+seq_408|1 -> seq_408_1
+seq_166|2 -> seq_166_2
+seq_367|1 -> seq_367_1
+seq_368|1 -> seq_368_1
+seq_110|3 -> seq_110_3
+seq_75|5 -> seq_75_5
+seq_42|8 -> seq_42_8
+seq_389|1 -> seq_389_1
+seq_160|2 -> seq_160_2
+seq_359|1 -> seq_359_1
+seq_158|2 -> seq_158_2
+seq_159|2 -> seq_159_2
+seq_356|1 -> seq_356_1
+seq_358|1 -> seq_358_1
+seq_403|1 -> seq_403_1
+seq_411|1 -> seq_411_1
+seq_374|1 -> seq_374_1
+seq_414|1 -> seq_414_1
+seq_413|1 -> seq_413_1
+seq_415|1 -> seq_415_1
+seq_394|1 -> seq_394_1
+seq_27|11 -> seq_27_11
+seq_384|1 -> seq_384_1
+seq_491|1 -> seq_491_1
+seq_410|1 -> seq_410_1
+seq_486|1 -> seq_486_1
+seq_493|1 -> seq_493_1
+seq_490|1 -> seq_490_1
+seq_494|1 -> seq_494_1
+seq_412|1 -> seq_412_1
+seq_357|1 -> seq_357_1
+seq_360|1 -> seq_360_1
+seq_361|1 -> seq_361_1
+seq_365|1 -> seq_365_1
+seq_401|1 -> seq_401_1
+seq_364|1 -> seq_364_1
+seq_163|2 -> seq_163_2
+seq_390|1 -> seq_390_1
+seq_162|2 -> seq_162_2
+seq_395|1 -> seq_395_1
+seq_383|1 -> seq_383_1
+seq_409|1 -> seq_409_1
+seq_18|14 -> seq_18_14
+seq_370|1 -> seq_370_1
+seq_79|5 -> seq_79_5
+seq_213|1 -> seq_213_1
+seq_235|1 -> seq_235_1
+seq_236|1 -> seq_236_1
+seq_224|1 -> seq_224_1
+seq_212|1 -> seq_212_1
+seq_219|1 -> seq_219_1
+seq_211|1 -> seq_211_1
+seq_130|2 -> seq_130_2
+seq_208|1 -> seq_208_1
+seq_216|1 -> seq_216_1
+seq_132|2 -> seq_132_2
+seq_234|1 -> seq_234_1
+seq_227|1 -> seq_227_1
+seq_228|1 -> seq_228_1
+seq_206|1 -> seq_206_1
+seq_205|1 -> seq_205_1
+seq_19|13 -> seq_19_13
+seq_207|1 -> seq_207_1
+seq_128|2 -> seq_128_2
+seq_232|1 -> seq_232_1
+seq_218|1 -> seq_218_1
+seq_223|1 -> seq_223_1
+seq_225|1 -> seq_225_1
+seq_196|1 -> seq_196_1
+seq_194|1 -> seq_194_1
+seq_210|1 -> seq_210_1
+seq_99|3 -> seq_99_3
+seq_198|1 -> seq_198_1
+seq_209|1 -> seq_209_1
+seq_80|4 -> seq_80_4
+seq_199|1 -> seq_199_1
+seq_231|1 -> seq_231_1
+seq_129|2 -> seq_129_2
+seq_131|2 -> seq_131_2
+seq_233|1 -> seq_233_1
+seq_226|1 -> seq_226_1
+seq_230|1 -> seq_230_1
+seq_125|2 -> seq_125_2
+seq_197|1 -> seq_197_1
+seq_220|1 -> seq_220_1
+seq_221|1 -> seq_221_1
+seq_193|1 -> seq_193_1
+seq_14|29 -> seq_14_29
+seq_126|2 -> seq_126_2
+seq_127|2 -> seq_127_2
+seq_201|1 -> seq_201_1
+seq_214|1 -> seq_214_1
+seq_215|1 -> seq_215_1
+seq_217|1 -> seq_217_1
+seq_192|1 -> seq_192_1
+seq_203|1 -> seq_203_1
+seq_124|2 -> seq_124_2
+seq_191|1 -> seq_191_1
+seq_45|7 -> seq_45_7
+seq_202|1 -> seq_202_1
+seq_190|1 -> seq_190_1
+seq_195|1 -> seq_195_1
+seq_123|2 -> seq_123_2
+seq_70|5 -> seq_70_5
+seq_200|1 -> seq_200_1
+seq_204|1 -> seq_204_1
+seq_222|1 -> seq_222_1
+seq_229|1 -> seq_229_1
+seq_388|1 -> seq_388_1
+seq_416|1 -> seq_416_1
+seq_386|1 -> seq_386_1
+seq_375|1 -> seq_375_1
+seq_376|1 -> seq_376_1
+seq_9|56 -> seq_9_56
+seq_378|1 -> seq_378_1
+seq_379|1 -> seq_379_1
+seq_380|1 -> seq_380_1
+seq_41|8 -> seq_41_8
+seq_93|4 -> seq_93_4
+seq_377|1 -> seq_377_1
+seq_4|295 -> seq_4_295
+seq_366|1 -> seq_366_1
+seq_398|1 -> seq_398_1
+seq_399|1 -> seq_399_1
+seq_387|1 -> seq_387_1
+seq_402|1 -> seq_402_1
+seq_392|1 -> seq_392_1
+seq_393|1 -> seq_393_1
+seq_169|2 -> seq_169_2
+seq_385|1 -> seq_385_1
+seq_112|3 -> seq_112_3
+seq_397|1 -> seq_397_1
+seq_180|2 -> seq_180_2
+seq_466|1 -> seq_466_1
+seq_500|1 -> seq_500_1
+seq_501|1 -> seq_501_1
+seq_67|6 -> seq_67_6
+seq_469|1 -> seq_469_1
+seq_55|7 -> seq_55_7
+seq_467|1 -> seq_467_1
+seq_468|1 -> seq_468_1
+seq_470|1 -> seq_470_1
+seq_471|1 -> seq_471_1
+seq_499|1 -> seq_499_1
+seq_452|1 -> seq_452_1
+seq_37|9 -> seq_37_9
+seq_29|11 -> seq_29_11
+seq_457|1 -> seq_457_1
+seq_503|1 -> seq_503_1
+seq_464|1 -> seq_464_1
+seq_454|1 -> seq_454_1
+seq_463|1 -> seq_463_1
+seq_459|1 -> seq_459_1
+seq_462|1 -> seq_462_1
+seq_461|1 -> seq_461_1
+seq_465|1 -> seq_465_1
+seq_44|8 -> seq_44_8
+seq_456|1 -> seq_456_1
+seq_455|1 -> seq_455_1
+seq_78|5 -> seq_78_5
+seq_453|1 -> seq_453_1
+seq_458|1 -> seq_458_1
+seq_460|1 -> seq_460_1
+
+            Gap/Ambiguity  Composition  p-value
+   1  seq_184_2    12.32%    failed      0.57%
+   2  seq_183_2    12.16%    failed      0.55%
+   3  seq_506_1    12.32%    failed      0.72%
+   4  seq_507_1    12.32%    failed      1.11%
+   5  seq_508_1    12.32%    failed      0.76%
+   6  seq_509_1    15.68%    failed      0.24%
+   7  seq_38_9     12.32%    failed      0.04%
+   8  seq_121_3    12.32%    failed      0.15%
+   9  seq_512_1    12.32%    failed      0.10%
+  10  seq_120_3    12.32%    failed      0.35%
+  11  seq_510_1    40.32%    passed     19.59%
+  12  seq_511_1    12.32%    failed      0.22%
+  13  seq_98_4     12.32%    failed      0.99%
+  14  seq_513_1    13.12%    passed     25.00%
+  15  seq_185_2    13.28%    failed      1.06%
+  16  seq_424_1    13.28%    passed     51.04%
+  17  seq_116_3    13.28%    passed     25.92%
+  18  seq_437_1     9.92%    passed     22.01%
+  19  seq_63_6      9.92%    passed     20.69%
+  20  seq_64_6      9.92%    passed     19.97%
+  21  seq_174_2     9.92%    passed     11.46%
+  22  seq_429_1    14.56%    passed      6.69%
+  23  seq_32_10    13.28%    passed     19.17%
+  24  seq_434_1    13.28%    passed     16.68%
+  25  seq_420_1    13.12%    passed     14.31%
+  26  seq_421_1    13.12%    passed      9.01%
+  27  seq_53_7     13.12%    passed     11.85%
+  28  seq_176_2    13.12%    passed     22.95%
+  29  seq_422_1    13.28%    passed     28.64%
+  30  seq_439_1    13.12%    passed     15.08%
+  31  seq_178_2    13.12%    passed     13.52%
+  32  seq_43_8     13.12%    passed     13.52%
+  33  seq_438_1    13.12%    passed     11.76%
+  34  seq_28_11    13.12%    passed     13.19%
+  35  seq_440_1    13.12%    passed     11.59%
+  36  seq_94_4     13.12%    passed     12.97%
+  37  seq_12_32    13.12%    passed     15.08%
+  38  seq_445_1    13.44%    passed     17.22%
+  39  seq_179_2    13.12%    passed     15.08%
+  40  seq_433_1    13.12%    passed     14.04%
+  41  seq_443_1    13.12%    passed     15.08%
+  42  seq_446_1    13.12%    passed     15.08%
+  43  seq_5_293    13.12%    passed     14.71%
+  44  seq_444_1    13.44%    passed     16.76%
+  45  seq_449_1    13.12%    passed     13.51%
+  46  seq_54_7     13.12%    passed     31.97%
+  47  seq_430_1    13.28%    passed      5.24%
+  48  seq_431_1    13.28%    passed      6.05%
+  49  seq_432_1    18.51%    failed      0.57%
+  50  seq_436_1    13.28%    passed     15.34%
+  51  seq_418_1    13.12%    passed     22.55%
+  52  seq_450_1    13.28%    passed     24.54%
+  53  seq_76_5     13.12%    passed     13.63%
+  54  seq_447_1    13.12%    passed     11.93%
+  55  seq_11_34    13.28%    passed      8.69%
+  56  seq_77_5     13.28%    passed      9.07%
+  57  seq_425_1    13.12%    passed      7.75%
+  58  seq_448_1    13.28%    passed      9.29%
+  59  seq_113_3    13.12%    passed      8.20%
+  60  seq_170_2    13.28%    passed     24.78%
+  61  seq_419_1    13.28%    passed     25.24%
+  62  seq_175_2    13.28%    failed      2.52%
+  63  seq_115_3    13.28%    failed      4.91%
+  64  seq_16_17    13.12%    passed      7.79%
+  65  seq_114_3    13.12%    passed      7.29%
+  66  seq_441_1    13.28%    passed     73.02%
+  67  seq_417_1    13.28%    passed     43.57%
+  68  seq_172_2    13.28%    passed     52.39%
+  69  seq_173_2    13.28%    passed     54.16%
+  70  seq_426_1    13.44%    passed     16.46%
+  71  seq_427_1    13.44%    passed     14.32%
+  72  seq_428_1    13.44%    passed     16.06%
+  73  seq_95_4     12.96%    passed     27.50%
+  74  seq_171_2    12.96%    passed     30.11%
+  75  seq_435_1    12.96%    passed     25.91%
+  76  seq_62_6     12.96%    passed     38.01%
+  77  seq_65_6     12.96%    passed     35.08%
+  78  seq_66_6     25.92%    passed     24.00%
+  79  seq_117_3    13.28%    failed      4.28%
+  80  seq_177_2    13.28%    passed      7.29%
+  81  seq_442_1    18.72%    failed      2.39%
+  82  seq_423_1    13.28%    passed     49.32%
+  83  seq_451_1    13.12%    passed     38.58%
+  84  seq_514_1    13.12%    passed     50.92%
+  85  seq_140_2    13.12%    passed     89.51%
+  86  seq_240_1    13.12%    passed     79.48%
+  87  seq_264_1    13.12%    passed     90.12%
+  88  seq_150_2    13.12%    passed     89.40%
+  89  seq_92_4     13.12%    passed     79.65%
+  90  seq_251_1    13.12%    passed     88.89%
+  91  seq_245_1    13.12%    passed     87.33%
+  92  seq_243_1    13.12%    passed     84.07%
+  93  seq_82_4     13.12%    passed     93.39%
+  94  seq_102_3    13.12%    passed     93.39%
+  95  seq_135_2    13.12%    passed     88.68%
+  96  seq_241_1    13.12%    passed     93.73%
+  97  seq_255_1    13.12%    passed     93.77%
+  98  seq_242_1    13.12%    passed     94.14%
+  99  seq_83_4     13.12%    passed     94.64%
+ 100  seq_84_4     13.12%    passed     95.63%
+ 101  seq_136_2    13.12%    passed     95.73%
+ 102  seq_254_1    13.12%    passed     91.57%
+ 103  seq_246_1    13.12%    passed     98.00%
+ 104  seq_103_3    13.12%    passed     99.97%
+ 105  seq_265_1    13.12%    passed     99.97%
+ 106  seq_355_1    13.12%    passed     99.91%
+ 107  seq_20_13    13.12%    passed     99.95%
+ 108  seq_47_7     13.12%    passed     99.23%
+ 109  seq_256_1    13.12%    passed     97.25%
+ 110  seq_101_3    13.12%    passed     97.49%
+ 111  seq_260_1    26.72%    passed     52.97%
+ 112  seq_139_2    13.12%    passed     90.86%
+ 113  seq_26_11    13.12%    passed     86.68%
+ 114  seq_252_1    13.12%    passed     95.05%
+ 115  seq_253_1    29.97%    passed     31.09%
+ 116  seq_268_1    13.12%    passed     99.17%
+ 117  seq_100_3    13.12%    passed     99.95%
+ 118  seq_250_1    13.12%    passed     99.78%
+ 119  seq_49_7     13.12%    passed     98.10%
+ 120  seq_90_4     13.12%    passed     96.53%
+ 121  seq_304_1    13.12%    passed     98.29%
+ 122  seq_305_1    13.12%    passed     97.36%
+ 123  seq_6_248    13.12%    passed     97.93%
+ 124  seq_13_31    12.64%    passed     96.75%
+ 125  seq_352_1    13.12%    passed     98.84%
+ 126  seq_353_1    13.12%    passed     98.79%
+ 127  seq_272_1    13.12%    passed     97.84%
+ 128  seq_144_2    13.12%    passed     98.12%
+ 129  seq_248_1    13.12%    passed     98.79%
+ 130  seq_249_1    13.12%    passed     98.79%
+ 131  seq_57_6     13.12%    passed     98.23%
+ 132  seq_239_1    13.12%    passed     98.32%
+ 133  seq_147_2    13.12%    passed     99.80%
+ 134  seq_354_1    13.12%    passed     99.72%
+ 135  seq_133_2    13.12%    passed     99.44%
+ 136  seq_142_2    13.12%    passed     99.66%
+ 137  seq_34_9     13.12%    passed     99.72%
+ 138  seq_81_4     13.12%    passed     99.62%
+ 139  seq_266_1    13.12%    passed     99.44%
+ 140  seq_300_1    13.12%    passed     99.98%
+ 141  seq_91_4     13.12%    passed     96.33%
+ 142  seq_152_2    12.96%    passed     98.78%
+ 143  seq_301_1    13.12%    passed     96.13%
+ 144  seq_351_1    13.60%    passed     92.97%
+ 145  seq_33_9     13.12%    passed     99.49%
+ 146  seq_134_2    13.12%    passed     99.86%
+ 147  seq_56_6     13.12%    passed     99.80%
+ 148  seq_138_2    13.12%    passed     99.95%
+ 149  seq_143_2    13.12%    passed     99.88%
+ 150  seq_141_2    13.12%    passed     97.81%
+ 151  seq_151_2    13.12%    passed     97.24%
+ 152  seq_238_1    13.12%    passed     97.38%
+ 153  seq_25_11    13.12%    passed     97.84%
+ 154  seq_61_6     13.12%    passed     98.28%
+ 155  seq_50_7     13.12%    passed     97.21%
+ 156  seq_85_4     13.12%    passed     97.61%
+ 157  seq_311_1    31.68%    passed     42.60%
+ 158  seq_263_1    13.12%    passed     97.78%
+ 159  seq_302_1    13.12%    passed     98.23%
+ 160  seq_10_39    13.12%    passed     97.49%
+ 161  seq_267_1    13.12%    passed     96.31%
+ 162  seq_261_1    14.93%    passed     88.24%
+ 163  seq_259_1    12.96%    passed     98.74%
+ 164  seq_346_1    12.96%    passed     98.74%
+ 165  seq_343_1    13.12%    passed     96.26%
+ 166  seq_109_3    13.12%    passed     95.19%
+ 167  seq_157_2    13.12%    passed     95.28%
+ 168  seq_269_1    13.12%    passed     95.28%
+ 169  seq_335_1    13.12%    passed     94.07%
+ 170  seq_336_1    13.12%    passed     96.94%
+ 171  seq_337_1    13.12%    passed     94.07%
+ 172  seq_338_1    13.12%    passed     95.95%
+ 173  seq_339_1    13.12%    passed     95.19%
+ 174  seq_340_1    13.12%    passed     94.07%
+ 175  seq_341_1    13.12%    passed     96.31%
+ 176  seq_342_1    13.12%    passed     96.31%
+ 177  seq_344_1    13.12%    passed     95.95%
+ 178  seq_345_1    13.12%    passed     94.07%
+ 179  seq_347_1    13.12%    passed     96.31%
+ 180  seq_348_1    13.12%    passed     94.42%
+ 181  seq_349_1    13.12%    passed     94.42%
+ 182  seq_3_1355   13.12%    passed     95.67%
+ 183  seq_314_1    13.12%    passed     98.12%
+ 184  seq_107_3    15.68%    passed     78.51%
+ 185  seq_258_1    13.12%    passed     96.42%
+ 186  seq_8_57     13.12%    passed     95.50%
+ 187  seq_322_1    13.12%    passed     92.44%
+ 188  seq_72_5     13.12%    passed     94.37%
+ 189  seq_74_5     13.12%    passed     95.67%
+ 190  seq_106_3    13.12%    passed     95.50%
+ 191  seq_312_1    13.12%    passed     95.67%
+ 192  seq_108_3    13.12%    passed     96.20%
+ 193  seq_271_1    13.12%    passed     95.50%
+ 194  seq_36_9     13.12%    passed     96.20%
+ 195  seq_39_8     13.12%    passed     95.50%
+ 196  seq_60_6     13.12%    passed     97.19%
+ 197  seq_155_2    13.12%    passed     95.67%
+ 198  seq_310_1    13.12%    passed     94.78%
+ 199  seq_315_1    13.12%    passed     95.50%
+ 200  seq_320_1    13.12%    passed     95.67%
+ 201  seq_324_1    13.12%    passed     96.20%
+ 202  seq_326_1    13.12%    passed     96.02%
+ 203  seq_331_1    13.12%    passed     97.19%
+ 204  seq_334_1    13.12%    passed     95.67%
+ 205  seq_153_2    13.12%    passed     97.19%
+ 206  seq_317_1    13.12%    passed     94.37%
+ 207  seq_149_2    13.12%    passed     94.37%
+ 208  seq_319_1    13.12%    passed     94.37%
+ 209  seq_148_2    13.12%    passed     95.67%
+ 210  seq_307_1    13.12%    passed     96.70%
+ 211  seq_313_1    13.12%    passed     96.02%
+ 212  seq_154_2    13.12%    passed     94.92%
+ 213  seq_156_2    13.12%    passed     96.33%
+ 214  seq_316_1    13.12%    passed     96.90%
+ 215  seq_299_1    13.12%    passed     96.70%
+ 216  seq_327_1    13.12%    passed     95.67%
+ 217  seq_328_1    13.12%    passed     95.67%
+ 218  seq_329_1    13.12%    passed     95.28%
+ 219  seq_306_1    13.12%    passed     94.37%
+ 220  seq_73_5     17.60%    passed     88.06%
+ 221  seq_325_1    13.12%    passed     95.67%
+ 222  seq_309_1    13.76%    passed     95.40%
+ 223  seq_2_2078   13.12%    passed     95.95%
+ 224  seq_308_1    13.12%    passed     95.67%
+ 225  seq_321_1    13.12%    passed     97.19%
+ 226  seq_330_1    13.12%    passed     97.19%
+ 227  seq_333_1    16.21%    passed     83.15%
+ 228  seq_318_1    23.20%    passed     64.39%
+ 229  seq_323_1    19.52%    passed     76.99%
+ 230  seq_332_1    20.32%    passed     72.90%
+ 231  seq_244_1    13.12%    passed     99.97%
+ 232  seq_58_6     13.12%    passed     99.83%
+ 233  seq_270_1    13.12%    passed     98.46%
+ 234  seq_247_1    13.12%    passed     99.17%
+ 235  seq_257_1    13.12%    passed     99.60%
+ 236  seq_51_7     13.12%    passed     98.37%
+ 237  seq_46_7     13.12%    passed     99.00%
+ 238  seq_237_1    13.12%    passed     99.30%
+ 239  seq_303_1    13.12%    passed     97.61%
+ 240  seq_350_1    12.48%    passed     98.46%
+ 241  seq_104_3    13.12%    passed     99.18%
+ 242  seq_145_2    13.12%    passed     99.18%
+ 243  seq_273_1    13.12%    passed     98.65%
+ 244  seq_274_1    16.32%    passed     95.14%
+ 245  seq_7_187    13.12%    passed     98.54%
+ 246  seq_59_6     13.60%    passed     98.35%
+ 247  seq_15_25    13.12%    passed     98.15%
+ 248  seq_275_1    13.12%    passed     99.10%
+ 249  seq_87_4     13.12%    passed     98.38%
+ 250  seq_71_5     13.12%    passed     97.93%
+ 251  seq_137_2    13.12%    passed     97.57%
+ 252  seq_17_14    13.12%    passed     98.46%
+ 253  seq_21_13    13.12%    passed     98.15%
+ 254  seq_35_9     13.12%    passed     98.46%
+ 255  seq_40_8     13.12%    passed     97.93%
+ 256  seq_88_4     13.12%    passed     97.93%
+ 257  seq_89_4     13.12%    passed     98.15%
+ 258  seq_105_3    13.12%    passed     98.15%
+ 259  seq_146_2    13.12%    passed     98.15%
+ 260  seq_276_1    13.12%    passed     98.94%
+ 261  seq_277_1    13.12%    passed     97.93%
+ 262  seq_278_1    13.12%    passed     98.46%
+ 263  seq_279_1    13.12%    passed     96.99%
+ 264  seq_280_1    13.12%    passed     98.46%
+ 265  seq_281_1    13.12%    passed     98.46%
+ 266  seq_282_1    13.12%    passed     96.99%
+ 267  seq_283_1    13.12%    passed     98.94%
+ 268  seq_286_1    13.12%    passed     96.99%
+ 269  seq_287_1    13.12%    passed     98.94%
+ 270  seq_288_1    13.12%    passed     98.15%
+ 271  seq_290_1    13.12%    passed     98.39%
+ 272  seq_293_1    13.12%    passed     98.15%
+ 273  seq_294_1    13.12%    passed     98.65%
+ 274  seq_295_1    13.12%    passed     98.15%
+ 275  seq_296_1    13.12%    passed     98.39%
+ 276  seq_297_1    13.12%    passed     98.94%
+ 277  seq_298_1    13.12%    passed     98.15%
+ 278  seq_1_2556   13.12%    passed     98.12%
+ 279  seq_48_7     13.12%    passed     97.93%
+ 280  seq_284_1    13.12%    passed     98.15%
+ 281  seq_285_1    13.12%    passed     98.15%
+ 282  seq_289_1    13.12%    passed     98.15%
+ 283  seq_291_1    13.12%    passed     96.99%
+ 284  seq_262_1    16.91%    passed     94.21%
+ 285  seq_292_1    12.96%    passed     99.77%
+ 286  seq_86_4     12.96%    passed     99.34%
+ 287  seq_181_2    13.12%    passed     53.00%
+ 288  seq_473_1    13.12%    passed     71.68%
+ 289  seq_474_1    13.12%    passed     72.36%
+ 290  seq_480_1    13.12%    passed     90.68%
+ 291  seq_482_1    13.12%    passed     87.65%
+ 292  seq_481_1    13.12%    passed     64.17%
+ 293  seq_479_1    13.12%    passed     75.46%
+ 294  seq_477_1    13.12%    passed     87.06%
+ 295  seq_475_1    13.12%    passed     54.58%
+ 296  seq_476_1    13.12%    passed     96.20%
+ 297  seq_478_1    13.12%    passed     96.12%
+ 298  seq_483_1    13.12%    passed     93.99%
+ 299  seq_96_4     13.12%    passed     86.90%
+ 300  seq_472_1    13.12%    passed     85.89%
+ 301  seq_515_1    13.12%    passed     16.60%
+ 302  seq_517_1    13.12%    passed     33.51%
+ 303  seq_516_1    13.12%    passed     26.53%
+ 304  seq_68_6     13.12%    passed     28.76%
+ 305  seq_518_1    13.12%    passed     31.20%
+ 306  seq_520_1    13.12%    passed     30.16%
+ 307  seq_69_6     13.12%    passed     23.55%
+ 308  seq_122_3    13.12%    passed     25.37%
+ 309  seq_188_2    13.12%    passed     68.49%
+ 310  seq_186_2    13.12%    passed     22.42%
+ 311  seq_22_13    13.12%    passed     18.58%
+ 312  seq_187_2    13.12%    passed     29.05%
+ 313  seq_189_2    13.12%    passed     21.30%
+ 314  seq_519_1    13.12%    passed     21.94%
+ 315  seq_31_10    13.12%    passed     16.77%
+ 316  seq_400_1    13.12%    passed     15.39%
+ 317  seq_52_7     13.12%    passed     17.33%
+ 318  seq_164_2    13.12%    passed     65.52%
+ 319  seq_165_2    13.12%    passed     81.95%
+ 320  seq_404_1    13.12%    passed     79.28%
+ 321  seq_363_1    12.96%    passed     56.89%
+ 322  seq_492_1    13.12%    passed     97.55%
+ 323  seq_487_1    13.12%    passed     97.66%
+ 324  seq_495_1    13.12%    passed     97.11%
+ 325  seq_498_1    13.12%    passed     93.11%
+ 326  seq_118_3    12.64%    passed     58.34%
+ 327  seq_485_1    12.16%    passed     61.21%
+ 328  seq_23_12    12.16%    passed     60.41%
+ 329  seq_24_12    12.64%    passed     59.44%
+ 330  seq_97_4     13.12%    passed     56.83%
+ 331  seq_484_1    13.12%    passed     56.67%
+ 332  seq_497_1    13.12%    passed     97.45%
+ 333  seq_488_1    13.12%    passed     94.18%
+ 334  seq_496_1    13.12%    passed     57.12%
+ 335  seq_111_3    13.12%    passed     77.66%
+ 336  seq_373_1    13.12%    passed     81.20%
+ 337  seq_362_1    13.12%    passed     92.97%
+ 338  seq_369_1    13.12%    passed     84.75%
+ 339  seq_381_1    13.12%    passed     28.08%
+ 340  seq_167_2    13.12%    passed     75.81%
+ 341  seq_168_2    13.12%    passed     72.59%
+ 342  seq_405_1    13.12%    passed     64.32%
+ 343  seq_406_1    13.12%    passed     64.79%
+ 344  seq_30_10    13.12%    passed     88.28%
+ 345  seq_371_1    13.12%    passed     86.98%
+ 346  seq_372_1    13.12%    passed     86.79%
+ 347  seq_382_1    13.12%    passed     84.31%
+ 348  seq_391_1    13.12%    passed     73.91%
+ 349  seq_161_2    13.12%    passed     52.28%
+ 350  seq_407_1    13.12%    passed     82.04%
+ 351  seq_396_1    13.12%    passed     57.12%
+ 352  seq_119_3    13.12%    passed     55.56%
+ 353  seq_182_2    13.12%    passed     57.09%
+ 354  seq_504_1    12.96%    passed     88.47%
+ 355  seq_505_1    13.12%    passed     89.23%
+ 356  seq_502_1    13.12%    passed     89.66%
+ 357  seq_489_1    13.12%    passed     82.02%
+ 358  seq_408_1    13.12%    passed     21.42%
+ 359  seq_166_2    13.12%    passed     68.13%
+ 360  seq_367_1    13.12%    passed     46.45%
+ 361  seq_368_1    13.12%    passed     47.98%
+ 362  seq_110_3    13.12%    passed     47.31%
+ 363  seq_75_5     13.12%    passed     39.89%
+ 364  seq_42_8     13.12%    passed     48.74%
+ 365  seq_389_1    13.12%    passed     49.93%
+ 366  seq_160_2    13.12%    passed     43.91%
+ 367  seq_359_1    13.12%    passed     41.33%
+ 368  seq_158_2    16.11%    passed     73.95%
+ 369  seq_159_2    13.12%    passed     50.62%
+ 370  seq_356_1    13.12%    passed     34.13%
+ 371  seq_358_1    27.73%    passed     40.37%
+ 372  seq_403_1    13.12%    passed     97.75%
+ 373  seq_411_1    13.12%    passed     56.89%
+ 374  seq_374_1    13.12%    passed     75.37%
+ 375  seq_414_1    13.12%    passed     82.87%
+ 376  seq_413_1    13.12%    passed     78.65%
+ 377  seq_415_1    13.12%    passed     75.89%
+ 378  seq_394_1    13.12%    passed     82.54%
+ 379  seq_27_11    13.12%    passed     63.66%
+ 380  seq_384_1    13.12%    passed     70.99%
+ 381  seq_491_1    13.12%    passed     93.53%
+ 382  seq_410_1    13.12%    passed     27.73%
+ 383  seq_486_1    13.12%    passed     64.95%
+ 384  seq_493_1    13.12%    passed     49.07%
+ 385  seq_490_1    13.12%    passed     50.58%
+ 386  seq_494_1    13.12%    passed     79.55%
+ 387  seq_412_1    13.12%    passed     77.77%
+ 388  seq_357_1    27.73%    passed     71.36%
+ 389  seq_360_1    13.12%    passed     60.58%
+ 390  seq_361_1    32.16%    passed     81.96%
+ 391  seq_365_1    13.12%    passed     25.86%
+ 392  seq_401_1    13.12%    passed     49.25%
+ 393  seq_364_1    30.03%    passed     92.52%
+ 394  seq_163_2    13.12%    passed     41.57%
+ 395  seq_390_1    13.12%    passed     50.82%
+ 396  seq_162_2    13.12%    passed     70.85%
+ 397  seq_395_1    13.12%    passed     59.24%
+ 398  seq_383_1    13.12%    passed     41.35%
+ 399  seq_409_1    13.12%    passed     45.61%
+ 400  seq_18_14    13.12%    passed     82.47%
+ 401  seq_370_1    13.12%    passed     72.14%
+ 402  seq_79_5     13.12%    passed     55.10%
+ 403  seq_213_1    13.28%    passed     90.60%
+ 404  seq_235_1    12.96%    passed     80.41%
+ 405  seq_236_1    13.28%    passed     40.69%
+ 406  seq_224_1    13.28%    passed     99.57%
+ 407  seq_212_1    13.28%    passed     78.85%
+ 408  seq_219_1    13.28%    passed     76.77%
+ 409  seq_211_1    12.64%    passed     98.52%
+ 410  seq_130_2    13.44%    passed     58.21%
+ 411  seq_208_1    13.28%    passed     93.31%
+ 412  seq_216_1    13.28%    passed     98.29%
+ 413  seq_132_2    13.28%    passed     92.04%
+ 414  seq_234_1    13.28%    passed     92.91%
+ 415  seq_227_1    13.28%    passed     93.50%
+ 416  seq_228_1    13.28%    passed     94.48%
+ 417  seq_206_1    13.28%    passed     90.48%
+ 418  seq_205_1    13.28%    passed     87.90%
+ 419  seq_19_13    13.28%    passed     90.48%
+ 420  seq_207_1    13.28%    passed     90.58%
+ 421  seq_128_2    13.28%    passed     87.99%
+ 422  seq_232_1    13.28%    passed     86.25%
+ 423  seq_218_1    13.28%    passed     80.93%
+ 424  seq_223_1    13.28%    passed     73.92%
+ 425  seq_225_1    13.28%    passed     74.05%
+ 426  seq_196_1    13.28%    passed     98.40%
+ 427  seq_194_1    13.28%    passed     98.73%
+ 428  seq_210_1    13.28%    passed     98.04%
+ 429  seq_99_3     13.28%    passed     97.49%
+ 430  seq_198_1    13.28%    passed     99.28%
+ 431  seq_209_1    13.28%    passed     99.68%
+ 432  seq_80_4     13.28%    passed     99.78%
+ 433  seq_199_1    13.28%    passed     99.46%
+ 434  seq_231_1    12.96%    passed     74.56%
+ 435  seq_129_2    12.96%    passed     94.64%
+ 436  seq_131_2    12.96%    passed     94.64%
+ 437  seq_233_1    12.96%    passed     93.52%
+ 438  seq_226_1    12.96%    passed     87.76%
+ 439  seq_230_1    12.96%    passed     92.05%
+ 440  seq_125_2    13.28%    passed     95.59%
+ 441  seq_197_1    13.28%    passed     87.26%
+ 442  seq_220_1    13.28%    passed     96.68%
+ 443  seq_221_1    13.28%    passed     97.21%
+ 444  seq_193_1    13.28%    passed     98.23%
+ 445  seq_14_29    13.28%    passed     96.22%
+ 446  seq_126_2    13.28%    passed     96.77%
+ 447  seq_127_2    13.28%    passed     88.26%
+ 448  seq_201_1    13.28%    passed     86.86%
+ 449  seq_214_1    13.28%    passed     86.66%
+ 450  seq_215_1    13.28%    passed     85.18%
+ 451  seq_217_1    13.28%    passed     83.73%
+ 452  seq_192_1    13.28%    passed     76.83%
+ 453  seq_203_1    13.28%    passed     85.07%
+ 454  seq_124_2    13.28%    passed     79.31%
+ 455  seq_191_1    13.28%    passed     79.31%
+ 456  seq_45_7     13.28%    passed     81.51%
+ 457  seq_202_1    13.28%    passed     79.77%
+ 458  seq_190_1    13.28%    passed     71.51%
+ 459  seq_195_1    13.28%    passed     75.85%
+ 460  seq_123_2    13.28%    passed     55.72%
+ 461  seq_70_5     13.28%    passed     61.97%
+ 462  seq_200_1    13.28%    passed     60.63%
+ 463  seq_204_1    13.28%    passed     57.99%
+ 464  seq_222_1    13.28%    passed     83.18%
+ 465  seq_229_1    13.28%    passed     97.06%
+ 466  seq_388_1    12.96%    passed     70.28%
+ 467  seq_416_1    13.12%    passed     84.75%
+ 468  seq_386_1    13.12%    passed     93.78%
+ 469  seq_375_1    13.12%    passed     82.46%
+ 470  seq_376_1    13.12%    passed     86.60%
+ 471  seq_9_56     13.12%    passed     85.10%
+ 472  seq_378_1    10.88%    passed     74.80%
+ 473  seq_379_1    13.12%    passed     86.03%
+ 474  seq_380_1    13.28%    passed     83.87%
+ 475  seq_41_8     13.12%    passed     81.62%
+ 476  seq_93_4     13.12%    passed     85.70%
+ 477  seq_377_1    13.12%    passed     81.62%
+ 478  seq_4_295    13.12%    passed     83.34%
+ 479  seq_366_1    15.36%    passed     78.25%
+ 480  seq_398_1    13.12%    passed     90.30%
+ 481  seq_399_1    13.12%    passed     67.33%
+ 482  seq_387_1    13.12%    passed     89.67%
+ 483  seq_402_1    13.12%    passed     77.94%
+ 484  seq_392_1    13.12%    passed     72.01%
+ 485  seq_393_1    13.12%    passed     71.37%
+ 486  seq_169_2    13.12%    passed     58.89%
+ 487  seq_385_1    13.12%    passed     72.12%
+ 488  seq_112_3    13.12%    passed     58.58%
+ 489  seq_397_1    13.12%    passed     64.70%
+ 490  seq_180_2    13.12%    passed     42.08%
+ 491  seq_466_1    13.12%    passed     54.57%
+ 492  seq_500_1    13.12%    passed     84.58%
+ 493  seq_501_1    13.12%    passed     90.66%
+ 494  seq_67_6     12.96%    passed     54.38%
+ 495  seq_469_1    13.12%    passed     70.24%
+ 496  seq_55_7     12.96%    passed     66.49%
+ 497  seq_467_1    12.96%    passed     76.16%
+ 498  seq_468_1    12.96%    passed     73.66%
+ 499  seq_470_1    12.96%    passed     63.90%
+ 500  seq_471_1    12.96%    passed     67.51%
+ 501  seq_499_1    13.12%    passed     61.53%
+ 502  seq_452_1    13.28%    passed     72.38%
+ 503  seq_37_9     13.12%    passed     75.99%
+ 504  seq_29_11    13.12%    passed     82.72%
+ 505  seq_457_1    13.12%    passed     80.48%
+ 506  seq_503_1    13.12%    passed     53.76%
+ 507  seq_464_1    13.12%    passed     83.96%
+ 508  seq_454_1    13.12%    passed     47.55%
+ 509  seq_463_1    13.12%    passed     44.65%
+ 510  seq_459_1    13.12%    passed     45.96%
+ 511  seq_462_1    13.12%    passed     46.84%
+ 512  seq_461_1    13.12%    passed     43.17%
+ 513  seq_465_1    13.12%    passed     46.84%
+ 514  seq_44_8     13.12%    passed     54.44%
+ 515  seq_456_1    13.12%    passed     42.98%
+ 516  seq_455_1    13.12%    passed     70.67%
+ 517  seq_78_5     12.96%    passed     41.78%
+ 518  seq_453_1    12.96%    passed     35.63%
+ 519  seq_458_1    12.96%    passed     40.99%
+ 520  seq_460_1    12.96%    passed     37.22%
+****  TOTAL        13.50%  18 sequences failed composition chi2 test (p-value<5%; df=3)
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.311 seconds
+Generating 1000 samples for ultrafast bootstrap (seed: 615958)...
+
+NOTE: 29 MB RAM (0 GB) is required!
+WARNING: Number of threads seems too high for short alignments. Use -nt AUTO to determine best number of threads.
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -92119.908
+2. Current log-likelihood: -88388.158
+3. Current log-likelihood: -88378.664
+Optimal log-likelihood: -88378.654
+Rate parameters:  A-C: 1.653  A-G: 3.290  A-T: 1.155  C-G: 1.503  C-T: 5.626  G-T: 1.000
+Base frequencies:   A: 0.384  C: 0.179  G: 0.167  T: 0.269
+Parameters optimization took 3 rounds (0.635 sec)
+Computing ML distances based on estimated model parameters... 4.649 sec
+Computing BIONJ tree...
+0.270 seconds
+Log-likelihood of BIONJ tree: -90402.572
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 30.095 second
+Computing log-likelihood of 98 initial trees ... 16.198 seconds
+Current best score: -87966.217
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -87899.323
+Iteration 10 / LogL: -88042.236 / Time: 0h:1m:23s
+Iteration 20 / LogL: -88052.893 / Time: 0h:1m:56s
+Finish initializing candidate tree set (20)
+Current best tree score: -87899.323 / CPU time: 113.806
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Iteration 30 / LogL: -87905.068 / Time: 0h:2m:12s (0h:5m:22s left)
+Iteration 40 / LogL: -87982.869 / Time: 0h:2m:29s (0h:3m:52s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 41: -87888.049
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 42: -87869.187
+Iteration 50 / LogL: -87933.520 / Time: 0h:2m:48s (0h:5m:14s left)
+Log-likelihood cutoff on original alignment: -88112.370
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 59: -87848.706
+Iteration 60 / LogL: -88128.945 / Time: 0h:3m:8s (0h:5m:15s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 62: -87813.763
+Iteration 70 / LogL: -87894.211 / Time: 0h:3m:26s (0h:4m:34s left)
+Iteration 80 / LogL: -87942.455 / Time: 0h:3m:43s (0h:3m:51s left)
+Iteration 90 / LogL: -88037.396 / Time: 0h:4m:0s (0h:3m:14s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 92: -87788.928
+Iteration 100 / LogL: -87858.624 / Time: 0h:4m:20s (0h:4m:1s left)
+Log-likelihood cutoff on original alignment: -88112.370
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.941
+NOTE: UFBoot does not converge, continue at least 100 more iterations
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 101: -87780.504
+Iteration 110 / LogL: -87814.075 / Time: 0h:4m:43s (0h:3m:55s left)
+Iteration 120 / LogL: -87907.247 / Time: 0h:5m:2s (0h:3m:25s left)
+Iteration 130 / LogL: -87879.655 / Time: 0h:5m:23s (0h:2m:57s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 135: -87778.364
+Iteration 140 / LogL: -88184.501 / Time: 0h:5m:40s (0h:3m:52s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 147: -87777.818
+Iteration 150 / LogL: -87828.443 / Time: 0h:6m:0s (0h:3m:54s left)
+Log-likelihood cutoff on original alignment: -88112.370
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 152: -87775.126
+Iteration 160 / LogL: -87842.950 / Time: 0h:6m:21s (0h:3m:40s left)
+Iteration 170 / LogL: -87861.018 / Time: 0h:6m:39s (0h:3m:13s left)
+Iteration 180 / LogL: -87786.304 / Time: 0h:6m:59s (0h:2m:48s left)
+Iteration 190 / LogL: -87932.013 / Time: 0h:7m:19s (0h:2m:24s left)
+Iteration 200 / LogL: -87867.196 / Time: 0h:7m:39s (0h:1m:59s left)
+Log-likelihood cutoff on original alignment: -88112.370
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.964
+NOTE: UFBoot does not converge, continue at least 100 more iterations
+Iteration 210 / LogL: -87801.256 / Time: 0h:8m:4s (0h:3m:28s left)
+Iteration 220 / LogL: -88049.765 / Time: 0h:8m:25s (0h:3m:4s left)
+Iteration 230 / LogL: -87877.224 / Time: 0h:8m:45s (0h:2m:40s left)
+Iteration 240 / LogL: -88352.422 / Time: 0h:9m:4s (0h:2m:16s left)
+Iteration 250 / LogL: -87906.573 / Time: 0h:9m:24s (0h:1m:53s left)
+Log-likelihood cutoff on original alignment: -88112.370
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 255: -87769.197
+Iteration 260 / LogL: -87798.809 / Time: 0h:9m:47s (0h:3m:35s left)
+Iteration 270 / LogL: -87888.105 / Time: 0h:10m:8s (0h:3m:11s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 278: -87763.289
+Iteration 280 / LogL: -87798.448 / Time: 0h:10m:29s (0h:3m:40s left)
+Iteration 290 / LogL: -87857.360 / Time: 0h:10m:50s (0h:3m:17s left)
+Iteration 300 / LogL: -87859.438 / Time: 0h:11m:9s (0h:2m:54s left)
+Log-likelihood cutoff on original alignment: -88112.370
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.977
+NOTE: UFBoot does not converge, continue at least 100 more iterations
+Iteration 310 / LogL: -87764.274 / Time: 0h:11m:32s (0h:3m:21s left)
+Iteration 320 / LogL: -87867.810 / Time: 0h:11m:54s (0h:2m:59s left)
+Iteration 330 / LogL: -87777.433 / Time: 0h:12m:14s (0h:2m:36s left)
+Iteration 340 / LogL: -88214.274 / Time: 0h:12m:35s (0h:2m:13s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 343: -87762.226
+Iteration 350 / LogL: -87870.480 / Time: 0h:12m:56s (0h:3m:26s left)
+Log-likelihood cutoff on original alignment: -88112.370
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 358: -87756.678
+Iteration 360 / LogL: -88094.287 / Time: 0h:13m:20s (0h:3m:38s left)
+Iteration 370 / LogL: -87823.393 / Time: 0h:13m:41s (0h:3m:15s left)
+Iteration 380 / LogL: -87789.076 / Time: 0h:14m:3s (0h:2m:53s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 385: -87755.593
+Iteration 390 / LogL: -87847.982 / Time: 0h:14m:26s (0h:3m:31s left)
+Iteration 400 / LogL: -88193.338 / Time: 0h:14m:47s (0h:3m:8s left)
+Log-likelihood cutoff on original alignment: -88112.370
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.986
+NOTE: UFBoot does not converge, continue at least 100 more iterations
+Iteration 410 / LogL: -87771.792 / Time: 0h:15m:12s (0h:3m:20s left)
+Iteration 420 / LogL: -87985.394 / Time: 0h:15m:33s (0h:2m:58s left)
+Iteration 430 / LogL: -87784.812 / Time: 0h:15m:55s (0h:2m:35s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 435: -87753.233
+Iteration 440 / LogL: -88096.058 / Time: 0h:16m:18s (0h:3m:31s left)
+Iteration 450 / LogL: -87824.325 / Time: 0h:16m:40s (0h:3m:9s left)
+Log-likelihood cutoff on original alignment: -88112.370
+Iteration 460 / LogL: -87949.251 / Time: 0h:17m:8s (0h:2m:47s left)
+Iteration 470 / LogL: -88244.500 / Time: 0h:17m:34s (0h:2m:26s left)
+Iteration 480 / LogL: -88013.503 / Time: 0h:17m:56s (0h:2m:3s left)
+Iteration 490 / LogL: -87988.444 / Time: 0h:18m:19s (0h:1m:41s left)
+Iteration 500 / LogL: -87787.187 / Time: 0h:18m:41s (0h:1m:18s left)
+Log-likelihood cutoff on original alignment: -88112.370
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.984
+NOTE: UFBoot does not converge, continue at least 100 more iterations
+Iteration 510 / LogL: -88473.584 / Time: 0h:19m:7s (0h:3m:22s left)
+Iteration 520 / LogL: -87876.077 / Time: 0h:19m:30s (0h:3m:0s left)
+Iteration 530 / LogL: -87871.123 / Time: 0h:19m:54s (0h:2m:38s left)
+Iteration 540 / LogL: -87785.978 / Time: 0h:20m:16s (0h:2m:15s left)
+Iteration 550 / LogL: -87855.392 / Time: 0h:20m:42s (0h:1m:53s left)
+Log-likelihood cutoff on original alignment: -88112.370
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 560: -87752.578
+Iteration 560 / LogL: -87752.578 / Time: 0h:21m:10s (0h:3m:47s left)
+Iteration 570 / LogL: -88039.135 / Time: 0h:21m:35s (0h:3m:24s left)
+Iteration 580 / LogL: -88058.203 / Time: 0h:22m:2s (0h:3m:2s left)
+Iteration 590 / LogL: -87898.170 / Time: 0h:22m:27s (0h:2m:40s left)
+Iteration 600 / LogL: -87796.611 / Time: 0h:22m:53s (0h:2m:17s left)
+Log-likelihood cutoff on original alignment: -88112.370
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.989
+NOTE: UFBoot does not converge, continue at least 100 more iterations
+Iteration 610 / LogL: -88017.935 / Time: 0h:23m:20s (0h:3m:26s left)
+Iteration 620 / LogL: -87951.534 / Time: 0h:23m:48s (0h:3m:4s left)
+Iteration 630 / LogL: -88350.426 / Time: 0h:24m:13s (0h:2m:41s left)
+Iteration 640 / LogL: -88197.426 / Time: 0h:24m:37s (0h:2m:18s left)
+Iteration 650 / LogL: -88716.169 / Time: 0h:25m:1s (0h:1m:55s left)
+Log-likelihood cutoff on original alignment: -88112.370
+Iteration 660 / LogL: -88007.078 / Time: 0h:25m:29s (0h:1m:32s left)
+Iteration 670 / LogL: -87779.676 / Time: 0h:25m:55s (0h:1m:9s left)
+Iteration 680 / LogL: -87768.833 / Time: 0h:26m:20s (0h:0m:46s left)
+Iteration 690 / LogL: -87804.869 / Time: 0h:26m:46s (0h:0m:23s left)
+Iteration 700 / LogL: -87769.833 / Time: 0h:27m:9s (0h:0m:0s left)
+Log-likelihood cutoff on original alignment: -88112.370
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.988
+NOTE: UFBoot does not converge, continue at least 100 more iterations
+Iteration 710 / LogL: -87841.410 / Time: 0h:27m:36s (0h:3m:30s left)
+Iteration 720 / LogL: -87923.659 / Time: 0h:28m:1s (0h:3m:7s left)
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 724: -87748.808
+Iteration 730 / LogL: -87785.848 / Time: 0h:28m:31s (0h:3m:40s left)
+Iteration 740 / LogL: -87835.446 / Time: 0h:28m:57s (0h:3m:17s left)
+Iteration 750 / LogL: -87967.424 / Time: 0h:29m:26s (0h:2m:54s left)
+Log-likelihood cutoff on original alignment: -88112.370
+Iteration 760 / LogL: -87760.788 / Time: 0h:29m:58s (0h:2m:31s left)
+Iteration 770 / LogL: -87966.806 / Time: 0h:30m:26s (0h:2m:8s left)
+Iteration 780 / LogL: -87788.632 / Time: 0h:30m:53s (0h:1m:44s left)
+Iteration 790 / LogL: -88015.781 / Time: 0h:31m:19s (0h:1m:20s left)
+Iteration 800 / LogL: -88083.184 / Time: 0h:31m:52s (0h:0m:57s left)
+Log-likelihood cutoff on original alignment: -88112.370
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.992
+Iteration 810 / LogL: -87781.835 / Time: 0h:32m:24s (0h:3m:36s left)
+Iteration 820 / LogL: -87953.916 / Time: 0h:32m:55s (0h:3m:12s left)
+TREE SEARCH COMPLETED AFTER 825 ITERATIONS / Time: 0h:33m:11s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -87748.808
+Optimal log-likelihood: -87748.804
+Rate parameters:  A-C: 1.652  A-G: 3.313  A-T: 1.149  C-G: 1.465  C-T: 5.686  G-T: 1.000
+Base frequencies:   A: 0.384  C: 0.179  G: 0.167  T: 0.269
+Parameters optimization took 1 rounds (0.087 sec)
+BEST SCORE FOUND : -87748.804
+Creating bootstrap support values...
+Split supports printed to NEXUS file ccrB_all_uniq_aln.fasta.splits.nex
+Total tree length: 10.497
+
+Total number of iterations: 825
+CPU time used for tree search: 11742.265 sec (3h:15m:42s)
+Wall-clock time used for tree search: 1988.301 sec (0h:33m:8s)
+Total CPU time used: 11762.128 sec (3h:16m:2s)
+Total wall-clock time used: 1994.902 sec (0h:33m:14s)
+
+Computing bootstrap consensus tree...
+Reading input file ccrB_all_uniq_aln.fasta.splits.nex...
+520 taxa and 9035 splits.
+Consensus tree written to ccrB_all_uniq_aln.fasta.contree
+Reading input trees file ccrB_all_uniq_aln.fasta.contree
+Log-likelihood of consensus tree: -87750.461
+
+Analysis results written to: 
+  IQ-TREE report:                ccrB_all_uniq_aln.fasta.iqtree
+  Maximum-likelihood tree:       ccrB_all_uniq_aln.fasta.treefile
+  Likelihood distances:          ccrB_all_uniq_aln.fasta.mldist
+
+Ultrafast bootstrap approximation results written to:
+  Split support values:          ccrB_all_uniq_aln.fasta.splits.nex
+  Consensus tree:                ccrB_all_uniq_aln.fasta.contree
+  Screen log file:               ccrB_all_uniq_aln.fasta.log
+
+Date and Time: Thu Mar 19 19:17:05 2020
