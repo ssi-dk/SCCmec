@@ -22,5 +22,15 @@ with open(sys.argv[2]) as f:
 
 print_dict = {}
 for header in fasta_dict:
-	if header not in g_dict:
-		print(header)
+	if header in g_dict:
+		allotype = g_dict[header][1]
+		if allotype in print_dict:
+			print_dict[allotype] += '>'+header+'\n'+fasta_dict[header]+'\n'
+		else:
+			print_dict[allotype] = '>'+header+'\n'+fasta_dict[header]+'\n'
+
+for allotype in print_dict:
+	out_file = os.path.join(sys.argv[3],allotype+'.fasta')
+	o = open(out_file,'w')
+	o.write(print_dict[allotype])
+	o.close()
