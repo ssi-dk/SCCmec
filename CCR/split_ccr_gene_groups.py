@@ -22,5 +22,5 @@ with open(sys.argv[2]) as f:
 
 print_dict = {}
 for header in fasta_dict:
-	if header in g_dict:
+	if header not in g_dict:
 		print(header)
