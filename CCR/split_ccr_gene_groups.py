@@ -10,7 +10,7 @@ with open(sys.argv[1]) as f:
 		line = line.rstrip('\n').split('\t')
 		g_dict[line[0]] = [line[8],line[11]]
 
-fasta_dict = []
+fasta_dict = {}
 with open(sys.argv[2]) as f:
 	for line in f:
 		line = line.rstrip('\n')
