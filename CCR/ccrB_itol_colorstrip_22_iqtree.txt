@@ -1,0 +1,617 @@
+DATASET_COLORSTRIP
+#In colored strip datasets, each ID is associated to a color box/strip and can have an optional label. Color can be specified in hexadecimal, RGB or RGBA notation. When using RGB or RGBA notation, you cannot use COMMA as the dataset separator
+
+#lines starting with a hash are comments and ignored during parsing
+
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file (except in the SEPARATOR line, which uses space).
+
+#SEPARATOR TAB
+#SEPARATOR COMMA
+SEPARATOR SPACE
+
+#label is used in the legend table (can be changed later)
+#DATASET_LABEL label1
+#DATASET_LABEL label1
+DATASET_LABEL ccrB_allotype_78
+
+#dataset color (can be changed later)
+#COLOR #ff0000
+
+#=================================================================#
+#                    OPTIONAL SETTINGS                            #
+#=================================================================#
+
+#If COLOR_BRANCHES is set to 1, branches of the tree will be colored according to the colors of the strips above the leaves.
+#When all children of a node have the same color, it will be colored the same, ie. the color will propagate inwards towards the root.
+COLOR_BRANCHES 0
+
+#each dataset can have a legend, which is defined below
+#for each row in the legend, there should be one shape, color and label
+#shape should be a number between 1 and 6:
+#1: square
+#2: circle
+#3: star
+#4: right pointing triangle
+#5: left pointing triangle
+#6: checkmark
+
+LEGEND_TITLE Dataset_legend
+LEGEND_SHAPES 1
+#LEGEND_COLORS #ff0000 #00ff00 rgba(0,255,0,0.5) #0000ff
+LEGEND_LABELS ccrA ccrB ccrC ccrN1 ccrN2 ccrN3 ccrN4
+
+#=================================================================#
+#     all other optional settings can be set or changed later     #
+#           in the web interface (under 'Datasets' tab)           #
+#=================================================================#
+
+#width of the colored strip
+#STRIP_WIDTH 25
+
+#left margin, used to increase/decrease the spacing to the next dataset. Can be negative, causing datasets to overlap.
+#MARGIN 0
+
+#border width; if set above 0, a border of specified width (in pixels) will be drawn around the color strip 
+#BORDER_WIDTH 0
+
+#border color; used when BORDER_WIDTH is above 0
+#BORDER_COLOR #0000ff
+
+#always show internal values; if set, values associated to internal nodes will be displayed even if these nodes are not collapsed. It could cause overlapping in the dataset display.
+#SHOW_INTERNAL 0
+
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+DATA
+
+#Examples:
+#assign a red colored strip to leaf 9606, with label 'Human' (label is displayed in the mouseover popups)
+#9606 #ff0000 Human
+
+#assign a green, semi-transparent (alpha 0.5) strip to an internal node, without any label. If 'Show internal values' is set to 'No', this will only be displayed if the node is collapsed. 
+#9606_5664 rgba(0,255,0,0.5)
+
+seq_1_2557 #61d2ff ccrB2
+seq_2_2082 #61d2ff ccrB2
+seq_3_1355 #61d2ff ccrB2
+seq_4_297 #468bfa ccrB3
+seq_5_293 #030bfc ccrB4
+seq_6_249 #61d2ff ccrB2
+seq_7_188 #61d2ff ccrB2
+seq_8_57 #468bfa ccrB3
+seq_9_57 #61d2ff ccrB2
+seq_10_39 #61d2ff ccrB2
+seq_11_34 #030bfc ccrB4
+seq_12_32 #030bfc ccrB4
+seq_13_31 #61d2ff ccrB2
+seq_14_29 #63ff7d ccrB1
+seq_15_25 #61d2ff ccrB2
+seq_16_18 #030bfc ccrB4
+seq_17_14 #63ff7d ccrB1
+seq_18_14 #61d2ff ccrB2
+seq_19_14 #468bfa ccrB3
+seq_20_13 #61d2ff ccrB2
+seq_21_13 #61d2ff ccrB2
+seq_22_13 #63ff7d ccrB1
+seq_23_12 #468bfa ccrB3
+seq_24_12 #468bfa ccrB3
+seq_25_11 #61d2ff ccrB2
+seq_26_11 #61d2ff ccrB2
+seq_27_11 #468bfa ccrB3
+seq_28_11 #030bfc ccrB4
+seq_29_11 #23db64 ccrB6
+seq_30_10 #61d2ff ccrB2
+seq_31_10 #468bfa ccrB3
+seq_32_10 #468bfa ccrB3
+seq_33_10 #030bfc ccrB4
+seq_34_9 #23db64 ccrB6
+seq_35_9 #61d2ff ccrB2
+seq_36_9 #61d2ff ccrB2
+seq_37_9 #61d2ff ccrB2
+seq_38_9 #23db64 ccrB6
+seq_39_9 #009133 ccrBn2
+seq_40_8 #61d2ff ccrB2
+seq_41_8 #61d2ff ccrB2
+seq_42_8 #61d2ff ccrB2
+seq_43_8 #468bfa ccrB3
+seq_44_8 #468bfa ccrB3
+seq_45_8 #030bfc ccrB4
+seq_46_7 #63ff7d ccrB1
+seq_47_7 #61d2ff ccrB2
+seq_48_7 #61d2ff ccrB2
+seq_49_7 #61d2ff ccrB2
+seq_50_7 #61d2ff ccrB2
+seq_51_7 #61d2ff ccrB2
+seq_52_7 #468bfa ccrB3
+seq_53_7 #030bfc ccrB4
+seq_54_7 #030bfc ccrB4
+seq_55_7 #ff9999 ccrB7
+seq_56_6 #61d2ff ccrB2
+seq_57_6 #61d2ff ccrB2
+seq_58_6 #61d2ff ccrB2
+seq_59_6 #61d2ff ccrB2
+seq_60_6 #61d2ff ccrB2
+seq_61_6 #61d2ff ccrB2
+seq_62_6 #030bfc ccrB4
+seq_63_6 #030bfc ccrB4
+seq_64_6 #030bfc ccrB4
+seq_65_6 #030bfc ccrB4
+seq_66_6 #030bfc ccrB4
+seq_67_6 #ff9999 ccrB7
+seq_68_6 #63ff7d ccrB1
+seq_69_6 #63ff7d ccrB1
+seq_70_5 #63ff7d ccrB1
+seq_71_5 #61d2ff ccrB2
+seq_72_5 #61d2ff ccrB2
+seq_73_5 #61d2ff ccrB2
+seq_74_5 #61d2ff ccrB2
+seq_75_5 #468bfa ccrB3
+seq_76_5 #030bfc ccrB4
+seq_77_5 #030bfc ccrB4
+seq_78_5 #23db64 ccrB6
+seq_79_5 #ff9999 ccrB7
+seq_80_4 #63ff7d ccrB1
+seq_81_4 #61d2ff ccrB2
+seq_82_4 #61d2ff ccrB2
+seq_83_4 #61d2ff ccrB2
+seq_84_4 #61d2ff ccrB2
+seq_85_4 #61d2ff ccrB2
+seq_86_4 #61d2ff ccrB2
+seq_87_4 #61d2ff ccrB2
+seq_88_4 #61d2ff ccrB2
+seq_89_4 #61d2ff ccrB2
+seq_90_4 #61d2ff ccrB2
+seq_91_4 #61d2ff ccrB2
+seq_92_4 #61d2ff ccrB2
+seq_93_4 #468bfa ccrB3
+seq_94_4 #030bfc ccrB4
+seq_95_4 #030bfc ccrB4
+seq_96_4 #f03232 ccrBn7
+seq_97_4 #468bfa ccrB3
+seq_98_4 #009133 ccrBn2
+seq_99_3 #63ff7d ccrB1
+seq_100_3 #61d2ff ccrB2
+seq_101_3 #61d2ff ccrB2
+seq_102_3 #61d2ff ccrB2
+seq_103_3 #61d2ff ccrB2
+seq_104_3 #61d2ff ccrB2
+seq_105_3 #61d2ff ccrB2
+seq_106_3 #61d2ff ccrB2
+seq_107_3 #61d2ff ccrB2
+seq_108_3 #61d2ff ccrB2
+seq_109_3 #61d2ff ccrB2
+seq_110_3 #468bfa ccrB3
+seq_111_3 #468bfa ccrB3
+seq_112_3 #468bfa ccrB3
+seq_113_3 #030bfc ccrB4
+seq_114_3 #030bfc ccrB4
+seq_115_3 #030bfc ccrB4
+seq_116_3 #030bfc ccrB4
+seq_117_3 #030bfc ccrB4
+seq_118_3 #468bfa ccrB3
+seq_119_3 #468bfa ccrB3
+seq_120_3 #009133 ccrBn2
+seq_121_3 #009133 ccrBn2
+seq_122_3 #63ff7d ccrB1
+seq_123_2 #63ff7d ccrB1
+seq_124_2 #ff9999 ccrB7
+seq_125_2 #63ff7d ccrB1
+seq_126_2 #63ff7d ccrB1
+seq_127_2 #63ff7d ccrB1
+seq_128_2 #63ff7d ccrB1
+seq_129_2 #63ff7d ccrB1
+seq_130_2 #63ff7d ccrB1
+seq_131_2 #63ff7d ccrB1
+seq_132_2 #63ff7d ccrB1
+seq_133_2 #63ff7d ccrB1
+seq_134_2 #63ff7d ccrB1
+seq_135_2 #61d2ff ccrB2
+seq_136_2 #61d2ff ccrB2
+seq_137_2 #61d2ff ccrB2
+seq_138_2 #61d2ff ccrB2
+seq_139_2 #61d2ff ccrB2
+seq_140_2 #61d2ff ccrB2
+seq_141_2 #61d2ff ccrB2
+seq_142_2 #61d2ff ccrB2
+seq_143_2 #61d2ff ccrB2
+seq_144_2 #61d2ff ccrB2
+seq_145_2 #61d2ff ccrB2
+seq_146_2 #61d2ff ccrB2
+seq_147_2 #61d2ff ccrB2
+seq_148_2 #61d2ff ccrB2
+seq_149_2 #61d2ff ccrB2
+seq_150_2 #61d2ff ccrB2
+seq_151_2 #61d2ff ccrB2
+seq_152_2 #61d2ff ccrB2
+seq_153_2 #61d2ff ccrB2
+seq_154_2 #61d2ff ccrB2
+seq_155_2 #61d2ff ccrB2
+seq_156_2 #61d2ff ccrB2
+seq_157_2 #61d2ff ccrB2
+seq_158_2 #61d2ff ccrB2
+seq_159_2 #61d2ff ccrB2
+seq_160_2 #468bfa ccrB3
+seq_161_2 #468bfa ccrB3
+seq_162_2 #468bfa ccrB3
+seq_163_2 #468bfa ccrB3
+seq_164_2 #468bfa ccrB3
+seq_165_2 #468bfa ccrB3
+seq_166_2 #468bfa ccrB3
+seq_167_2 #468bfa ccrB3
+seq_168_2 #468bfa ccrB3
+seq_169_2 #468bfa ccrB3
+seq_170_2 #468bfa ccrB3
+seq_171_2 #468bfa ccrB3
+seq_172_2 #030bfc ccrB4
+seq_173_2 #030bfc ccrB4
+seq_174_2 #030bfc ccrB4
+seq_175_2 #030bfc ccrB4
+seq_176_2 #030bfc ccrB4
+seq_177_2 #030bfc ccrB4
+seq_178_2 #030bfc ccrB4
+seq_179_2 #030bfc ccrB4
+seq_180_2 #030bfc ccrB4
+seq_181_2 #030bfc ccrB4
+seq_182_2 #ff9999 ccrB7
+seq_183_2 #f03232 ccrBn7
+seq_184_2 #468bfa ccrB3
+seq_185_2 #c90000 ccrBn1
+seq_186_2 #c90000 ccrBn1
+seq_187_2 #ffe194 ccrBn4
+seq_188_2 #63ff7d ccrB1
+seq_189_2 #63ff7d ccrB1
+seq_190_2 #63ff7d ccrB1
+seq_191_2 #63ff7d ccrB1
+seq_192_1 #61d2ff ccrB2
+seq_193_1 #61d2ff ccrB2
+seq_194_1 #61d2ff ccrB2
+seq_195_1 #61d2ff ccrB2
+seq_196_1 #61d2ff ccrB2
+seq_197_1 #61d2ff ccrB2
+seq_198_1 #61d2ff ccrB2
+seq_199_1 #61d2ff ccrB2
+seq_200_1 #61d2ff ccrB2
+seq_201_1 #61d2ff ccrB2
+seq_202_1 #61d2ff ccrB2
+seq_203_1 #468bfa ccrB3
+seq_204_1 #468bfa ccrB3
+seq_205_1 #030bfc ccrB4
+seq_206_1 #030bfc ccrB4
+seq_207_1 #23db64 ccrB6
+seq_208_1 #63ff7d ccrB1
+seq_209_1 #63ff7d ccrB1
+seq_210_1 #63ff7d ccrB1
+seq_211_1 #63ff7d ccrB1
+seq_212_1 #63ff7d ccrB1
+seq_213_1 #63ff7d ccrB1
+seq_214_1 #63ff7d ccrB1
+seq_215_1 #63ff7d ccrB1
+seq_216_1 #63ff7d ccrB1
+seq_217_1 #63ff7d ccrB1
+seq_218_1 #63ff7d ccrB1
+seq_219_1 #63ff7d ccrB1
+seq_220_1 #63ff7d ccrB1
+seq_221_1 #63ff7d ccrB1
+seq_222_1 #63ff7d ccrB1
+seq_223_1 #63ff7d ccrB1
+seq_224_1 #63ff7d ccrB1
+seq_225_1 #63ff7d ccrB1
+seq_226_1 #63ff7d ccrB1
+seq_227_1 #63ff7d ccrB1
+seq_228_1 #63ff7d ccrB1
+seq_229_1 #63ff7d ccrB1
+seq_230_1 #63ff7d ccrB1
+seq_231_1 #63ff7d ccrB1
+seq_232_1 #63ff7d ccrB1
+seq_233_1 #63ff7d ccrB1
+seq_234_1 #63ff7d ccrB1
+seq_235_1 #63ff7d ccrB1
+seq_236_1 #63ff7d ccrB1
+seq_237_1 #63ff7d ccrB1
+seq_238_1 #63ff7d ccrB1
+seq_239_1 #63ff7d ccrB1
+seq_240_1 #63ff7d ccrB1
+seq_241_1 #63ff7d ccrB1
+seq_242_1 #63ff7d ccrB1
+seq_243_1 #63ff7d ccrB1
+seq_244_1 #63ff7d ccrB1
+seq_245_1 #63ff7d ccrB1
+seq_246_1 #63ff7d ccrB1
+seq_247_1 #63ff7d ccrB1
+seq_248_1 #63ff7d ccrB1
+seq_249_1 #63ff7d ccrB1
+seq_250_1 #63ff7d ccrB1
+seq_251_1 #63ff7d ccrB1
+seq_252_1 #63ff7d ccrB1
+seq_253_1 #63ff7d ccrB1
+seq_254_1 #63ff7d ccrB1
+seq_255_1 #61d2ff ccrB2
+seq_256_1 #61d2ff ccrB2
+seq_257_1 #61d2ff ccrB2
+seq_258_1 #61d2ff ccrB2
+seq_259_1 #61d2ff ccrB2
+seq_260_1 #61d2ff ccrB2
+seq_261_1 #61d2ff ccrB2
+seq_262_1 #61d2ff ccrB2
+seq_263_1 #61d2ff ccrB2
+seq_264_1 #61d2ff ccrB2
+seq_265_1 #61d2ff ccrB2
+seq_266_1 #61d2ff ccrB2
+seq_267_1 #61d2ff ccrB2
+seq_268_1 #61d2ff ccrB2
+seq_269_1 #61d2ff ccrB2
+seq_270_1 #61d2ff ccrB2
+seq_271_1 #61d2ff ccrB2
+seq_272_1 #61d2ff ccrB2
+seq_273_1 #61d2ff ccrB2
+seq_274_1 #61d2ff ccrB2
+seq_275_1 #61d2ff ccrB2
+seq_276_1 #61d2ff ccrB2
+seq_277_1 #61d2ff ccrB2
+seq_278_1 #61d2ff ccrB2
+seq_279_1 #61d2ff ccrB2
+seq_280_1 #61d2ff ccrB2
+seq_281_1 #61d2ff ccrB2
+seq_282_1 #61d2ff ccrB2
+seq_283_1 #61d2ff ccrB2
+seq_284_1 #61d2ff ccrB2
+seq_285_1 #61d2ff ccrB2
+seq_286_1 #61d2ff ccrB2
+seq_287_1 #61d2ff ccrB2
+seq_288_1 #61d2ff ccrB2
+seq_289_1 #61d2ff ccrB2
+seq_290_1 #61d2ff ccrB2
+seq_291_1 #61d2ff ccrB2
+seq_292_1 #61d2ff ccrB2
+seq_293_1 #61d2ff ccrB2
+seq_294_1 #61d2ff ccrB2
+seq_295_1 #61d2ff ccrB2
+seq_296_1 #61d2ff ccrB2
+seq_297_1 #61d2ff ccrB2
+seq_298_1 #61d2ff ccrB2
+seq_299_1 #61d2ff ccrB2
+seq_300_1 #61d2ff ccrB2
+seq_301_1 #61d2ff ccrB2
+seq_302_1 #61d2ff ccrB2
+seq_303_1 #61d2ff ccrB2
+seq_304_1 #61d2ff ccrB2
+seq_305_1 #61d2ff ccrB2
+seq_306_1 #61d2ff ccrB2
+seq_307_1 #61d2ff ccrB2
+seq_308_1 #61d2ff ccrB2
+seq_309_1 #61d2ff ccrB2
+seq_310_1 #61d2ff ccrB2
+seq_311_1 #61d2ff ccrB2
+seq_312_1 #61d2ff ccrB2
+seq_313_1 #61d2ff ccrB2
+seq_314_1 #61d2ff ccrB2
+seq_315_1 #61d2ff ccrB2
+seq_316_1 #61d2ff ccrB2
+seq_317_1 #61d2ff ccrB2
+seq_318_1 #61d2ff ccrB2
+seq_319_1 #61d2ff ccrB2
+seq_320_1 #61d2ff ccrB2
+seq_321_1 #61d2ff ccrB2
+seq_322_1 #61d2ff ccrB2
+seq_323_1 #61d2ff ccrB2
+seq_324_1 #61d2ff ccrB2
+seq_325_1 #61d2ff ccrB2
+seq_326_1 #61d2ff ccrB2
+seq_327_1 #61d2ff ccrB2
+seq_328_1 #61d2ff ccrB2
+seq_329_1 #61d2ff ccrB2
+seq_330_1 #61d2ff ccrB2
+seq_331_1 #61d2ff ccrB2
+seq_332_1 #61d2ff ccrB2
+seq_333_1 #61d2ff ccrB2
+seq_334_1 #61d2ff ccrB2
+seq_335_1 #61d2ff ccrB2
+seq_336_1 #61d2ff ccrB2
+seq_337_1 #61d2ff ccrB2
+seq_338_1 #61d2ff ccrB2
+seq_339_1 #61d2ff ccrB2
+seq_340_1 #61d2ff ccrB2
+seq_341_1 #61d2ff ccrB2
+seq_342_1 #61d2ff ccrB2
+seq_343_1 #61d2ff ccrB2
+seq_344_1 #61d2ff ccrB2
+seq_345_1 #61d2ff ccrB2
+seq_346_1 #61d2ff ccrB2
+seq_347_1 #61d2ff ccrB2
+seq_348_1 #61d2ff ccrB2
+seq_349_1 #61d2ff ccrB2
+seq_350_1 #61d2ff ccrB2
+seq_351_1 #61d2ff ccrB2
+seq_352_1 #61d2ff ccrB2
+seq_353_1 #61d2ff ccrB2
+seq_354_1 #61d2ff ccrB2
+seq_355_1 #61d2ff ccrB2
+seq_356_1 #61d2ff ccrB2
+seq_357_1 #61d2ff ccrB2
+seq_358_1 #61d2ff ccrB2
+seq_359_1 #61d2ff ccrB2
+seq_360_1 #61d2ff ccrB2
+seq_361_1 #61d2ff ccrB2
+seq_362_1 #61d2ff ccrB2
+seq_363_1 #61d2ff ccrB2
+seq_364_1 #61d2ff ccrB2
+seq_365_1 #61d2ff ccrB2
+seq_366_1 #61d2ff ccrB2
+seq_367_1 #61d2ff ccrB2
+seq_368_1 #61d2ff ccrB2
+seq_369_1 #61d2ff ccrB2
+seq_370_1 #61d2ff ccrB2
+seq_371_1 #61d2ff ccrB2
+seq_372_1 #61d2ff ccrB2
+seq_373_1 #61d2ff ccrB2
+seq_374_1 #468bfa ccrB3
+seq_375_1 #468bfa ccrB3
+seq_376_1 #468bfa ccrB3
+seq_377_1 #468bfa ccrB3
+seq_378_1 #468bfa ccrB3
+seq_379_1 #468bfa ccrB3
+seq_380_1 #468bfa ccrB3
+seq_381_1 #468bfa ccrB3
+seq_382_1 #468bfa ccrB3
+seq_383_1 #468bfa ccrB3
+seq_384_1 #468bfa ccrB3
+seq_385_1 #468bfa ccrB3
+seq_386_1 #468bfa ccrB3
+seq_387_1 #468bfa ccrB3
+seq_388_1 #468bfa ccrB3
+seq_389_1 #468bfa ccrB3
+seq_390_1 #468bfa ccrB3
+seq_391_1 #468bfa ccrB3
+seq_392_1 #468bfa ccrB3
+seq_393_1 #468bfa ccrB3
+seq_394_1 #468bfa ccrB3
+seq_395_1 #468bfa ccrB3
+seq_396_1 #468bfa ccrB3
+seq_397_1 #468bfa ccrB3
+seq_398_1 #468bfa ccrB3
+seq_399_1 #468bfa ccrB3
+seq_400_1 #468bfa ccrB3
+seq_401_1 #468bfa ccrB3
+seq_402_1 #468bfa ccrB3
+seq_403_1 #468bfa ccrB3
+seq_404_1 #468bfa ccrB3
+seq_405_1 #468bfa ccrB3
+seq_406_1 #468bfa ccrB3
+seq_407_1 #468bfa ccrB3
+seq_408_1 #468bfa ccrB3
+seq_409_1 #468bfa ccrB3
+seq_410_1 #468bfa ccrB3
+seq_411_1 #468bfa ccrB3
+seq_412_1 #468bfa ccrB3
+seq_413_1 #468bfa ccrB3
+seq_414_1 #468bfa ccrB3
+seq_415_1 #468bfa ccrB3
+seq_416_1 #468bfa ccrB3
+seq_417_1 #468bfa ccrB3
+seq_418_1 #468bfa ccrB3
+seq_419_1 #468bfa ccrB3
+seq_420_1 #468bfa ccrB3
+seq_421_1 #468bfa ccrB3
+seq_422_1 #468bfa ccrB3
+seq_423_1 #468bfa ccrB3
+seq_424_1 #468bfa ccrB3
+seq_425_1 #468bfa ccrB3
+seq_426_1 #468bfa ccrB3
+seq_427_1 #468bfa ccrB3
+seq_428_1 #468bfa ccrB3
+seq_429_1 #468bfa ccrB3
+seq_430_1 #468bfa ccrB3
+seq_431_1 #468bfa ccrB3
+seq_432_1 #468bfa ccrB3
+seq_433_1 #468bfa ccrB3
+seq_434_1 #468bfa ccrB3
+seq_435_1 #030bfc ccrB4
+seq_436_1 #030bfc ccrB4
+seq_437_1 #030bfc ccrB4
+seq_438_1 #030bfc ccrB4
+seq_439_1 #030bfc ccrB4
+seq_440_1 #030bfc ccrB4
+seq_441_1 #030bfc ccrB4
+seq_442_1 #030bfc ccrB4
+seq_443_1 #030bfc ccrB4
+seq_444_1 #030bfc ccrB4
+seq_445_1 #030bfc ccrB4
+seq_446_1 #030bfc ccrB4
+seq_447_1 #030bfc ccrB4
+seq_448_1 #030bfc ccrB4
+seq_449_1 #030bfc ccrB4
+seq_450_1 #030bfc ccrB4
+seq_451_1 #030bfc ccrB4
+seq_452_1 #030bfc ccrB4
+seq_453_1 #030bfc ccrB4
+seq_454_1 #030bfc ccrB4
+seq_455_1 #030bfc ccrB4
+seq_456_1 #030bfc ccrB4
+seq_457_1 #030bfc ccrB4
+seq_458_1 #030bfc ccrB4
+seq_459_1 #030bfc ccrB4
+seq_460_1 #030bfc ccrB4
+seq_461_1 #030bfc ccrB4
+seq_462_1 #030bfc ccrB4
+seq_463_1 #030bfc ccrB4
+seq_464_1 #030bfc ccrB4
+seq_465_1 #030bfc ccrB4
+seq_466_1 #030bfc ccrB4
+seq_467_1 #030bfc ccrB4
+seq_468_1 #030bfc ccrB4
+seq_469_1 #030bfc ccrB4
+seq_470_1 #23db64 ccrB6
+seq_471_1 #23db64 ccrB6
+seq_472_1 #23db64 ccrB6
+seq_473_1 #23db64 ccrB6
+seq_474_1 #23db64 ccrB6
+seq_475_1 #23db64 ccrB6
+seq_476_1 #23db64 ccrB6
+seq_477_1 #23db64 ccrB6
+seq_478_1 #23db64 ccrB6
+seq_479_1 #23db64 ccrB6
+seq_480_1 #23db64 ccrB6
+seq_481_1 #23db64 ccrB6
+seq_482_1 #23db64 ccrB6
+seq_483_1 #23db64 ccrB6
+seq_484_1 #ff9999 ccrB7
+seq_485_1 #ff9999 ccrB7
+seq_486_1 #ff9999 ccrB7
+seq_487_1 #ff9999 ccrB7
+seq_488_1 #ff9999 ccrB7
+seq_489_1 #f03232 ccrBn7
+seq_490_1 #f03232 ccrBn7
+seq_491_1 #f03232 ccrBn7
+seq_492_1 #f03232 ccrBn7
+seq_493_1 #f03232 ccrBn7
+seq_494_1 #f03232 ccrBn7
+seq_495_1 #f03232 ccrBn7
+seq_496_1 #f03232 ccrBn7
+seq_497_1 #f03232 ccrBn7
+seq_498_1 #f03232 ccrBn7
+seq_499_1 #f03232 ccrBn7
+seq_500_1 #f03232 ccrBn7
+seq_501_1 #468bfa ccrB3
+seq_502_1 #468bfa ccrB3
+seq_503_1 #468bfa ccrB3
+seq_504_1 #468bfa ccrB3
+seq_505_1 #468bfa ccrB3
+seq_506_1 #468bfa ccrB3
+seq_507_1 #468bfa ccrB3
+seq_508_1 #468bfa ccrB3
+seq_509_1 #468bfa ccrB3
+seq_510_1 #468bfa ccrB3
+seq_511_1 #468bfa ccrB3
+seq_512_1 #468bfa ccrB3
+seq_513_1 #468bfa ccrB3
+seq_514_1 #468bfa ccrB3
+seq_515_1 #468bfa ccrB3
+seq_516_1 #468bfa ccrB3
+seq_517_1 #468bfa ccrB3
+seq_518_1 #468bfa ccrB3
+seq_519_1 #468bfa ccrB3
+seq_520_1 #468bfa ccrB3
+seq_521_1 #468bfa ccrB3
+seq_522_1 #468bfa ccrB3
+seq_523_1 #c90000 ccrBn1
+seq_524_1 #c90000 ccrBn1
+seq_525_1 #c90000 ccrBn1
+seq_526_1 #009133 ccrBn2
+seq_527_1 #009133 ccrBn2
+seq_528_1 #009133 ccrBn2
+seq_529_1 #009133 ccrBn2
+seq_530_1 #ffcc47 ccrBn3
+seq_531_1 #030bfc ccrB4
+seq_532_1 #63ff7d ccrB1
+seq_533_1 #63ff7d ccrB1
+seq_534_1 #63ff7d ccrB1
+seq_535_1 #63ff7d ccrB1
+seq_536_1 #63ff7d ccrB1
+seq_537_1 #63ff7d ccrB1
