@@ -16,6 +16,7 @@ with open(ignore_file) as f:
 print(ignore_list)
 with open(fasta_file) as f:
 	line = line.rstrip('\n')
+	print(line)
 	if line[0] == '>':
 		test = line.split('__')[1]
 		if test in ignore_list:
