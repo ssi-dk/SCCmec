@@ -13,7 +13,7 @@ with open(ignore_file) as f:
 		ignore_list.append(line)
 
 
-
+print(ignore_list)
 with open(fasta_file) as f:
 	line = line.rstrip('\n')
 	if line[0] == '>':
