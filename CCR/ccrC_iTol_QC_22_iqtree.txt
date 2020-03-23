@@ -1,0 +1,414 @@
+DATASET_COLORSTRIP
+#In colored strip datasets, each ID is associated to a color box/strip and can have an optional label. Color can be specified in hexadecimal, RGB or RGBA notation. When using RGB or RGBA notation, you cannot use COMMA as the dataset separator
+
+#lines starting with a hash are comments and ignored during parsing
+
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file (except in the SEPARATOR line, which uses space).
+
+#SEPARATOR TAB
+#SEPARATOR COMMA
+SEPARATOR SPACE
+
+#label is used in the legend table (can be changed later)
+#DATASET_LABEL label1
+#DATASET_LABEL label1
+DATASET_LABEL ccrC_78
+
+#dataset color (can be changed later)
+#COLOR #ff0000
+
+#=================================================================#
+#                    OPTIONAL SETTINGS                            #
+#=================================================================#
+
+#If COLOR_BRANCHES is set to 1, branches of the tree will be colored according to the colors of the strips above the leaves.
+#When all children of a node have the same color, it will be colored the same, ie. the color will propagate inwards towards the root.
+COLOR_BRANCHES 0
+
+#each dataset can have a legend, which is defined below
+#for each row in the legend, there should be one shape, color and label
+#shape should be a number between 1 and 6:
+#1: square
+#2: circle
+#3: star
+#4: right pointing triangle
+#5: left pointing triangle
+#6: checkmark
+
+LEGEND_TITLE Dataset_legend
+LEGEND_SHAPES 1
+#LEGEND_COLORS #ff0000 #00ff00 rgba(0,255,0,0.5) #0000ff
+LEGEND_LABELS ccrA ccrB ccrC ccrN1 ccrN2 ccrN3 ccrN4
+
+#=================================================================#
+#     all other optional settings can be set or changed later     #
+#           in the web interface (under 'Datasets' tab)           #
+#=================================================================#
+
+#width of the colored strip
+#STRIP_WIDTH 25
+
+#left margin, used to increase/decrease the spacing to the next dataset. Can be negative, causing datasets to overlap.
+#MARGIN 0
+
+#border width; if set above 0, a border of specified width (in pixels) will be drawn around the color strip 
+#BORDER_WIDTH 0
+
+#border color; used when BORDER_WIDTH is above 0
+#BORDER_COLOR #0000ff
+
+#always show internal values; if set, values associated to internal nodes will be displayed even if these nodes are not collapsed. It could cause overlapping in the dataset display.
+#SHOW_INTERNAL 0
+
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+DATA
+
+#Examples:
+#assign a red colored strip to leaf 9606, with label 'Human' (label is displayed in the mouseover popups)
+#9606 #ff0000 Human
+
+#assign a green, semi-transparent (alpha 0.5) strip to an internal node, without any label. If 'Show internal values' is set to 'No', this will only be displayed if the node is collapsed. 
+#9606_5664 rgba(0,255,0,0.5)
+
+seq_1_482 #E41A1C ccrC1
+seq_2_345 #E41A1C ccrC1
+seq_3_93 #E41A1C ccrC1
+seq_4_89 #377EB8 ccrC2
+seq_5_80 #E41A1C ccrC1
+seq_6_47 #E41A1C ccrC1
+seq_7_42 #E41A1C ccrC1
+seq_8_41 #E41A1C ccrC1
+seq_9_38 #E41A1C ccrC1
+seq_10_35 #E41A1C ccrC1
+seq_11_34 #E41A1C ccrC1
+seq_12_33 #E41A1C ccrC1
+seq_13_21 #E41A1C ccrC1
+seq_14_17 #E41A1C ccrC1
+seq_15_16 #377EB8 ccrC2
+seq_16_13 #E41A1C ccrC1
+seq_17_13 #4DAF4A ccrCn3
+seq_18_12 #E41A1C ccrC1
+seq_19_12 #E41A1C ccrC1
+seq_20_10 #E41A1C ccrC1
+seq_21_9 #E41A1C ccrC1
+seq_22_8 #E41A1C ccrC1
+seq_23_8 #E41A1C ccrC1
+seq_24_8 #E41A1C ccrC1
+seq_25_8 #E41A1C ccrC1
+seq_26_7 #E41A1C ccrC1
+seq_27_7 #E41A1C ccrC1
+seq_28_6 #E41A1C ccrC1
+seq_29_6 #E41A1C ccrC1
+seq_30_6 #E41A1C ccrC1
+seq_31_6 #E41A1C ccrC1
+seq_32_6 #E41A1C ccrC1
+seq_33_6 #4DAF4A ccrCn3
+seq_34_5 #E41A1C ccrC1
+seq_35_5 #E41A1C ccrC1
+seq_36_5 #E41A1C ccrC1
+seq_37_5 #E41A1C ccrC1
+seq_38_5 #E41A1C ccrC1
+seq_39_5 #4DAF4A ccrCn3
+seq_40_4 #E41A1C ccrC1
+seq_41_4 #E41A1C ccrC1
+seq_42_4 #E41A1C ccrC1
+seq_43_4 #E41A1C ccrC1
+seq_44_4 #E41A1C ccrC1
+seq_45_4 #E41A1C ccrC1
+seq_46_4 #E41A1C ccrC1
+seq_47_4 #E41A1C ccrC1
+seq_48_4 #E41A1C ccrC1
+seq_49_4 #E41A1C ccrC1
+seq_50_3 #E41A1C ccrC1
+seq_51_3 #E41A1C ccrC1
+seq_52_3 #E41A1C ccrC1
+seq_53_3 #E41A1C ccrC1
+seq_54_3 #E41A1C ccrC1
+seq_55_3 #E41A1C ccrC1
+seq_56_3 #E41A1C ccrC1
+seq_57_3 #E41A1C ccrC1
+seq_58_3 #E41A1C ccrC1
+seq_59_3 #E41A1C ccrC1
+seq_60_3 #E41A1C ccrC1
+seq_61_3 #E41A1C ccrC1
+seq_62_3 #E41A1C ccrC1
+seq_63_3 #E41A1C ccrC1
+seq_64_3 #E41A1C ccrC1
+seq_65_3 #E41A1C ccrC1
+seq_66_3 #E41A1C ccrC1
+seq_67_3 #4DAF4A ccrCn3
+seq_68_2 #377EB8 ccrC2
+seq_69_2 #E41A1C ccrC1
+seq_70_2 #E41A1C ccrC1
+seq_71_2 #E41A1C ccrC1
+seq_72_2 #E41A1C ccrC1
+seq_73_2 #E41A1C ccrC1
+seq_74_2 #E41A1C ccrC1
+seq_75_2 #E41A1C ccrC1
+seq_76_2 #E41A1C ccrC1
+seq_77_2 #E41A1C ccrC1
+seq_78_2 #E41A1C ccrC1
+seq_79_2 #E41A1C ccrC1
+seq_80_2 #E41A1C ccrC1
+seq_81_2 #E41A1C ccrC1
+seq_82_2 #E41A1C ccrC1
+seq_83_2 #E41A1C ccrC1
+seq_84_2 #E41A1C ccrC1
+seq_85_2 #E41A1C ccrC1
+seq_86_2 #E41A1C ccrC1
+seq_87_2 #E41A1C ccrC1
+seq_88_2 #E41A1C ccrC1
+seq_89_2 #E41A1C ccrC1
+seq_90_2 #E41A1C ccrC1
+seq_91_2 #E41A1C ccrC1
+seq_92_2 #E41A1C ccrC1
+seq_93_2 #E41A1C ccrC1
+seq_94_2 #E41A1C ccrC1
+seq_95_2 #E41A1C ccrC1
+seq_96_2 #E41A1C ccrC1
+seq_97_2 #E41A1C ccrC1
+seq_98_2 #E41A1C ccrC1
+seq_99_2 #E41A1C ccrC1
+seq_100_2 #E41A1C ccrC1
+seq_101_2 #E41A1C ccrC1
+seq_102_2 #E41A1C ccrC1
+seq_103_2 #E41A1C ccrC1
+seq_104_2 #E41A1C ccrC1
+seq_105_2 #E41A1C ccrC1
+seq_106_2 #E41A1C ccrC1
+seq_107_2 #377EB8 ccrC2
+seq_108_2 #377EB8 ccrC2
+seq_109_2 #377EB8 ccrC2
+seq_110_2 #377EB8 ccrC2
+seq_111_2 #4DAF4A ccrCn3
+seq_112_2 #4DAF4A ccrCn3
+seq_113_2 #4DAF4A ccrCn3
+seq_114_2 #4DAF4A ccrCn3
+seq_115_1 #E41A1C ccrC1
+seq_116_1 #E41A1C ccrC1
+seq_117_1 #E41A1C ccrC1
+seq_118_1 #E41A1C ccrC1
+seq_119_1 #E41A1C ccrC1
+seq_120_1 #E41A1C ccrC1
+seq_121_1 #E41A1C ccrC1
+seq_122_1 #E41A1C ccrC1
+seq_123_1 #E41A1C ccrC1
+seq_124_1 #E41A1C ccrC1
+seq_125_1 #E41A1C ccrC1
+seq_126_1 #E41A1C ccrC1
+seq_127_1 #E41A1C ccrC1
+seq_128_1 #E41A1C ccrC1
+seq_129_1 #E41A1C ccrC1
+seq_130_1 #E41A1C ccrC1
+seq_131_1 #E41A1C ccrC1
+seq_132_1 #E41A1C ccrC1
+seq_133_1 #E41A1C ccrC1
+seq_134_1 #E41A1C ccrC1
+seq_135_1 #E41A1C ccrC1
+seq_136_1 #E41A1C ccrC1
+seq_137_1 #E41A1C ccrC1
+seq_138_1 #E41A1C ccrC1
+seq_139_1 #E41A1C ccrC1
+seq_140_1 #E41A1C ccrC1
+seq_141_1 #E41A1C ccrC1
+seq_142_1 #E41A1C ccrC1
+seq_143_1 #E41A1C ccrC1
+seq_144_1 #E41A1C ccrC1
+seq_145_1 #E41A1C ccrC1
+seq_146_1 #E41A1C ccrC1
+seq_147_1 #E41A1C ccrC1
+seq_148_1 #E41A1C ccrC1
+seq_149_1 #E41A1C ccrC1
+seq_150_1 #E41A1C ccrC1
+seq_151_1 #E41A1C ccrC1
+seq_152_1 #E41A1C ccrC1
+seq_153_1 #E41A1C ccrC1
+seq_154_1 #E41A1C ccrC1
+seq_155_1 #E41A1C ccrC1
+seq_156_1 #E41A1C ccrC1
+seq_157_1 #E41A1C ccrC1
+seq_158_1 #E41A1C ccrC1
+seq_159_1 #E41A1C ccrC1
+seq_160_1 #E41A1C ccrC1
+seq_161_1 #E41A1C ccrC1
+seq_162_1 #E41A1C ccrC1
+seq_163_1 #E41A1C ccrC1
+seq_164_1 #E41A1C ccrC1
+seq_165_1 #E41A1C ccrC1
+seq_166_1 #E41A1C ccrC1
+seq_167_1 #E41A1C ccrC1
+seq_168_1 #E41A1C ccrC1
+seq_169_1 #E41A1C ccrC1
+seq_170_1 #E41A1C ccrC1
+seq_171_1 #E41A1C ccrC1
+seq_172_1 #E41A1C ccrC1
+seq_173_1 #E41A1C ccrC1
+seq_174_1 #E41A1C ccrC1
+seq_175_1 #E41A1C ccrC1
+seq_176_1 #E41A1C ccrC1
+seq_177_1 #E41A1C ccrC1
+seq_178_1 #E41A1C ccrC1
+seq_179_1 #E41A1C ccrC1
+seq_180_1 #E41A1C ccrC1
+seq_181_1 #E41A1C ccrC1
+seq_182_1 #E41A1C ccrC1
+seq_183_1 #E41A1C ccrC1
+seq_184_1 #E41A1C ccrC1
+seq_185_1 #E41A1C ccrC1
+seq_186_1 #E41A1C ccrC1
+seq_187_1 #E41A1C ccrC1
+seq_188_1 #E41A1C ccrC1
+seq_189_1 #E41A1C ccrC1
+seq_190_1 #E41A1C ccrC1
+seq_191_1 #E41A1C ccrC1
+seq_192_1 #E41A1C ccrC1
+seq_193_1 #E41A1C ccrC1
+seq_194_1 #E41A1C ccrC1
+seq_195_1 #E41A1C ccrC1
+seq_196_1 #E41A1C ccrC1
+seq_197_1 #E41A1C ccrC1
+seq_198_1 #E41A1C ccrC1
+seq_199_1 #E41A1C ccrC1
+seq_200_1 #E41A1C ccrC1
+seq_201_1 #E41A1C ccrC1
+seq_202_1 #E41A1C ccrC1
+seq_203_1 #E41A1C ccrC1
+seq_204_1 #E41A1C ccrC1
+seq_205_1 #E41A1C ccrC1
+seq_206_1 #E41A1C ccrC1
+seq_207_1 #E41A1C ccrC1
+seq_208_1 #E41A1C ccrC1
+seq_209_1 #E41A1C ccrC1
+seq_210_1 #E41A1C ccrC1
+seq_211_1 #E41A1C ccrC1
+seq_212_1 #E41A1C ccrC1
+seq_213_1 #E41A1C ccrC1
+seq_214_1 #E41A1C ccrC1
+seq_215_1 #E41A1C ccrC1
+seq_216_1 #E41A1C ccrC1
+seq_217_1 #E41A1C ccrC1
+seq_218_1 #E41A1C ccrC1
+seq_219_1 #E41A1C ccrC1
+seq_220_1 #E41A1C ccrC1
+seq_221_1 #E41A1C ccrC1
+seq_222_1 #E41A1C ccrC1
+seq_223_1 #E41A1C ccrC1
+seq_224_1 #E41A1C ccrC1
+seq_225_1 #E41A1C ccrC1
+seq_226_1 #E41A1C ccrC1
+seq_227_1 #E41A1C ccrC1
+seq_228_1 #E41A1C ccrC1
+seq_229_1 #E41A1C ccrC1
+seq_230_1 #E41A1C ccrC1
+seq_231_1 #E41A1C ccrC1
+seq_232_1 #E41A1C ccrC1
+seq_233_1 #E41A1C ccrC1
+seq_234_1 #E41A1C ccrC1
+seq_235_1 #E41A1C ccrC1
+seq_236_1 #E41A1C ccrC1
+seq_237_1 #E41A1C ccrC1
+seq_238_1 #E41A1C ccrC1
+seq_239_1 #E41A1C ccrC1
+seq_240_1 #E41A1C ccrC1
+seq_241_1 #E41A1C ccrC1
+seq_242_1 #E41A1C ccrC1
+seq_243_1 #E41A1C ccrC1
+seq_244_1 #E41A1C ccrC1
+seq_245_1 #E41A1C ccrC1
+seq_246_1 #E41A1C ccrC1
+seq_247_1 #E41A1C ccrC1
+seq_248_1 #E41A1C ccrC1
+seq_249_1 #E41A1C ccrC1
+seq_250_1 #E41A1C ccrC1
+seq_251_1 #E41A1C ccrC1
+seq_252_1 #E41A1C ccrC1
+seq_253_1 #E41A1C ccrC1
+seq_254_1 #E41A1C ccrC1
+seq_255_1 #E41A1C ccrC1
+seq_256_1 #E41A1C ccrC1
+seq_257_1 #E41A1C ccrC1
+seq_258_1 #E41A1C ccrC1
+seq_259_1 #E41A1C ccrC1
+seq_260_1 #E41A1C ccrC1
+seq_261_1 #E41A1C ccrC1
+seq_262_1 #E41A1C ccrC1
+seq_263_1 #E41A1C ccrC1
+seq_264_1 #E41A1C ccrC1
+seq_265_1 #E41A1C ccrC1
+seq_266_1 #E41A1C ccrC1
+seq_267_1 #E41A1C ccrC1
+seq_268_1 #E41A1C ccrC1
+seq_269_1 #E41A1C ccrC1
+seq_270_1 #E41A1C ccrC1
+seq_271_1 #E41A1C ccrC1
+seq_272_1 #E41A1C ccrC1
+seq_273_1 #E41A1C ccrC1
+seq_274_1 #E41A1C ccrC1
+seq_275_1 #E41A1C ccrC1
+seq_276_1 #E41A1C ccrC1
+seq_277_1 #E41A1C ccrC1
+seq_278_1 #E41A1C ccrC1
+seq_279_1 #E41A1C ccrC1
+seq_280_1 #E41A1C ccrC1
+seq_281_1 #E41A1C ccrC1
+seq_282_1 #E41A1C ccrC1
+seq_283_1 #E41A1C ccrC1
+seq_284_1 #E41A1C ccrC1
+seq_285_1 #E41A1C ccrC1
+seq_286_1 #E41A1C ccrC1
+seq_287_1 #E41A1C ccrC1
+seq_288_1 #E41A1C ccrC1
+seq_289_1 #E41A1C ccrC1
+seq_290_1 #E41A1C ccrC1
+seq_291_1 #E41A1C ccrC1
+seq_292_1 #E41A1C ccrC1
+seq_293_1 #E41A1C ccrC1
+seq_294_1 #E41A1C ccrC1
+seq_295_1 #E41A1C ccrC1
+seq_296_1 #E41A1C ccrC1
+seq_297_1 #E41A1C ccrC1
+seq_298_1 #E41A1C ccrC1
+seq_299_1 #E41A1C ccrC1
+seq_300_1 #E41A1C ccrC1
+seq_301_1 #E41A1C ccrC1
+seq_302_1 #E41A1C ccrC1
+seq_303_1 #E41A1C ccrC1
+seq_304_1 #E41A1C ccrC1
+seq_305_1 #E41A1C ccrC1
+seq_306_1 #E41A1C ccrC1
+seq_307_1 #E41A1C ccrC1
+seq_308_1 #E41A1C ccrC1
+seq_309_1 #377EB8 ccrC2
+seq_310_1 #377EB8 ccrC2
+seq_311_1 #377EB8 ccrC2
+seq_312_1 #377EB8 ccrC2
+seq_313_1 #377EB8 ccrC2
+seq_314_1 #377EB8 ccrC2
+seq_315_1 #377EB8 ccrC2
+seq_316_1 #377EB8 ccrC2
+seq_317_1 #984EA3 ccrCn2
+seq_318_1 #984EA3 ccrCn2
+seq_319_1 #984EA3 ccrCn2
+seq_320_1 #984EA3 ccrCn2
+seq_321_1 #984EA3 ccrCn2
+seq_322_1 #4DAF4A ccrCn3
+seq_323_1 #4DAF4A ccrCn3
+seq_324_1 #4DAF4A ccrCn3
+seq_325_1 #4DAF4A ccrCn3
+seq_326_1 #4DAF4A ccrCn3
+seq_327_1 #4DAF4A ccrCn3
+seq_328_1 #4DAF4A ccrCn3
+seq_329_1 #4DAF4A ccrCn3
+seq_330_1 #4DAF4A ccrCn3
+seq_331_1 #4DAF4A ccrCn3
+seq_332_1 #4DAF4A ccrCn3
+seq_333_1 #4DAF4A ccrCn3
+
