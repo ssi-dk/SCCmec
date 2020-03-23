@@ -29,7 +29,9 @@ for i in range(len(headers)):
 		seq_2_len = len(seq_2.replace('-',''))
 		seq_len = 0
 		for n in range(len(seq_1)):
-			if seq_1[n] != seq_2[n] and seq_1[n].upper() != 'N' and seq_2[n].upper() != 'N' and seq_1[n] != '-' and seq_2[n] != '-':
+			if seq_1[n] != '-' and seq_2[n] != '-'
+			seq_len += 1
+			if seq_1[n] != seq_2[n] and seq_1[n].upper() != 'N' and seq_2[n].upper() != 'N':
 				diff_counts += 1
 		seq_len = min(seq_1_len,seq_2_len)
 		percent_diff = diff_counts/seq_len*100
