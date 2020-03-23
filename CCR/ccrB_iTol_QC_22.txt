@@ -15,7 +15,7 @@ SEPARATOR SPACE
 #label is used in the legend table (can be changed later)
 #DATASET_LABEL label1
 #DATASET_LABEL label1
-DATASET_LABEL ccr haplotype
+DATASET_LABEL ccrB_78
 
 #dataset color (can be changed later)
 #COLOR #ff0000

@@ -3,6 +3,7 @@ library(phytools)
 library(alluvial)
 setwd("/Volumes/data/MPV/projects/SCCmec/CCR")
 setwd("E:/Github/SCCmec/CCR")
+setwd("/Users/thej/Documents/GitHub/SCCmec/CCR")
 
 sp_count_table = read.table("/Volumes/data/DB/refseq/Staphylococcus_species_counts_191128.txt",sep = "\t")
 sp_count_table = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/Staphylococcus_species_counts_191128.txt",sep = "\t")
@@ -201,12 +202,12 @@ for (i in 10:40) {
   g = cutree(fit,h=i)
   v = c(v,length(unique(g)))
 }
-v_B = v
+v_C = v
 
 
 plot(10:40,v)
-ccr_groups = cutree(fit,h=18)
-rect.hclust(fit,h=18)
+ccr_groups = cutree(fit,h=22)
+rect.hclust(fit,h=22)
 tbl$ccrC_group = NA
 new_ccr_count = 1
 unique(ccr_groups)
@@ -245,14 +246,57 @@ for (i in 1:length(allotype_colors)) {
 
 ccrC_uniq_tbl = ccrC_tbl[which(!duplicated(as.vector(ccrC_tbl$uniq_fasta_ID))),]
 
-write.table(ccrC_tbl,"ccrC_allotype_table_QC_18.txt",sep = "\t",quote = FALSE,row.names=FALSE)
-write.table(ccrC_uniq_tbl,"ccrC_allotype_uniq_table_QC_18.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(ccrC_tbl,"ccrC_allotype_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(ccrC_uniq_tbl,"ccrC_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 to_print = paste0(ccrC_uniq_tbl$uniq_fasta_ID,' ',ccrC_uniq_tbl$allotype_color,' ',ccrC_uniq_tbl$ccr_allotype)
-writeLines(to_print,con = "ccrC_allotype_colors_QC_18.txt")
+writeLines(to_print,con = "ccrC_allotype_colors_QC_22.txt")
 
 ccrC_dist_phylo = as.phylo(fit)
 write.tree(ccrC_dist_phylo,file = "ccrC_dist_tree_QC.nwk")
 
+ccrA_tbl_2 = ccrA_tbl
+colnames(ccrA_tbl_2)[8] = "ccrX_group"
+ccrB_tbl_2 = ccrB_tbl
+colnames(ccrB_tbl_2)[8] = "ccrX_group"
+ccrC_tbl_2 = ccrC_tbl
+colnames(ccrC_tbl_2)[8] = "ccrX_group"
+ccr_uniq_all = rbind(ccrA_tbl_2,ccrB_tbl_2,ccrC_tbl_2)
 
-ccr_uniq_all = 
+ccr_uniq_all$source = "RefSeq"
+ccr_uniq_all$source[which(ccr_uniq_all$GCF_ID=="NA_NA")] = "IWG_reference"
+
+
+ccrA_tbl$source = "RefSeq"
+ccrA_tbl$source[which(ccrA_tbl$GCF_ID=="NA_NA")] = "IWG_reference"
+freq_tbl = as.data.frame(table(ccrA_tbl$uniq_ID,ccrA_tbl$source))
+
+ccrA_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrA_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="IWG_reference")]))
+ccrA_uniq_tbl$IWG_reference = 1
+ccrA_uniq_tbl$IWG_reference[which(ccrA_uniq_tbl$IWG_references == 0)] = 0
+
+write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
+
+ccrB_tbl$source = "RefSeq"
+ccrB_tbl$source[which(ccrB_tbl$GCF_ID=="NA_NA")] = "IWG_reference"
+freq_tbl = as.data.frame(table(ccrB_tbl$uniq_ID,ccrB_tbl$source))
+
+ccrB_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrB_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="IWG_reference")]))
+ccrB_uniq_tbl$IWG_reference = 1
+ccrB_uniq_tbl$IWG_reference[which(ccrB_uniq_tbl$IWG_references == 0)] = 0
+
+write.table(ccrB_uniq_tbl,"ccrB_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
+
+ccrC_tbl$source = "RefSeq"
+ccrC_tbl$source[which(ccrC_tbl$GCF_ID=="NA_NA")] = "IWG_reference"
+freq_tbl = as.data.frame(table(ccrC_tbl$uniq_ID,ccrC_tbl$source))
+
+ccrC_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrC_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="IWG_reference")]))
+ccrC_uniq_tbl$IWG_reference = 1
+ccrC_uniq_tbl$IWG_reference[which(ccrC_uniq_tbl$IWG_references == 0)] = 0
+
+write.table(ccrC_uniq_tbl,"ccrC_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
+
 
