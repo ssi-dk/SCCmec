@@ -13,15 +13,14 @@ with open(ignore_file) as f:
 		ignore_list.append(line)
 
 
-print(ignore_list)
 with open(fasta_file) as f:
-	line = line.rstrip('\n')
-	print(line)
-	if line[0] == '>':
-		test = line.split('__')[1]
-		if test in ignore_list:
-			flag = 0
-		else:
-			flag = 1
-	if flag == 1:
-		print(line)
+	for line in f:
+		line = line.rstrip('\n')
+		if line[0] == '>':
+			test = line.split('__')[1]
+			if test in ignore_list:
+				flag = 0
+			else:
+				flag = 1
+		if flag == 1:
+			print(line)
