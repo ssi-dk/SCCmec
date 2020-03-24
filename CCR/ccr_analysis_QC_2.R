@@ -19,10 +19,12 @@ triplet_color_vec = c("#61d2ff","#468bfa","#030bfc","#63ff7d","#23db64","#009133
 #### ccr all ####
 
 tbl = read.table("protein_blast/ccr_all_with_IWG_uniq_table.txt",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
-tbl = read.table("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_all_with_IWG_uniq_table.txt?raw=true",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
+tbl = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/ccr_all_QC_uniq_table.txt",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
+
 
 tbl$uniq_fasta_ID = paste0(as.vector(tbl$uniq_ID),'|',as.vector(tbl$seq_count))
 tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
+all_tbl = tbl
 
 aln = read.dna("protein_blast/ccr_all_uniq_mafft.fasta","fasta")
 aln = read.dna("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_all_uniq_mafft.fasta?raw=true","fasta")
@@ -36,6 +38,44 @@ dist_obj = as.dist(dist_mat)
 fit = hclust(dist_obj)
 
 plot(fit)
+
+
+ccr_groups = cutree(fit,h=49)
+rect.hclust(fit,h=49)
+
+tbl$ccr_group = NA
+for (i in 1:length(ccr_groups)) {
+  name = names(ccr_groups)[i]
+  group = ccr_groups[i]
+  tbl$ccr_group[which(tbl$uniq_fasta_ID==name)] = group
+}
+
+tbl$ccr_group[grep('ccrA',tbl$fasta_ID)]
+tbl$ccr_group[grep('ccrB',tbl$fasta_ID)]
+tbl$ccr_group[grep('ccrC',tbl$fasta_ID)]
+
+tbl$ccr_haplotype = paste0('ccrN',as.vector(tbl$ccr_group))
+tbl$ccr_haplotype[which(tbl$ccr_group==5)] = 'ccrB'
+tbl$ccr_haplotype[which(tbl$ccr_group==6)] = 'ccrA'
+tbl$ccr_haplotype[which(tbl$ccr_group==7)] = 'ccrC'
+table(tbl$ccr_haplotype)
+tbl[grep('IWG',tbl$fasta_ID),]
+tbl$ccr_haplotype = factor(tbl$ccr_haplotype)
+
+
+haplotype_colors = RColorBrewer::brewer.pal(7,"Set1")
+ccr_haplotype_vec = levels(tbl$ccr_haplotype)
+tbl$haplotype_color = NA
+
+for (i in 1:length(haplotype_colors)) {
+  col = haplotype_colors[i]
+  ccr_type = ccr_haplotype_vec[i]
+  tbl$haplotype_color[which(tbl$ccr_haplotype==ccr_type)] = col
+}
+
+uniq_tbl = tbl[which(!duplicated(as.vector(tbl$uniq_fasta_ID))),]
+
+
 
 
 # ccrA #
