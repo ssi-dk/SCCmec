@@ -274,6 +274,8 @@ ccrA_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrA_uniq_tbl$uniq_ID), f
 ccrA_uniq_tbl$IWG_reference = 1
 ccrA_uniq_tbl$IWG_reference[which(ccrA_uniq_tbl$IWG_references == 0)] = 0
 
+ccrA_uniq_tbl$RefSeq_count = unlist(lapply(as.vector(ccrA_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="RefSeq")]))
+
 write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
 
@@ -284,6 +286,8 @@ freq_tbl = as.data.frame(table(ccrB_tbl$uniq_ID,ccrB_tbl$source))
 ccrB_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrB_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="IWG_reference")]))
 ccrB_uniq_tbl$IWG_reference = 1
 ccrB_uniq_tbl$IWG_reference[which(ccrB_uniq_tbl$IWG_references == 0)] = 0
+
+ccrB_uniq_tbl$RefSeq_count = unlist(lapply(as.vector(ccrB_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="RefSeq")]))
 
 write.table(ccrB_uniq_tbl,"ccrB_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
@@ -296,7 +300,25 @@ ccrC_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrC_uniq_tbl$uniq_ID), f
 ccrC_uniq_tbl$IWG_reference = 1
 ccrC_uniq_tbl$IWG_reference[which(ccrC_uniq_tbl$IWG_references == 0)] = 0
 
+ccrC_uniq_tbl$RefSeq_count = unlist(lapply(as.vector(ccrC_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="RefSeq")]))
+
+
 write.table(ccrC_uniq_tbl,"ccrC_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
+ccrA_uniq_tbl$IWG_reference = factor(ccrA_uniq_tbl$IWG_reference)
+
+template = readLines("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/itol_template.txt")
+
+itol_lines = setup_color_lines(ccrA_uniq_tbl$uniq_fasta_ID,ccrA_uniq_tbl$IWG_reference,c("#FFFFFF","#000000"),legend_title = "IWG_reference")
+print_template(template,itol_lines,"ccrA_IWG_ref_colorstrip.txt",legend_title = "IWG_reference")
+
+ccrB_uniq_tbl$IWG_reference = factor(ccrB_uniq_tbl$IWG_reference)
+itol_lines = setup_color_lines(ccrB_uniq_tbl$uniq_fasta_ID,ccrB_uniq_tbl$IWG_reference,c("#FFFFFF","#000000"),legend_title = "IWG_reference")
+print_template(template,itol_lines,"ccrB_IWG_ref_colorstrip.txt",legend_title = "IWG_reference")
+
+ccrC_uniq_tbl$IWG_reference = factor(ccrC_uniq_tbl$IWG_reference)
+itol_lines = setup_color_lines(ccrC_uniq_tbl$uniq_fasta_ID,ccrC_uniq_tbl$IWG_reference,c("#FFFFFF","#000000"),legend_title = "IWG_reference")
+print_template(template,itol_lines,"ccrC_IWG_ref_colorstrip.txt",legend_title = "IWG_reference")
 
 
 
