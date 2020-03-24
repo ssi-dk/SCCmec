@@ -23,11 +23,11 @@ dist_matrix = np.zeros((len(headers),len(headers)))
 
 for i in range(len(headers)):
 	seq_1 = fasta_dict[headers[i]]
-	seq_1_len = len(seq_1.replace('-',''))
 	for j in range(len(headers)):
 		diff_counts = 0
 		seq_2= fasta_dict[headers[j]]
 		seq_2_len = len(seq_2.replace('-',''))
+		seq_len = 0
 		for n in range(len(seq_1)):
 			if seq_1[n] != seq_2[n] and seq_1[n].upper() != 'N' and seq_2[n].upper() != 'N' and seq_1[n] != '-' and seq_2[n] != '-':
 				diff_counts += 1

@@ -17,10 +17,13 @@ with open(fasta_file) as f:
 	for line in f:
 		line = line.rstrip('\n')
 		if line[0] == '>':
-			test = line.split('__')[1]
-			if test in ignore_list:
-				flag = 0
-			else:
+			if line.startswith('>ccr'):
 				flag = 1
+			else:
+				test = line.split('__')[1]
+				if test in ignore_list:
+					flag = 0
+				else:
+					flag = 1
 		if flag == 1:
 			print(line)
