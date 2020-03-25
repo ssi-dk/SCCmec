@@ -42,6 +42,7 @@ plot(fit)
 
 ccr_groups = cutree(fit,h=49)
 rect.hclust(fit,h=49)
+sort(unique(ccr_groups))
 
 tbl$ccr_group = NA
 for (i in 1:length(ccr_groups)) {
@@ -85,7 +86,7 @@ tbl$uniq_fasta_ID = paste0(as.vector(tbl$uniq_ID),'|',as.vector(tbl$seq_count))
 tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
 
 
-dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrA_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrA_pairwise_sim_2.txt",sep = "\t",header=T, row.names=1))
 dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrA_all_uniq_sim.txt",sep = "\t",header=T, row.names=1))
 
 aln_dist = as.dist(dist_mat)
@@ -102,6 +103,7 @@ v_A = v
 
 
 plot(10:40,v)
+plot(fit)
 ccr_groups = cutree(fit,h=22)
 rect.hclust(fit,h=22)
 tbl$ccrA_group = NA
@@ -159,7 +161,7 @@ tbl$uniq_fasta_ID = paste0(as.vector(tbl$uniq_ID),'|',as.vector(tbl$seq_count))
 tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
 
 
-dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrB_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrB_pairwise_sim_2.txt",sep = "\t",header=T, row.names=1))
 dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrB_all_uniq_sim.txt",sep = "\t",header=T, row.names=1))
 
 aln_dist = as.dist(dist_mat)
@@ -176,8 +178,10 @@ v_B = v
 
 
 plot(10:40,v)
-ccr_groups = cutree(fit,h=22)
-rect.hclust(fit,h=22)
+plot(fit)
+h = 20
+ccr_groups = cutree(fit,h=h)
+rect.hclust(fit,h=h)
 tbl$ccrB_group = NA
 new_ccr_count = 1
 unique(ccr_groups)
@@ -342,6 +346,35 @@ ccrC_uniq_tbl$IWG_reference = 1
 ccrC_uniq_tbl$IWG_reference[which(ccrC_uniq_tbl$IWG_references == 0)] = 0
 
 write.table(ccrC_uniq_tbl,"ccrC_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
+print_template = function(template,itol_lines,output_file,legend_title) {
+  template[16] = paste0("DATASET_LABEL\t",legend_title)
+  toprint = c(template,itol_lines$legend_title,itol_lines$label_shapes,itol_lines$label_colors,itol_lines$label_names,"DATA",itol_lines$data_lines)
+  writeLines(toprint,output_file)
+}
+
+
+get_top_n_from_variable = function(variable_factor,n) {
+  variable_vector = as.vector(variable_factor)
+  sorted_table = sort(table(variable_factor),decreasing = T)
+  top_n_groups = names(sorted_table)[1:n]
+  variable_vector[which(!variable_vector %in% top_n_groups)] = "Other"
+  return_factor = factor(variable_vector, levels = c(top_n_groups,"Other"))
+  return(return_factor)
+}
+
+template = readLines("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/itol_template.txt")
+
+itol_lines = setup_color_lines(ccrA_uniq_tbl$uniq_fasta_ID,ccrA_uniq_tbl$IWG_reference,c("#FFFFFF","#000000"),legend_title = "IWG_reference")
+print_template(template,itol_lines,"ccrA_IWG_ref_colorstrip.txt",legend_title = "IWG_reference")
+
+ccrB_uniq_tbl$IWG_reference = factor(ccrB_uniq_tbl$IWG_reference)
+itol_lines = setup_color_lines(ccrB_uniq_tbl$uniq_fasta_ID,ccrB_uniq_tbl$IWG_reference,c("#FFFFFF","#000000"),legend_title = "IWG_reference")
+print_template(template,itol_lines,"ccrB_IWG_ref_colorstrip.txt",legend_title = "IWG_reference")
+
+ccrC_uniq_tbl$IWG_reference = factor(ccrC_uniq_tbl$IWG_reference)
+itol_lines = setup_color_lines(ccrC_uniq_tbl$uniq_fasta_ID,ccrC_uniq_tbl$IWG_reference,c("#FFFFFF","#000000"),legend_title = "IWG_reference")
+print_template(template,itol_lines,"ccrC_IWG_ref_colorstrip.txt",legend_title = "IWG_reference")
 
 
 
