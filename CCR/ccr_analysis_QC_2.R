@@ -19,16 +19,62 @@ triplet_color_vec = c("#61d2ff","#468bfa","#030bfc","#63ff7d","#23db64","#009133
 #### ccr all ####
 
 tbl = read.table("protein_blast/ccr_all_with_IWG_uniq_table.txt",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
-tbl = read.table("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_all_with_IWG_uniq_table.txt?raw=true",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
+tbl = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/ccr_all_QC_uniq_table.txt",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
+
 
 tbl$uniq_fasta_ID = paste0(as.vector(tbl$uniq_ID),'|',as.vector(tbl$seq_count))
 tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
+all_tbl = tbl
 
 aln = read.dna("protein_blast/ccr_all_uniq_mafft.fasta","fasta")
 aln = read.dna("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_all_uniq_mafft.fasta?raw=true","fasta")
 
-dist_mat = read.table("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_muscle_percent_distance.txt?raw=true",sep="\t",header=T,row.names=1)
+dist_mat = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/ccr_all_QC_uniq_sim.txt",sep="\t",header=T,row.names=1)
 dist_mat = as.matrix(dist_mat)
+
+
+dist_obj = as.dist(dist_mat)
+
+fit = hclust(dist_obj)
+
+plot(fit)
+
+
+ccr_groups = cutree(fit,h=49)
+rect.hclust(fit,h=49)
+sort(unique(ccr_groups))
+
+tbl$ccr_group = NA
+for (i in 1:length(ccr_groups)) {
+  name = names(ccr_groups)[i]
+  group = ccr_groups[i]
+  tbl$ccr_group[which(tbl$uniq_fasta_ID==name)] = group
+}
+
+tbl$ccr_group[grep('ccrA',tbl$fasta_ID)]
+tbl$ccr_group[grep('ccrB',tbl$fasta_ID)]
+tbl$ccr_group[grep('ccrC',tbl$fasta_ID)]
+
+tbl$ccr_haplotype = paste0('ccrN',as.vector(tbl$ccr_group))
+tbl$ccr_haplotype[which(tbl$ccr_group==5)] = 'ccrB'
+tbl$ccr_haplotype[which(tbl$ccr_group==6)] = 'ccrA'
+tbl$ccr_haplotype[which(tbl$ccr_group==7)] = 'ccrC'
+table(tbl$ccr_haplotype)
+tbl[grep('IWG',tbl$fasta_ID),]
+tbl$ccr_haplotype = factor(tbl$ccr_haplotype)
+
+
+haplotype_colors = RColorBrewer::brewer.pal(7,"Set1")
+ccr_haplotype_vec = levels(tbl$ccr_haplotype)
+tbl$haplotype_color = NA
+
+for (i in 1:length(haplotype_colors)) {
+  col = haplotype_colors[i]
+  ccr_type = ccr_haplotype_vec[i]
+  tbl$haplotype_color[which(tbl$ccr_haplotype==ccr_type)] = col
+}
+
+uniq_tbl = tbl[which(!duplicated(as.vector(tbl$uniq_fasta_ID))),]
 
 
 
@@ -40,7 +86,7 @@ tbl$uniq_fasta_ID = paste0(as.vector(tbl$uniq_ID),'|',as.vector(tbl$seq_count))
 tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
 
 
-dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrA_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrA_pairwise_sim_2.txt",sep = "\t",header=T, row.names=1))
 dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrA_all_uniq_sim.txt",sep = "\t",header=T, row.names=1))
 
 aln_dist = as.dist(dist_mat)
@@ -57,6 +103,7 @@ v_A = v
 
 
 plot(10:40,v)
+plot(fit)
 ccr_groups = cutree(fit,h=22)
 rect.hclust(fit,h=22)
 tbl$ccrA_group = NA
@@ -114,7 +161,7 @@ tbl$uniq_fasta_ID = paste0(as.vector(tbl$uniq_ID),'|',as.vector(tbl$seq_count))
 tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
 
 
-dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrB_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrB_pairwise_sim_2.txt",sep = "\t",header=T, row.names=1))
 dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrB_all_uniq_sim.txt",sep = "\t",header=T, row.names=1))
 
 aln_dist = as.dist(dist_mat)
@@ -131,8 +178,10 @@ v_B = v
 
 
 plot(10:40,v)
-ccr_groups = cutree(fit,h=22)
-rect.hclust(fit,h=22)
+plot(fit)
+h = 20
+ccr_groups = cutree(fit,h=h)
+rect.hclust(fit,h=h)
 tbl$ccrB_group = NA
 new_ccr_count = 1
 unique(ccr_groups)
@@ -274,8 +323,6 @@ ccrA_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrA_uniq_tbl$uniq_ID), f
 ccrA_uniq_tbl$IWG_reference = 1
 ccrA_uniq_tbl$IWG_reference[which(ccrA_uniq_tbl$IWG_references == 0)] = 0
 
-ccrA_uniq_tbl$RefSeq_count = unlist(lapply(as.vector(ccrA_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="RefSeq")]))
-
 write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
 
@@ -286,8 +333,6 @@ freq_tbl = as.data.frame(table(ccrB_tbl$uniq_ID,ccrB_tbl$source))
 ccrB_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrB_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="IWG_reference")]))
 ccrB_uniq_tbl$IWG_reference = 1
 ccrB_uniq_tbl$IWG_reference[which(ccrB_uniq_tbl$IWG_references == 0)] = 0
-
-ccrB_uniq_tbl$RefSeq_count = unlist(lapply(as.vector(ccrB_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="RefSeq")]))
 
 write.table(ccrB_uniq_tbl,"ccrB_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
@@ -300,12 +345,23 @@ ccrC_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrC_uniq_tbl$uniq_ID), f
 ccrC_uniq_tbl$IWG_reference = 1
 ccrC_uniq_tbl$IWG_reference[which(ccrC_uniq_tbl$IWG_references == 0)] = 0
 
-ccrC_uniq_tbl$RefSeq_count = unlist(lapply(as.vector(ccrC_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="RefSeq")]))
-
-
 write.table(ccrC_uniq_tbl,"ccrC_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
-ccrA_uniq_tbl$IWG_reference = factor(ccrA_uniq_tbl$IWG_reference)
+print_template = function(template,itol_lines,output_file,legend_title) {
+  template[16] = paste0("DATASET_LABEL\t",legend_title)
+  toprint = c(template,itol_lines$legend_title,itol_lines$label_shapes,itol_lines$label_colors,itol_lines$label_names,"DATA",itol_lines$data_lines)
+  writeLines(toprint,output_file)
+}
+
+
+get_top_n_from_variable = function(variable_factor,n) {
+  variable_vector = as.vector(variable_factor)
+  sorted_table = sort(table(variable_factor),decreasing = T)
+  top_n_groups = names(sorted_table)[1:n]
+  variable_vector[which(!variable_vector %in% top_n_groups)] = "Other"
+  return_factor = factor(variable_vector, levels = c(top_n_groups,"Other"))
+  return(return_factor)
+}
 
 template = readLines("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/itol_template.txt")
 
