@@ -64,3 +64,21 @@ raxmlHPC -s ccr_all_QC_uniq_aln.phy -n ccr_all_QC_uniq_aln_raxML.nwk -m GTRCAT -
 Partition: 0 with name: No Name Provided
 Base frequencies: 0.386 0.176 0.167 0.271 
 
+Inference[0]: Time 4556.622246 CAT-based likelihood -216811.895799, best rearrangement setting 25
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 1.585119 3.234555 0.907006 1.246152 4.455128 1.000000 
+
+
+Conducting final model optimizations on all 1 trees under GAMMA-based models ....
+
+Inference[0] final GAMMA-based Likelihood: -218407.039660 tree written to file /srv/data/MPV/projects/git.repositories/SCCmec/CCR/fastas/raxML/RAxML_result.ccr_all_QC_uniq_aln_raxML.nwk
+
+
+Starting final GAMMA-based thorough Optimization on tree 0 likelihood -218407.039660 .... 
+
+Final GAMMA-based Score of best tree -218402.374870
+
+Program execution info written to /srv/data/MPV/projects/git.repositories/SCCmec/CCR/fastas/raxML/RAxML_info.ccr_all_QC_uniq_aln_raxML.nwk
+Best-scoring ML tree written to: /srv/data/MPV/projects/git.repositories/SCCmec/CCR/fastas/raxML/RAxML_bestTree.ccr_all_QC_uniq_aln_raxML.nwk
+
+Overall execution time: 6411.715801 secs or 1.781032 hours or 0.074210 days
+

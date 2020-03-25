@@ -1,0 +1,85 @@
+Option -T does not have any effect with the sequential or parallel MPI version.
+It is used to specify the number of threads for the Pthreads-based parallelization
+
+
+IMPORTANT WARNING: Sequences seq_448|2 and seq_515|1 are exactly identical
+
+IMPORTANT WARNING
+Found 1 sequence that is exactly identical to other sequences in the alignment.
+Normally they should be excluded from the analysis.
+
+Just in case you might need it, an alignment file with 
+sequence duplicates removed is printed to file ccr_all_QC_uniq_aln.phy.reduced
+
+
+Using BFGS method to optimize GTR rate parameters, to disable this specify "--no-bfgs" 
+
+
+
+This is RAxML version 8.2.10 released by Alexandros Stamatakis on March 2017.
+
+With greatly appreciated code contributions by:
+Andre Aberer      (HITS)
+Simon Berger      (HITS)
+Alexey Kozlov     (HITS)
+Kassian Kobert    (HITS)
+David Dao         (KIT and HITS)
+Sarah Lutteropp   (KIT and HITS)
+Nick Pattengale   (Sandia)
+Wayne Pfeiffer    (SDSC)
+Akifumi S. Tanabe (NRIFS)
+Charlie Taylor    (UF)
+
+
+Alignment has 2283 distinct alignment patterns
+
+Proportion of gaps and completely undetermined characters in this alignment: 38.75%
+
+RAxML rapid hill-climbing mode
+
+Using 1 distinct models/data partitions with joint branch length optimization
+
+
+Executing 1 inferences on the original alignment using 1 distinct randomized MP trees
+
+All free model parameters will be estimated by RAxML
+ML estimate of 25 per site rate categories
+
+Likelihood of final tree will be evaluated and optimized under GAMMA
+
+GAMMA Model parameters will be estimated up to an accuracy of 0.1000000000 Log Likelihood units
+
+Partition: 0
+Alignment Patterns: 2283
+Name: No Name Provided
+DataType: DNA
+Substitution Matrix: GTR
+
+
+
+
+RAxML was called as follows:
+
+raxmlHPC -s ccr_all_QC_uniq_aln.phy -n ccr_all_QC_uniq_aln_raxML.nwk -m GTRCAT --bootstop-perms=100 -T 4 -p 10 
+
+
+Partition: 0 with name: No Name Provided
+Base frequencies: 0.386 0.176 0.167 0.271 
+
+Inference[0]: Time 4556.622246 CAT-based likelihood -216811.895799, best rearrangement setting 25
+
+
+Conducting final model optimizations on all 1 trees under GAMMA-based models ....
+
+Inference[0] final GAMMA-based Likelihood: -218407.039660 tree written to file /srv/data/MPV/projects/git.repositories/SCCmec/CCR/fastas/raxML/RAxML_result.ccr_all_QC_uniq_aln_raxML.nwk
+
+
+Starting final GAMMA-based thorough Optimization on tree 0 likelihood -218407.039660 .... 
+
+Final GAMMA-based Score of best tree -218402.374870
+
+Program execution info written to /srv/data/MPV/projects/git.repositories/SCCmec/CCR/fastas/raxML/RAxML_info.ccr_all_QC_uniq_aln_raxML.nwk
+Best-scoring ML tree written to: /srv/data/MPV/projects/git.repositories/SCCmec/CCR/fastas/raxML/RAxML_bestTree.ccr_all_QC_uniq_aln_raxML.nwk
+
+Overall execution time: 6411.715801 secs or 1.781032 hours or 0.074210 days
+
