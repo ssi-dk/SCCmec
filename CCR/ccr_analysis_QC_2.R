@@ -329,16 +329,18 @@ head(ccr_uniq_all)
 
 all_tbl$source = "RefSeq"
 all_tbl$source[which(all_tbl$GCF_ID=="NA_NA")] = "IWG_reference"
-freq_tbl = as.data.frame(table(all_tbl$uniq_ID,all_tbl$source))
 
+freq_tbl = as.data.frame(table(all_tbl$uniq_ID,all_tbl$source))
 all_tbl_uniq$IWG_references = unlist(lapply(as.vector(all_tbl_uniq$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="IWG_reference")]))
 all_tbl_uniq$IWG_reference = 1
 all_tbl_uniq$IWG_reference[which(all_tbl_uniq$IWG_references == 0)] = 0
 
-write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+all_tbl_uniq$RefSeq_count = unlist(lapply(as.vector(all_tbl_uniq$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="RefSeq")]))
+
+write.table(all_tbl_uniq,"ccr_table_uniq_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
 
-write.
+
 
 ccrA_tbl$source = "RefSeq"
 ccrA_tbl$source[which(ccrA_tbl$GCF_ID=="NA_NA")] = "IWG_reference"
@@ -372,6 +374,26 @@ ccrC_uniq_tbl$IWG_reference[which(ccrC_uniq_tbl$IWG_references == 0)] = 0
 
 write.table(ccrC_uniq_tbl,"ccrC_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
+
+setup_color_lines = function(ID_vector,variable_factor,colors,legend_title) {
+  colors = colors[1:length(levels(variable_factor))]
+  lvls = levels(variable_factor)
+  variable_vector = as.vector(variable_factor)
+  color_vector = variable_vector
+  for (i in 1:length(lvls)) {
+    color_vector[which(variable_vector==lvls[i])] = colors[i]
+  }
+  itol_lines = paste0(ID_vector,"\t",color_vector,"\t",variable_vector)
+  title_line = paste0("LEGEND_TITLE\t",legend_title)
+  label_color_vec = c("LEGEND_COLORS",colors)
+  label_name_vec = c("LEGEND_LABELS",lvls)
+  label_shape_vec = c("LEGEND_SHAPES",rep(1,length(lvls)))
+  label_color_line = paste0(label_color_vec, collapse = "\t")
+  label_name_line = paste0(label_name_vec, collapse = "\t")
+  label_shape_line = paste0(label_shape_vec, collapse = "\t")
+  return(list('legend_title'=title_line,'label_shapes'=label_shape_line,'label_colors'=label_color_line,'label_names'=label_name_line,'data_lines'=itol_lines))
+}
+
 print_template = function(template,itol_lines,output_file,legend_title) {
   template[16] = paste0("DATASET_LABEL\t",legend_title)
   toprint = c(template,itol_lines$legend_title,itol_lines$label_shapes,itol_lines$label_colors,itol_lines$label_names,"DATA",itol_lines$data_lines)
@@ -388,7 +410,13 @@ get_top_n_from_variable = function(variable_factor,n) {
   return(return_factor)
 }
 
+
+d_tbl = read.table("ccr_table_uniq_QC_22.txt", sep = "\t", header=T,comment.char = "",quote = "")
+
 template = readLines("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/itol_template.txt")
+
+itol_lines = setup_color_lines(d_tbl$uniq_fasta_ID,d_tbl$ccr_type,RColorBrewer::brewer.pal(11,"Paired"),legend_title = "ccr_type")
+print_template(template,itol_lines,"ccr_type_all_colorstrip.txt",legend_title = "ccr_type")
 
 itol_lines = setup_color_lines(ccrA_uniq_tbl$uniq_fasta_ID,ccrA_uniq_tbl$IWG_reference,c("#FFFFFF","#000000"),legend_title = "IWG_reference")
 print_template(template,itol_lines,"ccrA_IWG_ref_colorstrip.txt",legend_title = "IWG_reference")
