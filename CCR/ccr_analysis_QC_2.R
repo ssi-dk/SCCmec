@@ -40,8 +40,8 @@ fit = hclust(dist_obj)
 plot(fit)
 
 
-ccr_groups = cutree(fit,h=49)
-rect.hclust(fit,h=49)
+ccr_groups = cutree(fit,h=50)
+rect.hclust(fit,h=50)
 sort(unique(ccr_groups))
 
 tbl$ccr_group = NA
@@ -55,28 +55,29 @@ tbl$ccr_group[grep('ccrA',tbl$fasta_ID)]
 tbl$ccr_group[grep('ccrB',tbl$fasta_ID)]
 tbl$ccr_group[grep('ccrC',tbl$fasta_ID)]
 
-tbl$ccr_haplotype = paste0('ccrN',as.vector(tbl$ccr_group))
-tbl$ccr_haplotype[which(tbl$ccr_group==5)] = 'ccrB'
-tbl$ccr_haplotype[which(tbl$ccr_group==6)] = 'ccrA'
-tbl$ccr_haplotype[which(tbl$ccr_group==7)] = 'ccrC'
-table(tbl$ccr_haplotype)
+tbl$ccr_type = paste0('ccrN',as.vector(tbl$ccr_group))
+tbl$ccr_type[which(tbl$ccr_group==9)] = 'ccrA'
+tbl$ccr_type[which(tbl$ccr_group==11)] = 'ccrB'
+tbl$ccr_type[which(tbl$ccr_group==8)] = 'ccrC'
+table(tbl$ccr_type)
 tbl[grep('IWG',tbl$fasta_ID),]
-tbl$ccr_haplotype = factor(tbl$ccr_haplotype)
+tbl$ccr_type = factor(tbl$ccr_type)
 
 
-haplotype_colors = RColorBrewer::brewer.pal(7,"Set1")
-ccr_haplotype_vec = levels(tbl$ccr_haplotype)
-tbl$haplotype_color = NA
+haplotype_colors = RColorBrewer::brewer.pal(11,"Paired")
+ccr_type_vec = levels(tbl$ccr_type)
+tbl$type_color = NA
 
 for (i in 1:length(haplotype_colors)) {
   col = haplotype_colors[i]
-  ccr_type = ccr_haplotype_vec[i]
-  tbl$haplotype_color[which(tbl$ccr_haplotype==ccr_type)] = col
+  ccr_type = ccr_type_vec[i]
+  tbl$type_color[which(tbl$ccr_type==ccr_type)] = col
 }
 
 uniq_tbl = tbl[which(!duplicated(as.vector(tbl$uniq_fasta_ID))),]
 
-
+all_tbl = tbl
+all_tbl_uniq = uniq_tbl
 
 
 # ccrA #
@@ -179,7 +180,7 @@ v_B = v
 
 plot(10:40,v)
 plot(fit)
-h = 20
+h = 22
 ccr_groups = cutree(fit,h=h)
 rect.hclust(fit,h=h)
 tbl$ccrB_group = NA
@@ -309,11 +310,35 @@ ccrB_tbl_2 = ccrB_tbl
 colnames(ccrB_tbl_2)[8] = "ccrX_group"
 ccrC_tbl_2 = ccrC_tbl
 colnames(ccrC_tbl_2)[8] = "ccrX_group"
-ccr_uniq_all = rbind(ccrA_tbl_2,ccrB_tbl_2,ccrC_tbl_2)
+ccr_all = rbind(ccrA_tbl_2,ccrB_tbl_2,ccrC_tbl_2)
 
-ccr_uniq_all$source = "RefSeq"
-ccr_uniq_all$source[which(ccr_uniq_all$GCF_ID=="NA_NA")] = "IWG_reference"
+ccr_all$source = "RefSeq"
+ccr_all$source[which(ccr_all$GCF_ID=="NA_NA")] = "IWG_reference"
 
+ccr_uniq_all = ccr_all[!duplicated(ccr_all$seq),]
+
+match_idx = match(as.vector(all_tbl_uniq$seq),as.vector(ccr_uniq_all$seq))
+
+all_tbl_uniq$ccr_allotype = as.vector(ccr_uniq_all$ccr_allotype)[match_idx]
+all_tbl_uniq$uniq_fasta_ID_split = as.vector(ccr_uniq_all$uniq_fasta_ID)[match_idx]
+all_tbl_uniq$source = as.vector(ccr_uniq_all$source)[match_idx]
+all_tbl_uniq$source[which(is.na(all_tbl_uniq$source))] = "RefSeq"
+
+head(all_tbl_uniq)
+head(ccr_uniq_all)
+
+all_tbl$source = "RefSeq"
+all_tbl$source[which(all_tbl$GCF_ID=="NA_NA")] = "IWG_reference"
+freq_tbl = as.data.frame(table(all_tbl$uniq_ID,all_tbl$source))
+
+all_tbl_uniq$IWG_references = unlist(lapply(as.vector(all_tbl_uniq$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="IWG_reference")]))
+all_tbl_uniq$IWG_reference = 1
+all_tbl_uniq$IWG_reference[which(all_tbl_uniq$IWG_references == 0)] = 0
+
+write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
+
+write.
 
 ccrA_tbl$source = "RefSeq"
 ccrA_tbl$source[which(ccrA_tbl$GCF_ID=="NA_NA")] = "IWG_reference"
