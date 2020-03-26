@@ -79,6 +79,9 @@ uniq_tbl = tbl[which(!duplicated(as.vector(tbl$uniq_fasta_ID))),]
 all_tbl = tbl
 all_tbl_uniq = uniq_tbl
 
+ccr_dist_phylo = as.phylo(fit)
+write.tree(ccr_dist_phylo,file = "ccr_all_dist_tree_QC.nwk")
+
 
 # ccrA #
 
@@ -304,6 +307,21 @@ writeLines(to_print,con = "ccrC_allotype_colors_QC_22.txt")
 ccrC_dist_phylo = as.phylo(fit)
 write.tree(ccrC_dist_phylo,file = "ccrC_dist_tree_QC.nwk")
 
+
+
+
+######### data tables ##########
+
+get_top_n_from_variable = function(variable_factor,n) {
+  variable_vector = as.vector(variable_factor)
+  sorted_table = sort(table(variable_factor),decreasing = T)
+  top_n_groups = names(sorted_table)[1:n]
+  variable_vector[which(!variable_vector %in% top_n_groups)] = "Other"
+  return_factor = factor(variable_vector, levels = c(top_n_groups,"Other"))
+  return(return_factor)
+}
+
+
 ccrA_tbl_2 = ccrA_tbl
 colnames(ccrA_tbl_2)[8] = "ccrX_group"
 ccrB_tbl_2 = ccrB_tbl
@@ -337,6 +355,25 @@ all_tbl_uniq$IWG_reference[which(all_tbl_uniq$IWG_references == 0)] = 0
 
 all_tbl_uniq$RefSeq_count = unlist(lapply(as.vector(all_tbl_uniq$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="RefSeq")]))
 
+
+match_idx = match(as.vector(all_tbl$seq),as.vector(ccr_all$seq))
+all_tbl$ccr_allotype = as.vector(ccr_all$ccr_allotype)[match_idx]
+all_tbl$uniq_fasta_ID_split = as.vector(ccr_all$uniq_fasta_ID)[match_idx]
+
+all_tbl$species = unlist(lapply(as.vector(all_tbl$fasta_ID), function(x) strsplit(x,'__')[[1]][1]))
+all_tbl$species[which(all_tbl$GCF_ID=="NA_NA")] = "IWG_reference"
+
+all_tbl$species_simplified = get_top_n_from_variable(all_tbl$species,13)
+
+sp_tbl = as.data.frame(table(all_tbl$uniq_ID,all_tbl$species))
+sp_tbl = sp_tbl[which(sp_tbl$Freq>0),]
+all_tbl_uniq$species =unlist(lapply(as.vector(all_tbl_uniq$uniq_ID), function(x) paste0(as.vector(sp_tbl$Var2)[which(sp_tbl$Var1==x)],collapse = ',')))
+sp_tbl = as.data.frame(table(all_tbl$uniq_ID,all_tbl$species_simplified))
+sp_tbl = sp_tbl[which(sp_tbl$Freq>0),]
+all_tbl_uniq$species_simplified =unlist(lapply(as.vector(all_tbl_uniq$uniq_ID), function(x) paste0(as.vector(sp_tbl$Var2)[which(sp_tbl$Var1==x)],collapse = ',')))
+
+write.table(all_tbl,"ccr_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
 write.table(all_tbl_uniq,"ccr_table_uniq_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
 
@@ -349,6 +386,9 @@ freq_tbl = as.data.frame(table(ccrA_tbl$uniq_ID,ccrA_tbl$source))
 ccrA_uniq_tbl$IWG_references = unlist(lapply(as.vector(ccrA_uniq_tbl$uniq_ID), function(x) freq_tbl$Freq[which(freq_tbl$Var1 == x & freq_tbl$Var2=="IWG_reference")]))
 ccrA_uniq_tbl$IWG_reference = 1
 ccrA_uniq_tbl$IWG_reference[which(ccrA_uniq_tbl$IWG_references == 0)] = 0
+
+ccrA_tbl$species = unlist(lapply(as.vector(ccrA_tbl$fasta_ID), function(x) strsplit(x,'__')[[1]][1]))
+ccrA_tbl$species[which(ccrA_tbl$GCF_ID=="NA_NA")] = "IWG_reference"
 
 write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
