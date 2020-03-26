@@ -29,11 +29,29 @@ print_template(template,itol_lines,"ccr_type_all_colorstrip.txt",legend_title = 
 
 #### ccrA ####
 
-ccrA_tbl = read.table("ccrA_allotype_uniq_table_QC_22.txt", sep = "\t", header=T,comment.char = "",quote = "")
+ccrA_tbl = d_tbl[which(d_tbl$ccr_type=="ccrA"),]
 
-plot_factor = ccrA_tbl$ccr_allotype
+plot_factor = factor(as.vector(ccrA_tbl$ccr_allotype))
 levels(plot_factor)
 length(levels(plot_factor))
 
-itol_lines = setup_color_lines(ccrA_tbl$uniq_fasta_ID,plot_factor,c(RColorBrewer::brewer.pal(12,"Paired"),"#A9A9A9"),legend_title = "ccrA allotype")
+itol_lines = setup_color_lines(ccrA_tbl$uniq_fasta_ID_split,plot_factor,c(RColorBrewer::brewer.pal(12,"Paired"),"#A9A9A9"),legend_title = "ccrA allotype")
 print_template(template,itol_lines,"colorstrip_ccrA_allotype.txt",legend_title = "ccrA allotype")
+
+itol_lines = setup_color_lines(ccrA_tbl$uniq_fasta_ID_split,ccrA_tbl$source,c("#000000","#FFFFFF"),legend_title = "IWG reference")
+print_template(template,itol_lines,"colorstrip_ccrA_IWGref.txt",legend_title = "IWG_reference")
+
+
+#### ccrB ####
+
+ccrB_tbl = d_tbl[which(d_tbl$ccr_type=="ccrB"),]
+
+plot_factor = factor(as.vector(ccrB_tbl$ccr_allotype))
+levels(plot_factor)
+length(levels(plot_factor))
+
+itol_lines = setup_color_lines(ccrB_tbl$uniq_fasta_ID_split,plot_factor,c(RColorBrewer::brewer.pal(11,"Paired")),legend_title = "ccrB allotype")
+print_template(template,itol_lines,"colorstrip_ccrB_allotype.txt",legend_title = "ccrB allotype")
+
+itol_lines = setup_color_lines(ccrB_tbl$uniq_fasta_ID_split,ccrB_tbl$source,c("#000000","#FFFFFF"),legend_title = "IWG reference")
+print_template(template,itol_lines,"colorstrip_ccrB_IWGref.txt",legend_title = "IWG_reference")
