@@ -20,11 +20,29 @@ template = readLines("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/ito
 
 #### all ###
 
-d_tbl = read.table("ccr_table_uniq_QC_22.txt", sep = "\t", header=T,comment.char = "",quote = "")
+uniq_tbl = read.table("ccr_table_uniq_QC_22.txt", sep = "\t", header=T,comment.char = "",quote = "")
+tbl = read.table("ccr_table_QC_22.txt", sep = "\t", header=T,comment.char = "",quote = "")
 
-
-itol_lines = setup_color_lines(d_tbl$uniq_fasta_ID,d_tbl$ccr_type,RColorBrewer::brewer.pal(11,"Paired"),legend_title = "ccr_type")
+itol_lines = setup_color_lines(uniq_tbl$uniq_fasta_ID,uniq_tbl$ccr_type,RColorBrewer::brewer.pal(11,"Paired"),legend_title = "ccr_type")
 print_template(template,itol_lines,"ccr_type_all_colorstrip.txt",legend_title = "ccr_type")
+
+
+
+#### investigate ccrB outliers ####
+
+outlier_IDs = unique(as.vector(tbl$fasta_ID[which(tbl$ccr_allotype %in% c("ccrBn1","ccrBn2"))]))
+outlier_ccrA_tbl = tbl[which(tbl$fasta_ID %in% outlier_IDs & tbl$ccr_type == "ccrA"),]
+
+table(as.vector(outlier_ccrA_tbl$fasta_ID),as.vector(outlier_ccrA_tbl$ccr_allotype))
+
+outlier_ccrB_tbl = tbl[which(tbl$fasta_ID %in% outlier_IDs & tbl$ccr_type == "ccrB"),]
+table(as.vector(outlier_ccrB_tbl$fasta_ID),as.vector(outlier_ccrB_tbl$ccr_allotype))
+
+outlier_ccrC_tbl = tbl[which(tbl$fasta_ID %in% outlier_IDs & tbl$ccr_type == "ccrC"),]
+table(as.vector(outlier_ccrC_tbl$fasta_ID),as.vector(outlier_ccrC_tbl$ccr_allotype))
+
+outlier_tbl = tbl[which(tbl$fasta_ID %in% outlier_IDs),]
+table(as.vector(outlier_tbl$fasta_ID),as.vector(outlier_tbl$ccr_allotype))
 
 
 #### ccrA ####
