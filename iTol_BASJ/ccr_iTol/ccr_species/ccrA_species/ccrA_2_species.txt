@@ -1,0 +1,123 @@
+DATASET_COLORSTRIP
+#In colored strip datasets, each ID is associated to a color box/strip and can have an optional label. Color can be specified in hexadecimal, RGB or RGBA notation. When using RGB or RGBA notation, you cannot use COMMA as the dataset separator
+
+#lines starting with a hash are comments and ignored during parsing
+
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file (except in the SEPARATOR line, which uses space).
+
+SEPARATOR TAB
+#SEPARATOR COMMA
+#SEPARATOR SPACE
+
+#label is used in the legend table (can be changed later)
+DATASET_LABEL	2_species
+
+#dataset color (can be changed later)
+COLOR	#ff0000
+
+
+#=================================================================#
+#                    OPTIONAL SETTINGS                            #
+#=================================================================#
+
+#If COLOR_BRANCHES is set to 1, branches of the tree will be colored according to the colors of the strips above the leaves.
+#When all children of a node have the same color, it will be colored the same, ie. the color will propagate inwards towards the root.
+COLOR_BRANCHES	0
+
+#each dataset can have a legend, which is defined below
+#for each row in the legend, there should be one shape, color and label
+#shape should be a number between 1 and 6:
+#1: square
+#2: circle
+#3: star
+#4: right pointing triangle
+#5: left pointing triangle
+#6: checkmark
+
+LEGEND_TITLE	Species
+LEGEND_SHAPES	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+LEGEND_COLORS	#dd0d0d	#0b0d89	#029600	#a6cee3	#0ccad1	#ef86e6	#a6ada6	#f9c507	#cab2d6	#b2df8a	#664700	#7F1D6C	#f7850a	#656516	#000000
+LEGEND_LABELS	aureus	epidermidis	haemolyticus	pseudintermedius	capitis	hominis	argenteus	equorum	carnosus	saprophyticus	Other	arlettae	chromogenes	cohnii	IWG
+
+
+#=================================================================#
+#     all other optional settings can be set or changed later     #
+#           in the web interface (under 'Datasets' tab)           #
+#=================================================================#
+
+#width of the colored strip
+STRIP_WIDTH	30
+
+
+#left margin, used to increase/decrease the spacing to the next dataset. Can be negative, causing datasets to overlap.
+#MARGIN	0
+
+#border width; if set above 0, a border of specified width (in pixels) will be drawn around the color strip 
+#BORDER_WIDTH	0
+
+#border color; used when BORDER_WIDTH is above 0
+#BORDER_COLOR #0000ff
+
+#always show internal values; if set, values associated to internal nodes will be displayed even if these nodes are not collapsed. It could cause overlapping in the dataset display.
+#SHOW_INTERNAL	0
+
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+DATA
+
+#Examples:
+#assign a red colored strip to leaf 9606, with label 'Human' (label is displayed in the mouseover popups)
+#9606 #ff0000 Human
+
+#assign a green, semi-transparent (alpha 0.5) strip to an internal node, without any label. If 'Show internal values' is set to 'No', this will only be displayed if the node is collapsed. 
+#9606|5664 rgba(0,255,0,0.5)
+
+seq_1|2447	#000000
+seq_6|283	#000000
+seq_15|36	#000000
+seq_31|12	#000000
+seq_41|9	#000000
+seq_43|8	#000000
+seq_68|5	#000000
+seq_69|5	#000000
+seq_120|2	#000000
+seq_149|2	#000000
+seq_111|3	#029600
+seq_163|2	#029600
+seq_2|2024	#0b0d89
+seq_3|1330	#0b0d89
+seq_4|370	#0b0d89
+seq_5|334	#0b0d89
+seq_7|255	#0b0d89
+seq_8|202	#0b0d89
+seq_16|32	#0b0d89
+seq_20|16	#0b0d89
+seq_26|13	#0b0d89
+seq_29|12	#0b0d89
+seq_30|12	#0b0d89
+seq_37|10	#0b0d89
+seq_38|10	#0b0d89
+seq_53|6	#0b0d89
+seq_55|6	#0b0d89
+seq_57|6	#0b0d89
+seq_95|3	#0b0d89
+seq_97|3	#0b0d89
+seq_19|17	#664700
+seq_67|5	#664700
+seq_162|2	#664700
+seq_10|58	#a6ada6
+seq_11|54	#a6ada6
+seq_13|40	#a6cee3
+seq_18|20	#ef86e6
+seq_63|6	#ef86e6
+seq_90|3	#ef86e6
+seq_121|2	#ef86e6
+seq_122|2	#ef86e6
+seq_165|2	#f9c507

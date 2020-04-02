@@ -1,0 +1,548 @@
+DATASET_COLORSTRIP
+#In colored strip datasets, each ID is associated to a color box/strip and can have an optional label. Color can be specified in hexadecimal, RGB or RGBA notation. When using RGB or RGBA notation, you cannot use COMMA as the dataset separator
+
+#lines starting with a hash are comments and ignored during parsing
+
+#=================================================================#
+#                    MANDATORY SETTINGS                           #
+#=================================================================#
+#select the separator which is used to delimit the data below (TAB,SPACE or COMMA).This separator must be used throughout this file (except in the SEPARATOR line, which uses space).
+
+SEPARATOR TAB
+#SEPARATOR COMMA
+#SEPARATOR SPACE
+
+#label is used in the legend table (can be changed later)
+DATASET_LABEL	1_species
+
+#dataset color (can be changed later)
+COLOR	#ff0000
+
+
+#=================================================================#
+#                    OPTIONAL SETTINGS                            #
+#=================================================================#
+
+#If COLOR_BRANCHES is set to 1, branches of the tree will be colored according to the colors of the strips above the leaves.
+#When all children of a node have the same color, it will be colored the same, ie. the color will propagate inwards towards the root.
+COLOR_BRANCHES	0
+
+#each dataset can have a legend, which is defined below
+#for each row in the legend, there should be one shape, color and label
+#shape should be a number between 1 and 6:
+#1: square
+#2: circle
+#3: star
+#4: right pointing triangle
+#5: left pointing triangle
+#6: checkmark
+
+LEGEND_TITLE	Species
+LEGEND_SHAPES	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1
+LEGEND_COLORS	#dd0d0d	#0b0d89	#029600	#a6cee3	#0ccad1	#ef86e6	#a6ada6	#f9c507	#cab2d6	#b2df8a	#664700	#7F1D6C	#f7850a	#656516	#000000
+LEGEND_LABELS	aureus	epidermidis	haemolyticus	pseudintermedius	capitis	hominis	argenteus	equorum	carnosus	saprophyticus	Other	arlettae	chromogenes	cohnii	IWG
+
+
+#=================================================================#
+#     all other optional settings can be set or changed later     #
+#           in the web interface (under 'Datasets' tab)           #
+#=================================================================#
+
+#width of the colored strip
+STRIP_WIDTH	30
+
+
+#left margin, used to increase/decrease the spacing to the next dataset. Can be negative, causing datasets to overlap.
+#MARGIN	0
+
+#border width; if set above 0, a border of specified width (in pixels) will be drawn around the color strip 
+#BORDER_WIDTH	0
+
+#border color; used when BORDER_WIDTH is above 0
+#BORDER_COLOR #0000ff
+
+#always show internal values; if set, values associated to internal nodes will be displayed even if these nodes are not collapsed. It could cause overlapping in the dataset display.
+#SHOW_INTERNAL	0
+
+
+#Internal tree nodes can be specified using IDs directly, or using the 'last common ancestor' method described in iTOL help pages
+
+#=================================================================#
+#       Actual data follows after the "DATA" keyword              #
+#=================================================================#
+DATA
+
+#Examples:
+#assign a red colored strip to leaf 9606, with label 'Human' (label is displayed in the mouseover popups)
+#9606 #ff0000 Human
+
+#assign a green, semi-transparent (alpha 0.5) strip to an internal node, without any label. If 'Show internal values' is set to 'No', this will only be displayed if the node is collapsed. 
+#9606|5664 rgba(0,255,0,0.5)
+
+
+seq_1|2447	#dd0d0d
+seq_2|2024	#dd0d0d
+seq_3|1330	#dd0d0d
+seq_4|370	#dd0d0d
+seq_5|334	#dd0d0d
+seq_6|283	#dd0d0d
+seq_7|255	#dd0d0d
+seq_8|202	#dd0d0d
+seq_9|63	#dd0d0d
+seq_10|58	#0b0d89
+seq_11|54	#dd0d0d
+seq_13|40	#dd0d0d
+seq_12|41	#029600
+seq_14|39	#0b0d89
+seq_15|36	#dd0d0d
+seq_16|32	#dd0d0d
+seq_18|20	#dd0d0d
+seq_17|21	#029600
+seq_19|17	#dd0d0d
+seq_20|16	#dd0d0d
+seq_21|16	#dd0d0d
+seq_24|15	#dd0d0d
+seq_22|15	#dd0d0d
+seq_23|15	#0ccad1
+seq_25|14	#dd0d0d
+seq_31|12	#dd0d0d
+seq_28|13	#029600
+seq_26|13	#dd0d0d
+seq_27|13	#dd0d0d
+seq_29|12	#dd0d0d
+seq_30|12	#dd0d0d
+seq_34|11	#029600
+seq_32|11	#dd0d0d
+seq_33|11	#0ccad1
+seq_35|11	#f7850a
+seq_41|9	#dd0d0d
+seq_37|10	#dd0d0d
+seq_38|10	#dd0d0d
+seq_39|10	#0b0d89
+seq_36|10	#a6cee3
+seq_40|10	#f7850a
+seq_43|8	#dd0d0d
+seq_42|9	#dd0d0d
+seq_44|8	#0b0d89
+seq_46|7	#0b0d89
+seq_45|7	#dd0d0d
+seq_47|7	#dd0d0d
+seq_52|7	#dd0d0d
+seq_48|7	#dd0d0d
+seq_49|7	#dd0d0d
+seq_50|7	#dd0d0d
+seq_51|7	#664700
+seq_68|5	#dd0d0d
+seq_69|5	#0b0d89
+seq_63|6	#dd0d0d
+seq_64|6	#ef86e6
+seq_53|6	#dd0d0d
+seq_55|6	#dd0d0d
+seq_56|6	#0b0d89
+seq_57|6	#dd0d0d
+seq_58|6	#dd0d0d
+seq_59|6	#dd0d0d
+seq_60|6	#dd0d0d
+seq_61|6	#dd0d0d
+seq_62|6	#dd0d0d
+seq_54|6	#f7850a
+seq_65|5	#ef86e6
+seq_66|5	#029600
+seq_74|5	#029600
+seq_76|5	#dd0d0d
+seq_78|5	#dd0d0d
+seq_75|5	#dd0d0d
+seq_70|5	#dd0d0d
+seq_71|5	#dd0d0d
+seq_72|5	#dd0d0d
+seq_73|5	#dd0d0d
+seq_67|5	#7F1D6C
+seq_77|5	#656516
+seq_130|2	#000000
+seq_84|4	#ef86e6
+seq_80|4	#0b0d89
+seq_87|4	#0b0d89
+seq_85|4	#0b0d89
+seq_81|4	#dd0d0d
+seq_82|4	#dd0d0d
+seq_83|4	#dd0d0d
+seq_86|4	#dd0d0d
+seq_88|4	#f7850a
+seq_89|4	#f7850a
+seq_79|4	#664700
+seq_120|2	#ef86e6
+seq_149|2	#dd0d0d
+seq_90|3	#029600
+seq_108|3	#ef86e6
+seq_109|3	#ef86e6
+seq_110|3	#ef86e6
+seq_91|3	#029600
+seq_111|3	#0b0d89
+seq_112|3	#029600
+seq_95|3	#dd0d0d
+seq_116|3	#0b0d89
+seq_96|3	#0b0d89
+seq_97|3	#dd0d0d
+seq_92|3	#dd0d0d
+seq_93|3	#dd0d0d
+seq_94|3	#dd0d0d
+seq_118|3	#dd0d0d
+seq_98|3	#dd0d0d
+seq_99|3	#dd0d0d
+seq_100|3	#dd0d0d
+seq_101|3	#dd0d0d
+seq_102|3	#dd0d0d
+seq_103|3	#dd0d0d
+seq_104|3	#dd0d0d
+seq_105|3	#dd0d0d
+seq_107|3	#dd0d0d
+seq_106|3	#0ccad1
+seq_119|3	#f7850a
+seq_117|3	#664700
+seq_114|3	#7F1D6C
+seq_115|3	#664700
+seq_113|3	#664700
+seq_226|1	#000000
+seq_227|1	#000000
+seq_228|1	#000000
+seq_229|1	#000000
+seq_230|1	#000000
+seq_347|1	#000000
+seq_367|1	#000000
+seq_121|2	#029600
+seq_122|2	#029600
+seq_131|2	#ef86e6
+seq_150|2	#ef86e6
+seq_163|2	#dd0d0d
+seq_168|2	#029600
+seq_160|2	#029600
+seq_151|2	#029600
+seq_152|2	#029600
+seq_169|2	#0b0d89
+seq_132|2	#0b0d89
+seq_133|2	#0b0d89
+seq_134|2	#0b0d89
+seq_135|2	#0b0d89
+seq_153|2	#0b0d89
+seq_136|2	#0b0d89
+seq_123|2	#dd0d0d
+seq_164|2	#dd0d0d
+seq_165|2	#dd0d0d
+seq_137|2	#dd0d0d
+seq_154|2	#dd0d0d
+seq_138|2	#dd0d0d
+seq_139|2	#dd0d0d
+seq_140|2	#dd0d0d
+seq_141|2	#dd0d0d
+seq_142|2	#dd0d0d
+seq_143|2	#dd0d0d
+seq_144|2	#dd0d0d
+seq_145|2	#dd0d0d
+seq_146|2	#dd0d0d
+seq_147|2	#dd0d0d
+seq_155|2	#dd0d0d
+seq_161|2	#f9c507
+seq_124|2	#0ccad1
+seq_171|2	#f7850a
+seq_172|2	#f7850a
+seq_173|2	#f7850a
+seq_174|2	#f7850a
+seq_162|2	#b2df8a
+seq_125|2	#656516
+seq_126|2	#b2df8a
+seq_127|2	#b2df8a
+seq_166|2	#b2df8a
+seq_156|2	#b2df8a
+seq_128|2	#7F1D6C
+seq_129|2	#664700
+seq_167|2	#664700
+seq_158|2	#664700
+seq_157|2	#664700
+seq_159|2	#664700
+seq_148|2	#a6ada6
+seq_170|2	#664700
+seq_175|1	#ef86e6
+seq_441|1	#ef86e6
+seq_442|1	#ef86e6
+seq_443|1	#ef86e6
+seq_398|1	#ef86e6
+seq_348|1	#ef86e6
+seq_349|1	#ef86e6
+seq_350|1	#ef86e6
+seq_351|1	#ef86e6
+seq_352|1	#ef86e6
+seq_449|1	#ef86e6
+seq_353|1	#ef86e6
+seq_354|1	#ef86e6
+seq_176|1	#029600
+seq_452|1	#029600
+seq_177|1	#029600
+seq_178|1	#029600
+seq_179|1	#029600
+seq_180|1	#029600
+seq_181|1	#029600
+seq_182|1	#029600
+seq_355|1	#029600
+seq_424|1	#029600
+seq_389|1	#029600
+seq_425|1	#029600
+seq_368|1	#029600
+seq_369|1	#029600
+seq_231|1	#029600
+seq_356|1	#029600
+seq_357|1	#029600
+seq_358|1	#029600
+seq_183|1	#0b0d89
+seq_184|1	#0b0d89
+seq_185|1	#0b0d89
+seq_186|1	#0b0d89
+seq_232|1	#0b0d89
+seq_233|1	#0b0d89
+seq_187|1	#0b0d89
+seq_234|1	#0b0d89
+seq_235|1	#0b0d89
+seq_236|1	#0b0d89
+seq_237|1	#0b0d89
+seq_340|1	#0b0d89
+seq_238|1	#0b0d89
+seq_341|1	#0b0d89
+seq_359|1	#0b0d89
+seq_239|1	#0b0d89
+seq_240|1	#0b0d89
+seq_241|1	#0b0d89
+seq_360|1	#0b0d89
+seq_242|1	#0b0d89
+seq_243|1	#0b0d89
+seq_244|1	#0b0d89
+seq_245|1	#0b0d89
+seq_246|1	#0b0d89
+seq_247|1	#0b0d89
+seq_248|1	#0b0d89
+seq_249|1	#0b0d89
+seq_250|1	#0b0d89
+seq_251|1	#0b0d89
+seq_252|1	#0b0d89
+seq_253|1	#0b0d89
+seq_254|1	#0b0d89
+seq_255|1	#0b0d89
+seq_256|1	#0b0d89
+seq_257|1	#0b0d89
+seq_258|1	#0b0d89
+seq_361|1	#0b0d89
+seq_362|1	#0b0d89
+seq_188|1	#dd0d0d
+seq_189|1	#dd0d0d
+seq_190|1	#dd0d0d
+seq_191|1	#dd0d0d
+seq_192|1	#dd0d0d
+seq_193|1	#dd0d0d
+seq_194|1	#dd0d0d
+seq_259|1	#dd0d0d
+seq_195|1	#dd0d0d
+seq_196|1	#dd0d0d
+seq_197|1	#dd0d0d
+seq_198|1	#dd0d0d
+seq_199|1	#dd0d0d
+seq_399|1	#dd0d0d
+seq_426|1	#dd0d0d
+seq_444|1	#dd0d0d
+seq_453|1	#dd0d0d
+seq_390|1	#dd0d0d
+seq_260|1	#dd0d0d
+seq_261|1	#dd0d0d
+seq_342|1	#dd0d0d
+seq_343|1	#dd0d0d
+seq_262|1	#dd0d0d
+seq_344|1	#dd0d0d
+seq_263|1	#dd0d0d
+seq_264|1	#dd0d0d
+seq_265|1	#dd0d0d
+seq_266|1	#dd0d0d
+seq_267|1	#dd0d0d
+seq_268|1	#dd0d0d
+seq_269|1	#dd0d0d
+seq_270|1	#dd0d0d
+seq_271|1	#dd0d0d
+seq_272|1	#dd0d0d
+seq_273|1	#dd0d0d
+seq_363|1	#dd0d0d
+seq_274|1	#dd0d0d
+seq_275|1	#dd0d0d
+seq_276|1	#dd0d0d
+seq_277|1	#dd0d0d
+seq_278|1	#dd0d0d
+seq_279|1	#dd0d0d
+seq_280|1	#dd0d0d
+seq_281|1	#dd0d0d
+seq_282|1	#dd0d0d
+seq_283|1	#dd0d0d
+seq_284|1	#dd0d0d
+seq_285|1	#dd0d0d
+seq_391|1	#dd0d0d
+seq_286|1	#dd0d0d
+seq_287|1	#dd0d0d
+seq_288|1	#dd0d0d
+seq_289|1	#dd0d0d
+seq_290|1	#dd0d0d
+seq_291|1	#dd0d0d
+seq_292|1	#dd0d0d
+seq_293|1	#dd0d0d
+seq_294|1	#dd0d0d
+seq_295|1	#dd0d0d
+seq_296|1	#dd0d0d
+seq_297|1	#dd0d0d
+seq_298|1	#dd0d0d
+seq_299|1	#dd0d0d
+seq_300|1	#dd0d0d
+seq_301|1	#dd0d0d
+seq_364|1	#dd0d0d
+seq_302|1	#dd0d0d
+seq_303|1	#dd0d0d
+seq_304|1	#dd0d0d
+seq_305|1	#dd0d0d
+seq_306|1	#dd0d0d
+seq_307|1	#dd0d0d
+seq_308|1	#dd0d0d
+seq_309|1	#dd0d0d
+seq_310|1	#dd0d0d
+seq_311|1	#dd0d0d
+seq_312|1	#dd0d0d
+seq_313|1	#dd0d0d
+seq_314|1	#dd0d0d
+seq_315|1	#dd0d0d
+seq_316|1	#dd0d0d
+seq_317|1	#dd0d0d
+seq_318|1	#dd0d0d
+seq_319|1	#dd0d0d
+seq_320|1	#dd0d0d
+seq_321|1	#dd0d0d
+seq_322|1	#dd0d0d
+seq_323|1	#dd0d0d
+seq_324|1	#dd0d0d
+seq_325|1	#dd0d0d
+seq_326|1	#dd0d0d
+seq_327|1	#dd0d0d
+seq_328|1	#dd0d0d
+seq_329|1	#dd0d0d
+seq_330|1	#dd0d0d
+seq_331|1	#dd0d0d
+seq_332|1	#dd0d0d
+seq_333|1	#dd0d0d
+seq_334|1	#dd0d0d
+seq_365|1	#dd0d0d
+seq_200|1	#f9c507
+seq_201|1	#f9c507
+seq_427|1	#f9c507
+seq_428|1	#f9c507
+seq_429|1	#f9c507
+seq_202|1	#f9c507
+seq_409|1	#f9c507
+seq_400|1	#f9c507
+seq_382|1	#f9c507
+seq_410|1	#f9c507
+seq_450|1	#f9c507
+seq_373|1	#f9c507
+seq_374|1	#f9c507
+seq_375|1	#f9c507
+seq_383|1	#f9c507
+seq_445|1	#0ccad1
+seq_335|1	#0ccad1
+seq_336|1	#0ccad1
+seq_203|1	#664700
+seq_204|1	#664700
+seq_205|1	#a6cee3
+seq_206|1	#a6cee3
+seq_207|1	#a6cee3
+seq_208|1	#a6cee3
+seq_209|1	#a6cee3
+seq_337|1	#a6cee3
+seq_210|1	#f7850a
+seq_454|1	#f7850a
+seq_455|1	#f7850a
+seq_456|1	#f7850a
+seq_457|1	#f7850a
+seq_458|1	#f7850a
+seq_459|1	#f7850a
+seq_460|1	#f7850a
+seq_461|1	#f7850a
+seq_462|1	#f7850a
+seq_463|1	#f7850a
+seq_384|1	#f7850a
+seq_464|1	#f7850a
+seq_385|1	#f7850a
+seq_465|1	#f7850a
+seq_430|1	#664700
+seq_431|1	#664700
+seq_211|1	#664700
+seq_212|1	#664700
+seq_432|1	#664700
+seq_213|1	#664700
+seq_376|1	#664700
+seq_214|1	#656516
+seq_215|1	#656516
+seq_216|1	#656516
+seq_217|1	#656516
+seq_392|1	#656516
+seq_218|1	#b2df8a
+seq_433|1	#b2df8a
+seq_434|1	#b2df8a
+seq_435|1	#b2df8a
+seq_219|1	#b2df8a
+seq_446|1	#b2df8a
+seq_411|1	#b2df8a
+seq_386|1	#b2df8a
+seq_377|1	#b2df8a
+seq_378|1	#b2df8a
+seq_220|1	#664700
+seq_221|1	#664700
+seq_436|1	#664700
+seq_412|1	#664700
+seq_437|1	#664700
+seq_413|1	#664700
+seq_414|1	#664700
+seq_387|1	#664700
+seq_370|1	#664700
+seq_401|1	#664700
+seq_438|1	#664700
+seq_415|1	#664700
+seq_379|1	#664700
+seq_416|1	#7F1D6C
+seq_402|1	#7F1D6C
+seq_417|1	#7F1D6C
+seq_418|1	#7F1D6C
+seq_388|1	#7F1D6C
+seq_222|1	#664700
+seq_439|1	#664700
+seq_403|1	#664700
+seq_447|1	#664700
+seq_223|1	#664700
+seq_419|1	#664700
+seq_393|1	#664700
+seq_448|1	#664700
+seq_224|1	#664700
+seq_440|1	#664700
+seq_466|1	#664700
+seq_420|1	#664700
+seq_421|1	#664700
+seq_404|1	#664700
+seq_380|1	#664700
+seq_225|1	#664700
+seq_405|1	#664700
+seq_338|1	#664700
+seq_366|1	#664700
+seq_422|1	#664700
+seq_406|1	#664700
+seq_423|1	#664700
+seq_345|1	#664700
+seq_451|1	#664700
+seq_407|1	#664700
+seq_346|1	#664700
+seq_408|1	#664700
+seq_394|1	#664700
+seq_395|1	#664700
+seq_396|1	#664700
+seq_371|1	#664700
+seq_372|1	#664700
+seq_397|1	#664700
+seq_339|1	#664700
+seq_381|1	#664700
