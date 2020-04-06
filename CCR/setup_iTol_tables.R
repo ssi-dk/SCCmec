@@ -45,6 +45,11 @@ outlier_tbl = tbl[which(tbl$fasta_ID %in% outlier_IDs),]
 table(as.vector(outlier_tbl$fasta_ID),as.vector(outlier_tbl$ccr_allotype))
 
 
+ccrB_tbl = tbl[which(tbl$ccr_type=="ccrB"),]
+ccrB_uniq_tbl = uniq_tbl[which(uniq_tbl$ccr_type=="ccrB"),]
+write.table(ccrB_tbl,"ccrB_allotype_table_QC_22_2.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(ccrB_uniq_tbl,"ccrB_allotype_uniq_table_QC_22_2.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
 #### ccrA ####
 
 ccrA_tbl = d_tbl[which(d_tbl$ccr_type=="ccrA"),]
