@@ -16,14 +16,16 @@ for file in files:
 	ID = '_'.join(file_split[:-2])
 	in_file = os.path.join(in_dir,file,'contigs.fasta')
 	printline = ''
-	with open(in_file) as f:
-		for line in f:
-			if line[0] == '>':
-				printline += '>'+ID+'__'+line[1:]
-				print(printline)
-			else:
-				printline += line
-	out_file = os.path.join(out_dir,ID+'.fasta')
-	o = open(out_file,'w')
-	o.write(printline)
-	o.close()
+	if os.path.exists(in_file):
+		with open(in_file) as f:
+			for line in f:
+				if line[0] == '>':
+					printline += '>'+ID+'__'+line[1:]
+				else:
+					printline += line
+		out_file = os.path.join(out_dir,ID+'.fasta')
+		o = open(out_file,'w')
+		o.write(printline)
+		o.close()
+	else:
+		print(in_file)
