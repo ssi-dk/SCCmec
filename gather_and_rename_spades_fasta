@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+in_dir = sys.argv[1]
+out_dir = sys.argv[2]
+
+files  = os.path.join(in_dir)
+
+for file in files:
