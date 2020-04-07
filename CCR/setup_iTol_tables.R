@@ -50,6 +50,11 @@ ccrB_uniq_tbl = uniq_tbl[which(uniq_tbl$ccr_type=="ccrB"),]
 write.table(ccrB_tbl,"ccrB_allotype_table_QC_22_2.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 write.table(ccrB_uniq_tbl,"ccrB_allotype_uniq_table_QC_22_2.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
+
+printlines = paste0('>',as.vector(ccrB_uniq_tbl$uniq_fasta_ID),'\n',as.vector(ccrB_uniq_tbl$seq))
+
+writeLines(printlines,'ccrB_all.fasta')
+
 #### ccrA ####
 
 ccrA_tbl = d_tbl[which(d_tbl$ccr_type=="ccrA"),]
