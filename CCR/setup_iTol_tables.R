@@ -26,6 +26,14 @@ tbl = read.table("ccr_table_QC_22.txt", sep = "\t", header=T,comment.char = "",q
 itol_lines = setup_color_lines(uniq_tbl$uniq_fasta_ID,uniq_tbl$ccr_type,RColorBrewer::brewer.pal(11,"Paired"),legend_title = "ccr_type")
 print_template(template,itol_lines,"ccr_type_all_colorstrip.txt",legend_title = "ccr_type")
 
+t1 = tbl[which(!tbl$ccr_type=="ccrB"),]
+t_comb = rbind(t1,ccrB_tbl[,1:15])
+
+write.table(t_comb,"ccr_table_final.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
+t1 = uniq_tbl[which(!uniq_tbl$ccr_type=="ccrB"),]
+t_comb = rbind(t1,ccrB_uniq_tbl[,1:15])
+
 
 
 #### investigate ccrB outliers ####

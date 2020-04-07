@@ -172,7 +172,7 @@ write.tree(ccrA_dist_phylo,file = "ccrA_dist_tree_QC.nwk")
 
 # ccrB #
 
-dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/ccrB_pairwise_sim.txt",sep = "\t",header=T, row.names=1))
+dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrB_all_uniq_sim.txt",sep = "\t",header=T, row.names=1))
 
 ccrB_exclude_idx = which(rownames(dist_mat) %in% exclude_uniq_seq_ID)
 dist_mat = dist_mat[-ccrB_exclude_idx,-ccrB_exclude_idx]
@@ -180,7 +180,7 @@ dist_mat = dist_mat[-ccrB_exclude_idx,-ccrB_exclude_idx]
 aln_dist = as.dist(dist_mat)
 fit = hclust(aln_dist,method = "complete")
 plot(fit)
-ccr_groups = cutree(fit,h=18)
+ccr_groups = cutree(fit,h=22)
 v = c()
 for (i in 10:40) {
   g = cutree(fit,h=i)
@@ -191,7 +191,7 @@ v_B = v
 plot(10:40,v)
 
 
-rect.hclust(fit,h=18)
+rect.hclust(fit,h=22)
 tbl$ccrB_group = NA
 for (i in 1:length(ccr_groups)) {
   name = names(ccr_groups)[i]
