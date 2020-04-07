@@ -6,7 +6,7 @@ import sys
 in_dir = sys.argv[1]
 out_dir = sys.argv[2]
 
-files  = os.path.join(in_dir)
+files  = os.listdir(in_dir)
 
 if not os.path.exists(out_dir):
 	os.makedirs(out_dir)
