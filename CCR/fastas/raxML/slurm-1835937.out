@@ -1,0 +1,4 @@
+Option -T does not have any effect with the sequential or parallel MPI version.
+It is used to specify the number of threads for the Pthreads-based parallelization
+
+ Error: please specify an alignment for this run with -s

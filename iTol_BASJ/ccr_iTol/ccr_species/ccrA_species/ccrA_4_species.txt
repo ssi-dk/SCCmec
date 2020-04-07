@@ -79,16 +79,11 @@ DATA
 #assign a green, semi-transparent (alpha 0.5) strip to an internal node, without any label. If 'Show internal values' is set to 'No', this will only be displayed if the node is collapsed. 
 #9606|5664 rgba(0,255,0,0.5)
 
-seq_8|202	#000000
-seq_13|40	#000000
-seq_18|20	#000000
-seq_2|2024	#029600
-seq_3|1330	#029600
-seq_5|334	#029600
-seq_7|255	#029600
-seq_16|32	#029600
-seq_29|12	#029600
-seq_20|16	#0ccad1
-seq_38|10	#664700
-seq_4|370	#a6cee3
-seq_41|9	#b2df8a
+seq_16|32	#ef86e6
+seq_29|12	#ef86e6
+seq_4|370	#ef86e6
+seq_2|2024	#a6cee3
+seq_18|20	#664700
+seq_5|334	#664700
+seq_3|1330	#000000
+seq_7|255	#000000
