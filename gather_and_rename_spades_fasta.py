@@ -13,7 +13,8 @@ if not os.path.exists(out_dir):
 
 for file in files:
 	file_split = file.split('_')
-	ID = '_'.join(file_split[:-2])
+	ID = file_split[0]
+	#ID = '_'.join(file_split[:-2])
 	in_file = os.path.join(in_dir,file,'contigs.fasta')
 	printline = ''
 	if os.path.exists(in_file):
