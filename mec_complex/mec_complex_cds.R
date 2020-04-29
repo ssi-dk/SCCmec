@@ -77,7 +77,7 @@ tbl = mecA_tbl
 add_data_columns <- function(tbl) {
   tbl$species = unlist(lapply(as.vector(tbl$subject),function(x) strsplit(x,"__GCF")[[1]][1]))
   tbl$assembly_ID = unlist(lapply(as.vector(tbl$subject),function(x) strsplit(x,"__")[[1]][2]))
-  ###tbl$GCF_ID = unlist(lapply(as.vector(tbl$subject),function(x) strsplit(x,"__")[[1]][2]))
+  tbl$GCF_ID = unlist(lapply(as.vector(tbl$assembly_ID),function(x) strsplit(x,"_")[[1]][2]))
   contig_temp = unlist(lapply(as.vector(tbl$subject),function(x) strsplit(x,"|",fixed = TRUE)[[1]][2]))
   tbl$contig = unlist(lapply(as.vector(contig_temp),function(x) strsplit(x,"_cds")[[1]][1]))
   loc_temp = unlist(lapply(as.vector(tbl$subject),function(x) strsplit(x,"loc=")[[1]][2]))
@@ -133,12 +133,14 @@ IS431_tbl = read.table("IS431_cds_blast.txt",sep = "\t", header = F)
 colnames(IS431_tbl) = blast_header
 IS431_tbl = add_data_columns(IS431_tbl)
 
-mecA_tbl[which(mecA_tbl$assembly_ID=="GCF_900457475.1_43781"),]
-mecI_tbl[which(mecI_tbl$assembly_ID=="GCF_900457475.1_43781"),]
-mecR4c_tbl[which(mecR4c_tbl$assembly_ID=="GCF_900457475.1_43781"),]
-IS1272_tbl[which(IS1272_tbl$assembly_ID=="GCF_900457475.1_43781"),]
-mecA_tbl[which(mecA_tbl$assembly_ID=="GCF_900457475.1_43781"),]
-IS431_tbl[which(IS431_tbl$assembly_ID=="GCF_900457475.1_43781"),]
+mecA_assembly_tbl = read.table("../assembly_blast/mecA_assembly_blast.txt",sep = "\t", header = F)
+colnames(mecA_assembly_tbl) = blast_header
+mecA_assembly_tbl$species = unlist(lapply(as.vector(mecA_assembly_tbl$subject), function(x) strsplit(x,'__')[[1]][1]))
+mecA_assembly_tbl$assembly_ID = unlist(lapply(as.vector(mecA_assembly_tbl$subject), function(x) strsplit(x,'__')[[1]][2]))
+mecA_assembly_tbl$GCF_ID = unlist(lapply(as.vector(mecA_assembly_tbl$assembly_ID), function(x) strsplit(x,'_')[[1]][2]))
+mecA_assembly_tbl$contig = unlist(lapply(as.vector(mecA_assembly_tbl$subject), function(x) strsplit(x,'__')[[1]][3]))
+mecA_assembly_sub = mecA_assembly_tbl[which(mecA_assembly_tbl$pident>=98 & mecA_assembly_tbl$len>=1800),]
+table(table(mecA_assembly_sub$subject))
 
 IS431_sub = IS431_tbl[which(IS431_tbl$pident>=95),]
 plot(sort(IS431_sub$slen))
@@ -149,17 +151,25 @@ table(mecA_sub$assembly_ID)
 table(table(mecA_sub$assembly_ID))
 # 8955 isolates with 1 mecA gene, 33 isolates with 2, 1 isolate with 4
 
-mecA_IDs = unique(mecA_sub$assembly_ID)
-
-test_IDs = mecA_IDs[1:10]
-ID = test_IDs[10]
-for (ID in test_IDs) {
-  mecA_ID_tbl = mecA_sub[which(mecA_sub$assembly_ID==ID),]
-  IS431_ID_tbl = IS431_sub[which(IS431_sub$assembly_ID==ID),]
-  for (n in nrow(mecA_ID_tbl)) {
-    
+n = 1
+n = 1000
+ass_to_cds_idx = c()
+for (n in 1:nrow(mecA_sub)) {
+  idx = which(mecA_assembly_sub$GCF_ID==mecA_sub$GCF_ID[n] & mecA_assembly_sub$contig == mecA_sub$contig[n] & 
+                mecA_assembly_sub$sstart >= (mecA_sub$gene_start_num[n]-3000) & mecA_assembly_sub$sstart <= (mecA_sub$gene_start_num[n]+3000))
+  
+  if (length(idx)==1) {
+    ass_to_cds_idx = c(ass_to_cds_idx,idx)
+  } else if (length(idx>1)) {
+    ass_to_cds_idx = c(ass_to_cds_idx,idx[1])
+    print(idx)
+  } else {
+    ass_to_cds_idx = c(ass_to_cds_idx,NA)
   }
 }
+length(ass_to_cds_idx)
+dim(mecA_sub)
+mecA_sub$contig_length = mecA_assembly_sub$slen[ass_to_cds_idx]
 
 
 mat = matrix(nrow=0,ncol=24)
@@ -296,14 +306,38 @@ for (n in 1:nrow(mecA_sub)) {
 
 dim(mat)
 dim(mecA_sub)
+rownames(mat) = rownames(mecA_sub)
 complex_df = as.data.frame(mat)
 colnames(complex_df) = c("IS431s_start","IS431s_len","IS431s_end","IS431s_dir","IS1272s_start","IS1272s_len","IS1272s_end","IS1272s_dir","mecI_start","mecI_len","mecI_end","mecI_dir",
                          "mecR_start","mecR_len","mecR_end","mecR_dir","mecA_start","mecA_len","mecA_end","mecA_dir","IS431e_start","IS431e_len","IS431e_end","IS431e_dir")
-rownames(complex_df) = rownames(mecA_sub)
+#rownames(complex_df) = rownames(mecA_sub)
 
 complex_df$assembly = mecA_sub$assembly_ID
 complex_df$contig = mecA_sub$contig
 complex_df$species = mecA_sub$species
+complex_df$contig_length = mecA_sub$contig_length
+complex_df$assembly_strand = mecA_sub$assembly_strand
+plus_vec = as.numeric(as.vector(complex_df$mecA_start[which(complex_df$assembly_strand=="plus")]))
+minus_vec = as.numeric(as.vector(complex_df$contig_length[which(complex_df$assembly_strand=="minus")]))-as.numeric(as.vector(complex_df$mecA_end[which(complex_df$assembly_strand=="minus")]))
+complex_df$mecA_to_end_length = NA
+complex_df$mecA_to_end_length[which(complex_df$assembly_strand=="plus")] = plus_vec
+complex_df$mecA_to_end_length[which(complex_df$assembly_strand=="minus")] = minus_vec
+complex_df$end_length = complex_df$mecA_to_end_length
+complex_df$end_length[which(complex_df$end_length>=5000)] = 5000
+
+mecR_start_num = as.numeric(unlist(lapply(as.character(complex_df$mecR_start), get_start_pos)))
+mecR_end_num = as.numeric(unlist(lapply(as.character(complex_df$mecR_end), get_end_pos)))
+mecR_min = unlist(lapply(1:length(mecR_start_num), function(x) min(mecR_start_num[x],mecR_end_num[x])))
+mecR_max = unlist(lapply(1:length(mecR_start_num), function(x) max(mecR_start_num[x],mecR_end_num[x])))
+plus_vec = as.numeric(as.vector(mecR_min[which(complex_df$assembly_strand=="plus")]))
+minus_vec = as.numeric(as.vector(complex_df$contig_length[which(complex_df$assembly_strand=="minus")]))-as.numeric(as.vector(mecR_max[which(complex_df$assembly_strand=="minus")]))
+complex_df$mecR_to_end_length = NA
+complex_df$mecR_to_end_length[which(complex_df$assembly_strand=="plus")] = plus_vec
+complex_df$mecR_to_end_length[which(complex_df$assembly_strand=="minus")] = minus_vec
+complex_df$mecR_end_length = complex_df$mecR_to_end_length
+complex_df$mecR_end_length[which(complex_df$mecR_to_end_length>=5000)] = 5000
+
+plot(sort(complex_df$end_length))
 
 mecR_len_num = as.numeric(as.vector(complex_df$mecR_len))
 table(mecR_len_num)
@@ -323,6 +357,9 @@ complex_df$IS1272_present[which(complex_df$IS1272s_len=="-")] = 0
 complex_df$IS431s_present = 1
 complex_df$IS431s_present[which(complex_df$IS431s_len=="-")] = 0
 complex_df$mecR_type = complex_df$mecR_len_simple
+complex_df$ISs_status = "Absent"
+complex_df$ISs_status[which(complex_df$IS431s_present==1 | complex_df$IS1272_present==1)] = "Present"
+complex_df$ISs_status[which()]
 
 complex_df$mec_class = "NT"
 complex_df$mec_class[which(complex_df$mecI_present==1 & complex_df$mecR_type=="type2")] = "A"
@@ -334,12 +371,94 @@ complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="-
 
 table(complex_df$mec_class)
 
+complex_df$
+complex_df$mec_class_inferred = "NT"
+complex_df$mec_class_inferred = "NT"
+
+plot(sort(complex_df$end_length[which(complex_df$mec_class=="A")]))
+plot(sort(complex_df$end_length[which(complex_df$mec_class=="B")]))
+plot(sort(complex_df$end_length[which(complex_df$mec_class=="C1/D")]))
+plot(sort(complex_df$end_length[which(complex_df$mec_class=="C2")]))
+plot(sort(complex_df$end_length[which(complex_df$mec_class=="NT")]))
+
+
 complex_df[which(complex_df$mec_class=="A"),]
 complex_df[which(complex_df$mec_class=="B"),]
 complex_df[which(complex_df$mec_class=="C1/D"),]
 complex_df[which(complex_df$mec_class=="C2"),]
 complex_df[which(complex_df$mec_class=="mecA_only"),]
 complex_df[which(complex_df$mec_class=="NT"),]
+
+
+
+p <- ggplot(complex_df[which(complex_df$mecR_end_length<5000),],aes(x=ISs_status,y=mecR_end_length)) + geom_boxplot()
+p
+
+b = seq(from = 0, to = 5000, by = 100)
+p_df = complex_df
+p_df$bin_type = .bincode(complex_df$end_length,b)
+
+plot_df = as.data.frame(table(p_df$mec_class,p_df$bin_type))
+colnames(plot_df) = c("mec_class","bin","Freq")
+plot_df$end_length = as.numeric(as.vector(plot_df$bin))*100
+
+p <- ggplot(plot_df,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="fill", stat="identity")
+p
+p <- ggplot(plot_df,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="stack", stat="identity")
+p
+
+plot_sub = plot_df[which(plot_df$end_length<5000),]
+p <- ggplot(plot_sub,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="stack", stat="identity")
+p
+
+plot_df = as.data.frame(table(p_df$mecR_type,p_df$bin_type))
+colnames(plot_df) = c("mec_class","bin","Freq")
+plot_df$end_length = as.numeric(as.vector(plot_df$bin))*100
+
+p <- ggplot(plot_df,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="fill", stat="identity") + scale_fill_manual(values=RColorBrewer::brewer.pal(8,"Set1"))
+p
+p <- ggplot(plot_df,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="stack", stat="identity")  + scale_fill_manual(values=RColorBrewer::brewer.pal(8,"Set1"))
+p
+
+plot_sub = plot_df[which(plot_df$end_length<5000),]
+p <- ggplot(plot_sub,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="stack", stat="identity")  + scale_fill_manual(values=RColorBrewer::brewer.pal(8,"Set1"))
+p
+
+b = seq(from = 0, to = 5000, by = 100)
+p_df = complex_df
+p_df$bin_type = .bincode(complex_df$mecR_end_length,b)
+
+plot_df = as.data.frame(table(p_df$mecR_type,p_df$bin_type))
+colnames(plot_df) = c("mec_class","bin","Freq")
+plot_df$end_length = as.numeric(as.vector(plot_df$bin))*100
+
+p <- ggplot(plot_df,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="fill", stat="identity") + scale_fill_manual(values=RColorBrewer::brewer.pal(8,"Set1"))
+p
+p <- ggplot(plot_df,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="stack", stat="identity")  + scale_fill_manual(values=RColorBrewer::brewer.pal(8,"Set1"))
+p
+
+plot_sub = plot_df[which(plot_df$end_length<5000),]
+p <- ggplot(plot_sub,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="stack", stat="identity")  + scale_fill_manual(values=RColorBrewer::brewer.pal(8,"Set1"))
+p
+
+
+
+plot_df = as.data.frame(table(p_df$IS431s_present,p_df$bin_type))
+colnames(plot_df) = c("mec_class","bin","Freq")
+plot_df$end_length = as.numeric(as.vector(plot_df$bin))*100
+
+p <- ggplot(plot_df,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="fill", stat="identity") + scale_fill_manual(values=RColorBrewer::brewer.pal(8,"Set1"))
+p
+p <- ggplot(plot_df,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="stack", stat="identity")  + scale_fill_manual(values=RColorBrewer::brewer.pal(8,"Set1"))
+p
+
+plot_sub = plot_df[which(plot_df$end_length<5000),]
+p <- ggplot(plot_sub,aes(x=end_length,y=Freq,fill=mec_class)) + geom_bar(position="stack", stat="identity")  + scale_fill_manual(values=RColorBrewer::brewer.pal(8,"Set1"))
+p
+
+plot(sort(complex_df$mecR_end_length[which(complex_df$IS431s_present==0)]))
+plot(sort(complex_df$mecR_end_length[which(complex_df$IS431s_present==1)]))
+
 
 complex_df[which(complex_df$mec_class=="NT" & complex_df$mecR_type %in% c("type2","type4","type5")),]
 complex_df[which(!complex_df$mecR_type %in% c("type2","type4","type5","-")),]
@@ -361,3 +480,11 @@ test_function = function(test) {
 
 
 t(data.frame(lapply(in_vec,test_function)))
+
+
+x <- c(0, 0.01, 0.5, 0.99, 1)
+b <- c(0, 0, 1, 1)
+.bincode(x, b, TRUE)
+.bincode(x, b, FALSE)
+.bincode(x, b, TRUE, TRUE)
+.bincode(x, b, FALSE, TRUE)
