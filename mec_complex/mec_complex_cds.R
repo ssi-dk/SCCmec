@@ -313,6 +313,7 @@ colnames(complex_df) = c("IS431s_start","IS431s_len","IS431s_end","IS431s_dir","
 #rownames(complex_df) = rownames(mecA_sub)
 
 complex_df$assembly = mecA_sub$assembly_ID
+complex_df$GCF_ID = mecA_sub$GCF_ID
 complex_df$contig = mecA_sub$contig
 complex_df$species = mecA_sub$species
 complex_df$contig_length = mecA_sub$contig_length
@@ -358,21 +359,20 @@ complex_df$IS431s_present = 1
 complex_df$IS431s_present[which(complex_df$IS431s_len=="-")] = 0
 complex_df$mecR_type = complex_df$mecR_len_simple
 complex_df$ISs_status = "Absent"
+complex_df$ISs_status[which((complex_df$IS431s_present==1 | complex_df$IS1272_present==1) & complex_df$end_length < (as.numeric(complex_df$mecR_len)+1000))]
 complex_df$ISs_status[which(complex_df$IS431s_present==1 | complex_df$IS1272_present==1)] = "Present"
-complex_df$ISs_status[which()]
 
 complex_df$mec_class = "NT"
 complex_df$mec_class[which(complex_df$mecI_present==1 & complex_df$mecR_type=="type2")] = "A"
 complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==1)] = "B"
 complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==0)] = "C1/D"
 complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==0 & complex_df$IS431s_present==1)] = "C1"
+complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==0 & complex_df$IS431s_present==0 & complex_df$end_length>2000)] = "D"
 complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type5" & complex_df$IS1272_present==0)] = "C2"
 complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="-" & complex_df$IS431s_present==1 & complex_df$IS1272_present==0)] = "mecA_only"
 
 table(complex_df$mec_class)
 
-complex_df$
-complex_df$mec_class_inferred = "NT"
 complex_df$mec_class_inferred = "NT"
 
 plot(sort(complex_df$end_length[which(complex_df$mec_class=="A")]))
@@ -390,6 +390,38 @@ complex_df[which(complex_df$mec_class=="mecA_only"),]
 complex_df[which(complex_df$mec_class=="NT"),]
 
 
+p <- ggplot(data.frame("x"=order(order(complex_df$end_length[which(complex_df$mecR_len=='-')])),"y"=complex_df$end_length[which(complex_df$mecR_len=='-')],"col"=complex_df$ISs_status[which(complex_df$mecR_len=='-')]),
+            aes(x=x,y=y,color=col)) + geom_point() + labs(color="Upstream IS431 presence") + ylab("Length from start of mecA to end of contig") + xlab("") + 
+  ggtitle("Number of base pairs upstream of mecA in contig in isolates missing mecR")
+p
+
+complex_sub = complex_df[which(complex_df$mec_class=="mecA_only"),]
+p_df = data.frame("x"=order(order(complex_sub$end_length)),"y"=complex_sub$end_length,"col"=complex_sub$ISs_status)
+p <- ggplot(p_df,aes(x=x,y=y,color=col)) + geom_point() + labs(color="Upstream IS element presence") + ylab("Length from start of mecA to end of contig") + xlab("") + 
+  ggtitle("Number of base pairs upstream of mecA in contig in mec class mecA only isolates")
+p
+
+complex_sub = complex_df[which(complex_df$end_length<5000),]
+p_df = data.frame("x"=order(order(complex_sub$end_length)),"y"=complex_sub$end_length,"col"=complex_sub$mec_class)
+p <- ggplot(p_df,aes(x=x,y=y,color=col)) + geom_point(aes(shape=complex_sub$ISs_status)) + labs(color="mec gene complex") + ylab("Length from start of mecA to end of contig") + xlab("") + 
+  ggtitle("Number of base pairs upstream of mecA in contig")
+p
+
+p_df = data.frame("x"=complex_sub$mec_class,"y"=complex_sub$end_length,"col"=complex_sub$mec_class)
+p <- ggplot(p_df,aes(x=x,y=y,fill=col)) + geom_boxplot() + labs(fill="inferred mec class") + ylab("Length from start of mecA to end of contig") + xlab("") + 
+  ggtitle("Number of base pairs upstream of mecA in contig in mec class NT isolates")
+p
+
+p_df = data.frame("x"=complex_sub$mecR_type,"y"=complex_sub$end_length,"col"=complex_sub$mecR_type)
+p <- ggplot(p_df,aes(x=x,y=y,fill=col)) + geom_boxplot() + labs(fill="mecR type") + ylab("Length from start of mecA to end of contig") + xlab("") + 
+  ggtitle("Number of base pairs upstream of mecA in contig in mec class NT isolates")
+p
+
+complex_sub = complex_df[which(!complex_df$mecR_len %in% c("-","3918")),]
+p_df = data.frame("x"=order(order(as.numeric(as.vector(complex_sub$mecR_len)))),"y"=as.numeric(as.vector(complex_sub$mecR_len)),"col"=complex_sub$mecR_type)
+p <- ggplot(p_df,aes(x=x,y=y,color=col)) + geom_point() + labs(color="Upstream IS431 presence") + ylab("Length from start of mecA to end of contig") + xlab("") + 
+  ggtitle("mecR length")
+p
 
 p <- ggplot(complex_df[which(complex_df$mecR_end_length<5000),],aes(x=ISs_status,y=mecR_end_length)) + geom_boxplot()
 p
@@ -471,20 +503,108 @@ x_df =complex_df[which(complex_df$mecR_len_simple=="type2" & complex_df$mecI_pre
 
 table(x_df$species)
 
-in_vec = c("1,2,3,4","5,6,7,8")
 
-test_function = function(test) {
-  test_vec = strsplit(test,',')[[1]]
-  return(test_vec)
+
+
+#### combine with ccr ####
+
+ccr_tbl = read.table("../../CCR/ccr_table_final.txt",sep = "\t",header=TRUE,comment.char = "",check.names = F,quote = "")
+head(ccr_tbl)
+dim(ccr_tbl)
+
+
+refseq_tbl = ccr_tbl[which(!ccr_tbl$species=="IWG_reference"),]
+dim(refseq_tbl)
+
+isolate_df = as.data.frame(table(refseq_tbl$fasta_ID,refseq_tbl$ccr_type,refseq_tbl$ccr_allotype))
+isolate_df = isolate_df[which(isolate_df$Freq>0),]
+head(isolate_df)
+dim(isolate_df)
+
+
+GCF_IDs = unique(complex_df$GCF_ID)
+complex_df$ccrA_count = 0
+complex_df$ccrB_count = 0
+complex_df$ccrC_count = 0
+complex_df$ccrA_types = '-'
+complex_df$ccrB_types = '-'
+complex_df$ccrC_types = '-'
+complex_df$mecA_count = 0
+
+n = 1
+for (n in 1:nrow(complex_df)) {
+  mecA_count = length(which(complex_df$GCF_ID==complex_df$GCF_ID[n]))
+  GCF_ID = paste0('GCF_',complex_df$GCF_ID[n])
+  ccr_sub = ccr_tbl[which(ccr_tbl$GCF_ID==GCF_ID),]
+  ccrA_sub = ccr_sub[which(ccr_sub$ccr_type=="ccrA"),]
+  ccrB_sub = ccr_sub[which(ccr_sub$ccr_type=="ccrB"),]
+  ccrC_sub = ccr_sub[which(ccr_sub$ccr_type=="ccrC"),]
+  complex_df$ccrA_count[n] = nrow(ccrA_sub)
+  complex_df$ccrB_count[n] = nrow(ccrB_sub)
+  complex_df$ccrC_count[n] = nrow(ccrC_sub)
+  if (nrow(ccrA_sub)>0) {
+    complex_df$ccrA_types[n] = paste0(as.vector(ccrA_sub$ccr_allotype),collapse = ",")
+  }
+  if (nrow(ccrB_sub)>0) {
+    complex_df$ccrB_types[n] = paste0(as.vector(ccrB_sub$ccr_allotype),collapse = ",")
+  }
+  if (nrow(ccrC_sub)>0) {
+    complex_df$ccrC_types[n] = paste0(as.vector(ccrC_sub$ccr_allotype),collapse = ",")
+  }
+  complex_df$mecA_count[n] = mecA_count
 }
 
+head(complex_df)
 
-t(data.frame(lapply(in_vec,test_function)))
+table(complex_df$mecA_count)
+
+write.table(complex_df,"SCCmec_master_table.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
+SCCmec_single_mecA = complex_df[which(complex_df$mecA_count==1),]
+
+ccr_single_idx = which((SCCmec_single_mecA$ccrA_count==1 & SCCmec_single_mecA$ccrB_count==1 & SCCmec_single_mecA$ccrC_count %in% c(0,1)) | (SCCmec_single_mecA$ccrA_count==0 & SCCmec_single_mecA$ccrB_count==0 & SCCmec_single_mecA$ccrC_count==1))
+SCCmec_confirmed = SCCmec_single_mecA[ccr_single_idx,]
+dim(SCCmec_confirmed)
+
+SCCmec_confirmed$SCCmec_type = "NT"
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="ccrA1" & SCCmec_confirmed$ccrB_types=="ccrB1" & SCCmec_confirmed$mec_class=="B")] = 1
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="ccrA2" & SCCmec_confirmed$ccrB_types=="ccrB2" & SCCmec_confirmed$mec_class=="A")] = 2
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="ccrA3" & SCCmec_confirmed$ccrB_types=="ccrB3" & SCCmec_confirmed$mec_class=="A")] = 3
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="ccrA2" & SCCmec_confirmed$ccrB_types=="ccrB2" & SCCmec_confirmed$mec_class=="B")] = 4
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="-" & SCCmec_confirmed$ccrB_types=="-" & SCCmec_confirmed$ccrC_types=="ccrC1" & SCCmec_confirmed$mec_class=="C2")] = 5
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="ccrA4" & SCCmec_confirmed$ccrB_types=="ccrB4" & SCCmec_confirmed$mec_class=="B")] = 6
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="-" & SCCmec_confirmed$ccrB_types=="-" & SCCmec_confirmed$ccrC_types=="ccrC1" & SCCmec_confirmed$mec_class=="C1")] = 7
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="ccrA4" & SCCmec_confirmed$ccrB_types=="ccrB4" & SCCmec_confirmed$mec_class=="A")] = 8
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="ccrA1" & SCCmec_confirmed$ccrB_types=="ccrB1" & SCCmec_confirmed$mec_class=="C2")] = 9
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="ccrA1" & SCCmec_confirmed$ccrB_types=="ccrB6" & SCCmec_confirmed$mec_class=="C1")] = 10
+#SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="ccrA1" & SCCmec_confirmed$ccrB_types=="ccrB6" & SCCmec_confirmed$mec_class=="C1")] = 11
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="-" & SCCmec_confirmed$ccrB_types=="-" & SCCmec_confirmed$ccrC_types=="ccrC2" & SCCmec_confirmed$mec_class=="C2")] = 12
+SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="-" & SCCmec_confirmed$ccrB_types=="-" & SCCmec_confirmed$ccrC_types=="ccrC2" & SCCmec_confirmed$mec_class=="A")] = 13
+table(SCCmec_confirmed$SCCmec_type)
+table(SCCmec_confirmed$species,SCCmec_confirmed$SCCmec_type)
+
+write.table(SCCmec_confirmed,"SCCmec_master_table_singles.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+
+NT_tbl = SCCmec_confirmed[which(SCCmec_confirmed$SCCmec_type=="NT"),]
+
+NT_df = as.data.frame(table(NT_tbl$ccrA_types,NT_tbl$ccrB_types,NT_tbl$ccrC_types,NT_tbl$mec_class))
+NT_df = NT_df[which(NT_df$Freq>0),]
+colnames(NT_df) = c("ccrA","ccrB","ccrC","mec_class","Freq")
+NT_df[order(NT_df$Freq),]
 
 
-x <- c(0, 0.01, 0.5, 0.99, 1)
-b <- c(0, 0, 1, 1)
-.bincode(x, b, TRUE)
-.bincode(x, b, FALSE)
-.bincode(x, b, TRUE, TRUE)
-.bincode(x, b, FALSE, TRUE)
+t_df = as.data.frame(table(SCCmec_confirmed$ccrA_types,SCCmec_confirmed$ccrB_types,SCCmec_confirmed$ccrC_types,SCCmec_confirmed$mec_class,SCCmec_confirmed$SCCmec_type))
+t_df = t_df[t_df$Freq>0,] 
+t_df[order(t_df$Freq),]
+
+
+D_tbl = SCCmec_confirmed[which(SCCmec_confirmed$ccrA_types=="ccrA2" & SCCmec_confirmed$ccrB_types=="ccrB2" & SCCmec_confirmed$mec_class=="D"),]
+
+D_df = as.data.frame(table(D_tbl$ccrA_types,D_tbl$ccrB_types,D_tbl$ccrC_types,D_tbl$mec_class,D_tbl$SCCmec_type))
+
+
+ccrA1_df = SCCmec_single_mecA[which(SCCmec_single_mecA$ccrA_types=="ccrA1"),]
+sort(table(ccrA1_df$ccrB_types))
+
+ccrB1_df = SCCmec_single_mecA[which(SCCmec_single_mecA$ccrB_types=="ccrB1"),]
+sort(table(ccrA1_df$ccrB_types))
