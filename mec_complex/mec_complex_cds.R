@@ -395,10 +395,10 @@ p <- ggplot(data.frame("x"=order(order(complex_df$end_length[which(complex_df$me
   ggtitle("Number of base pairs upstream of mecA in contig in isolates missing mecR")
 p
 
-complex_sub = complex_df[which(complex_df$mec_class=="mecA_only"),]
+complex_sub = complex_df[which(complex_df$mec_class=="B"),]
 p_df = data.frame("x"=order(order(complex_sub$end_length)),"y"=complex_sub$end_length,"col"=complex_sub$ISs_status)
 p <- ggplot(p_df,aes(x=x,y=y,color=col)) + geom_point() + labs(color="Upstream IS element presence") + ylab("Length from start of mecA to end of contig") + xlab("") + 
-  ggtitle("Number of base pairs upstream of mecA in contig in mec class mecA only isolates")
+  ggtitle("Number of base pairs upstream of mecA in contig in mec class B isolates")
 p
 
 complex_sub = complex_df[which(complex_df$end_length<5000),]
