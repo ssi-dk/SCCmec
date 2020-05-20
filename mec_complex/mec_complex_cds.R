@@ -389,6 +389,8 @@ complex_df[which(complex_df$mec_class=="C2"),]
 complex_df[which(complex_df$mec_class=="mecA_only"),]
 complex_df[which(complex_df$mec_class=="NT"),]
 
+table(complex_df$mec_class)
+
 
 p <- ggplot(data.frame("x"=order(order(complex_df$end_length[which(complex_df$mecR_len=='-')])),"y"=complex_df$end_length[which(complex_df$mecR_len=='-')],"col"=complex_df$ISs_status[which(complex_df$mecR_len=='-')]),
             aes(x=x,y=y,color=col)) + geom_point() + labs(color="Upstream IS431 presence") + ylab("Length from start of mecA to end of contig") + xlab("") + 
@@ -585,6 +587,17 @@ table(SCCmec_confirmed$species,SCCmec_confirmed$SCCmec_type)
 
 write.table(SCCmec_confirmed,"SCCmec_master_table_singles.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
+
+A1_idx = grep('ccrA1',SCCmec_single_mecA$ccrA_types)
+B1_idx = grep('ccrB1',SCCmec_single_mecA$ccrB_types)
+
+which(A1_idx %in% B1_idx)
+
+
+
+tt = SCCmec_single_mecA = 
+
+
 NT_tbl = SCCmec_confirmed[which(SCCmec_confirmed$SCCmec_type=="NT"),]
 
 NT_df = as.data.frame(table(NT_tbl$ccrA_types,NT_tbl$ccrB_types,NT_tbl$ccrC_types,NT_tbl$mec_class))
@@ -608,3 +621,39 @@ sort(table(ccrA1_df$ccrB_types))
 
 ccrB1_df = SCCmec_single_mecA[which(SCCmec_single_mecA$ccrB_types=="ccrB1"),]
 sort(table(ccrA1_df$ccrB_types))
+
+
+t_df = complex_df[which(complex_df$ccrA_types=="ccrA1"),]
+table(t_df$ccrB_types)
+
+t_df = complex_df[which(complex_df$ccrB_types=="ccrB1"),]
+table(t_df$ccrA_types)
+
+t_df = complex_df[which(complex_df$ccrB_types=="-"),]
+table(t_df$ccrA_types)
+
+t_df = complex_df[which(complex_df$ccrB_types=="-"),]
+table(t_df$ccrA_types)
+table(complex_df$ccrA_types)
+table(complex_df$ccrB_types)
+length(which(complex_df$ccrA_count>0))
+length(which(complex_df$ccrB_count>0))
+
+
+t_df = complex_df[which(complex_df$ccrA_types=="ccrA2"),]
+table(t_df$ccrB_types)
+
+t_df = complex_df[which(complex_df$ccrA_types=="ccrA3"),]
+table(t_df$ccrB_types)
+
+t_df = complex_df[which(complex_df$ccrA_types=="ccrA4"),]
+table(t_df$ccrB_types)
+
+t_df = complex_df[which(complex_df$ccrB_types=="ccrB2"),]
+table(t_df$ccrA_types)
+
+t_df = complex_df[which(complex_df$ccrB_types=="ccrB3"),]
+table(t_df$ccrA_types)
+
+t_df = complex_df[which(complex_df$ccrB_types=="ccrB4"),]
+table(t_df$ccrA_types)
