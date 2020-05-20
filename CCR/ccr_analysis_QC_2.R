@@ -26,8 +26,8 @@ tbl$uniq_fasta_ID = paste0(as.vector(tbl$uniq_ID),'|',as.vector(tbl$seq_count))
 tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
 all_tbl = tbl
 
-aln = read.dna("protein_blast/ccr_all_uniq_mafft.fasta","fasta")
-aln = read.dna("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_all_uniq_mafft.fasta?raw=true","fasta")
+#aln = read.dna("protein_blast/ccr_all_uniq_mafft.fasta","fasta")
+#aln = read.dna("https://github.com/ssi-dk/SCCmec/blob/master/CCR/ccr_all_uniq_mafft.fasta?raw=true","fasta")
 
 dist_mat = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/ccr_all_QC_uniq_sim.txt",sep="\t",header=T,row.names=1)
 dist_mat = as.matrix(dist_mat)
@@ -80,12 +80,12 @@ all_tbl = tbl
 all_tbl_uniq = uniq_tbl
 
 ccr_dist_phylo = as.phylo(fit)
-write.tree(ccr_dist_phylo,file = "ccr_all_dist_tree_QC.nwk")
+#write.tree(ccr_dist_phylo,file = "ccr_all_dist_tree_QC.nwk")
 
 
 # ccrA #
 
-tbl = tbl = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrA_uniq_table.txt",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
+tbl = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrA_uniq_table.txt",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
 tbl$uniq_fasta_ID = paste0(as.vector(tbl$uniq_ID),'|',as.vector(tbl$seq_count))
 tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
 
@@ -148,24 +148,24 @@ for (i in 1:length(allotype_colors)) {
 
 ccrA_uniq_tbl = ccrA_tbl[which(!duplicated(as.vector(ccrA_tbl$uniq_fasta_ID))),]
 
-write.table(ccrA_tbl,"ccrA_allotype_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
-write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
-to_print = paste0(ccrA_uniq_tbl$uniq_fasta_ID,' ',ccrA_uniq_tbl$allotype_color,' ',ccrA_uniq_tbl$ccr_allotype)
-writeLines(to_print,con = "ccrA_allotype_colors_QC_22.txt")
+#write.table(ccrA_tbl,"ccrA_allotype_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+#write.table(ccrA_uniq_tbl,"ccrA_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+#to_print = paste0(ccrA_uniq_tbl$uniq_fasta_ID,' ',ccrA_uniq_tbl$allotype_color,' ',ccrA_uniq_tbl$ccr_allotype)
+#writeLines(to_print,con = "ccrA_allotype_colors_QC_22.txt")
 
-ccrA_dist_phylo = as.phylo(fit)
-write.tree(ccrA_dist_phylo,file = "ccrA_dist_tree_QC.nwk")
+#ccrA_dist_phylo = as.phylo(fit)
+#write.tree(ccrA_dist_phylo,file = "ccrA_dist_tree_QC.nwk")
 
 
 
 #### ccrB ####
 
-tbl = tbl = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrB_uniq_table.txt",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
+tbl = read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrB_uniq_table.txt",sep = "\t",row.names=NULL,header = T,comment.char = "",check.names = F,quote = "")
 tbl$uniq_fasta_ID = paste0(as.vector(tbl$uniq_ID),'|',as.vector(tbl$seq_count))
 tbl$GCF_ID = unlist(lapply(as.vector(tbl$ID), function(x) paste0(strsplit(x,"_")[[1]][4:5],collapse="_")))
-tbl = tbl[which(as.vector(tbl$ccr_type)=="ccrB"),]
+#tbl = tbl[which(as.vector(tbl$ccr_type)=="ccrB"),]
 
-dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrB_pairwise_sim_2.txt",sep = "\t",header=T, row.names=1))
+#dist_mat = as.matrix(read.table("protein_blast/ccr_haplotype_uniq_fastas/ccrB_pairwise_sim_2.txt",sep = "\t",header=T, row.names=1))
 dist_mat = as.matrix(read.table("https://raw.githubusercontent.com/ssi-dk/SCCmec/master/CCR/fastas/ccrB_all_uniq_sim.txt",sep = "\t",header=T, row.names=1))
 
 aln_dist = as.dist(dist_mat)
@@ -223,14 +223,14 @@ for (i in 1:length(allotype_colors)) {
 }
 
 ccrB_uniq_tbl = ccrB_tbl[which(!duplicated(as.vector(ccrB_tbl$uniq_fasta_ID))),]
-
-write.table(ccrB_tbl,"ccrB_allotype_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
-write.table(ccrB_uniq_tbl,"ccrB_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
-to_print = paste0(ccrB_uniq_tbl$uniq_fasta_ID,' ',ccrB_uniq_tbl$allotype_color,' ',ccrB_uniq_tbl$ccr_allotype)
-writeLines(to_print,con = "ccrB_allotype_colors_QC_22.txt")
-
-ccrB_dist_phylo = as.phylo(fit)
-write.tree(ccrB_dist_phylo,file = "ccrB_dist_tree_QC.nwk")
+# 
+# write.table(ccrB_tbl,"ccrB_allotype_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+# write.table(ccrB_uniq_tbl,"ccrB_allotype_uniq_table_QC_22.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+# to_print = paste0(ccrB_uniq_tbl$uniq_fasta_ID,' ',ccrB_uniq_tbl$allotype_color,' ',ccrB_uniq_tbl$ccr_allotype)
+# writeLines(to_print,con = "ccrB_allotype_colors_QC_22.txt")
+# 
+# ccrB_dist_phylo = as.phylo(fit)
+# write.tree(ccrB_dist_phylo,file = "ccrB_dist_tree_QC.nwk")
 
 
 
