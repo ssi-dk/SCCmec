@@ -18,5 +18,8 @@ files = os.listdir(in_dir)
 for file in files:
 	s = file.split('_')
 	ID = '_'.join(s[:-3])
+	suffix = '_'.join(s[-2:])
 	new_ID = rename_dict[ID]
-	print(new_ID)
+	src = os.path.join(in_dir,file)
+	dst = os.path.join(out_dir,new_ID+'_'+suffix)
+	print(src+'\t'+dst)
