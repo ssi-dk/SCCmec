@@ -22,4 +22,4 @@ for file in files:
 	new_ID = rename_dict[ID]
 	src = os.path.join(in_dir,file)
 	dst = os.path.join(out_dir,new_ID+'_'+suffix)
-	print(src+'\t'+dst)
+	os.symlink(src,dst)
