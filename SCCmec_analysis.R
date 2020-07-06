@@ -42,7 +42,7 @@ get_top_n_from_variable = function(variable_factor,n) {
 #### data ####
 
 setwd("/Volumes/data/MPV/projects/SCCmec/CCR")
-#setwd("E:/Github/SCCmec/CCR")
+setwd("E:/Github/SCCmec/CCR")
 #setwd("/Users/thej/Documents/GitHub/SCCmec/CCR")
 
 
