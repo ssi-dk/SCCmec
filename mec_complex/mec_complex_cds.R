@@ -1,4 +1,4 @@
-
+library(plotly)
 
 setwd("/Users/thej/Documents/GitHub/SCCmec/mec_complex/cds_blast_loc/")
 
@@ -99,6 +99,35 @@ add_data_columns <- function(tbl) {
   return(tbl)
 }
 
+setup_sankey = function(d,groups) {
+  group_index = match(groups,colnames(d))
+  labels = c()
+  source = c()
+  target = c()
+  value = c()
+  for (i in 1:(length(group_index)-1)) {
+    g1 = group_index[i]
+    g2 = group_index[i+1]
+    if (class(levels(d[,g1]))=="factor") {
+      g1_levels = levels(d[,g1])
+    } else {
+      g1_levels = unique(d[,g1])
+    }
+    if (class(levels(d[,g2]))=="factor") {
+      g2_levels = levels(d[,g2])
+    } else {
+      g2_levels = unique(d[,g2])
+    }
+    tbl = as.data.frame(table(d[,g1],d[,g2]))
+    tbl = tbl[which(tbl$Freq>0),]
+    source = c(source,(as.numeric(tbl$Var1)+length(labels)-1))
+    labels = c(labels,g1_levels)
+    target = c(target,(as.numeric(tbl$Var2)+length(labels)-1))
+    value = c(value,tbl$Freq)
+  }
+  labels = c(labels,g2_levels)
+  return(list('labels'=labels,df=data.frame('source'=source,'target'=target,'value'=value)))
+}
 
 #### load data ####
 mecA_tbl = read.table("mecA_cds_blast.txt",sep = "\t", header = F)
@@ -203,7 +232,7 @@ for (n in 1:nrow(mecA_sub)) {
       if (IS1272_ID_tbl$assembly_strand=='minus') {
         IS1272_vec = c(as.vector(IS1272_ID_tbl$gene_start_pos[1]),as.vector(IS1272_ID_tbl$slen[1]),as.vector(IS1272_ID_tbl$gene_end_pos[1]),'<')
       } else {
-        IS127_vec = c(as.vector(IS1272_ID_tbl$gene_start_pos[1]),as.vector(IS1272_ID_tbl$slen[1]),as.vector(IS1272_ID_tbl$gene_end_pos[1]),'>')
+        IS1272_vec = c(as.vector(IS1272_ID_tbl$gene_start_pos[1]),as.vector(IS1272_ID_tbl$slen[1]),as.vector(IS1272_ID_tbl$gene_end_pos[1]),'>')
       }
     } else {
       IS1272_vec = c("-","-","-","-")
@@ -313,7 +342,7 @@ colnames(complex_df) = c("IS431s_start","IS431s_len","IS431s_end","IS431s_dir","
 #rownames(complex_df) = rownames(mecA_sub)
 
 complex_df$assembly = mecA_sub$assembly_ID
-complex_df$GCF_ID = mecA_sub$GCF_ID
+complex_df$GCF_ID = paste0("GCF_",mecA_sub$GCF_ID)
 complex_df$contig = mecA_sub$contig
 complex_df$species = mecA_sub$species
 complex_df$contig_length = mecA_sub$contig_length
@@ -391,6 +420,8 @@ complex_df[which(complex_df$mec_class=="NT"),]
 
 table(complex_df$mec_class)
 
+
+write.table(complex_df,"../mec_complex_table.txt",sep = )
 
 p <- ggplot(data.frame("x"=order(order(complex_df$end_length[which(complex_df$mecR_len=='-')])),"y"=complex_df$end_length[which(complex_df$mecR_len=='-')],"col"=complex_df$ISs_status[which(complex_df$mecR_len=='-')]),
             aes(x=x,y=y,color=col)) + geom_point() + labs(color="Upstream IS431 presence") + ylab("Length from start of mecA to end of contig") + xlab("") + 
@@ -506,11 +537,11 @@ x_df =complex_df[which(complex_df$mecR_len_simple=="type2" & complex_df$mecI_pre
 table(x_df$species)
 
 
-
+write.table(complex_df,"../mec_complex_table.txt",sep = "\t")
 
 #### combine with ccr ####
 
-ccr_tbl = read.table("../../CCR/ccr_table_final.txt",sep = "\t",header=TRUE,comment.char = "",check.names = F,quote = "")
+ccr_tbl = read.table("/Volumes/data/MPV/projects/SCCmec/CCR/protein_blast/followup_nt_blast/ccr_combined_table.txt",sep = "\t",header=TRUE,comment.char = "",check.names = F,quote = "")
 head(ccr_tbl)
 dim(ccr_tbl)
 
@@ -518,7 +549,7 @@ dim(ccr_tbl)
 refseq_tbl = ccr_tbl[which(!ccr_tbl$species=="IWG_reference"),]
 dim(refseq_tbl)
 
-isolate_df = as.data.frame(table(refseq_tbl$fasta_ID,refseq_tbl$ccr_type,refseq_tbl$ccr_allotype))
+isolate_df = as.data.frame(table(refseq_tbl$fasta_ID,refseq_tbl$ccr_type,refseq_tbl$ccr_subtype))
 isolate_df = isolate_df[which(isolate_df$Freq>0),]
 head(isolate_df)
 dim(isolate_df)
@@ -536,7 +567,7 @@ complex_df$mecA_count = 0
 n = 1
 for (n in 1:nrow(complex_df)) {
   mecA_count = length(which(complex_df$GCF_ID==complex_df$GCF_ID[n]))
-  GCF_ID = paste0('GCF_',complex_df$GCF_ID[n])
+  GCF_ID = complex_df$GCF_ID[n]
   ccr_sub = ccr_tbl[which(ccr_tbl$GCF_ID==GCF_ID),]
   ccrA_sub = ccr_sub[which(ccr_sub$ccr_type=="ccrA"),]
   ccrB_sub = ccr_sub[which(ccr_sub$ccr_type=="ccrB"),]
@@ -545,13 +576,13 @@ for (n in 1:nrow(complex_df)) {
   complex_df$ccrB_count[n] = nrow(ccrB_sub)
   complex_df$ccrC_count[n] = nrow(ccrC_sub)
   if (nrow(ccrA_sub)>0) {
-    complex_df$ccrA_types[n] = paste0(as.vector(ccrA_sub$ccr_allotype),collapse = ",")
+    complex_df$ccrA_types[n] = paste0(as.vector(ccrA_sub$ccr_subtype),collapse = ",")
   }
   if (nrow(ccrB_sub)>0) {
-    complex_df$ccrB_types[n] = paste0(as.vector(ccrB_sub$ccr_allotype),collapse = ",")
+    complex_df$ccrB_types[n] = paste0(as.vector(ccrB_sub$ccr_subtype),collapse = ",")
   }
   if (nrow(ccrC_sub)>0) {
-    complex_df$ccrC_types[n] = paste0(as.vector(ccrC_sub$ccr_allotype),collapse = ",")
+    complex_df$ccrC_types[n] = paste0(as.vector(ccrC_sub$ccr_subtype),collapse = ",")
   }
   complex_df$mecA_count[n] = mecA_count
 }
@@ -559,8 +590,9 @@ for (n in 1:nrow(complex_df)) {
 head(complex_df)
 
 table(complex_df$mecA_count)
+table(complex_df$ccrA_types)
 
-write.table(complex_df,"SCCmec_master_table.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(complex_df,"/Volumes/data/MPV/projects/SCCmec/SCCmec_master_table.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
 SCCmec_single_mecA = complex_df[which(complex_df$mecA_count==1),]
 
@@ -585,17 +617,13 @@ SCCmec_confirmed$SCCmec_type[which(SCCmec_confirmed$ccrA_types=="-" & SCCmec_con
 table(SCCmec_confirmed$SCCmec_type)
 table(SCCmec_confirmed$species,SCCmec_confirmed$SCCmec_type)
 
-write.table(SCCmec_confirmed,"SCCmec_master_table_singles.txt",sep = "\t",quote = FALSE,row.names=FALSE)
+write.table(SCCmec_confirmed,"/Volumes/data/MPV/projects/SCCmec/SCCmec_master_table_singles.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
 
 A1_idx = grep('ccrA1',SCCmec_single_mecA$ccrA_types)
 B1_idx = grep('ccrB1',SCCmec_single_mecA$ccrB_types)
 
 which(A1_idx %in% B1_idx)
-
-
-
-tt = SCCmec_single_mecA = 
 
 
 NT_tbl = SCCmec_confirmed[which(SCCmec_confirmed$SCCmec_type=="NT"),]
@@ -639,6 +667,8 @@ table(complex_df$ccrB_types)
 length(which(complex_df$ccrA_count>0))
 length(which(complex_df$ccrB_count>0))
 
+t_df = complex_df[which(complex_df$ccrA_types=="ccrA1"),]
+table(t_df$ccrB_types)
 
 t_df = complex_df[which(complex_df$ccrA_types=="ccrA2"),]
 table(t_df$ccrB_types)
@@ -657,3 +687,67 @@ table(t_df$ccrA_types)
 
 t_df = complex_df[which(complex_df$ccrB_types=="ccrB4"),]
 table(t_df$ccrA_types)
+
+
+SCCmec_confirmed$species_color = setup_top_n_color(SCCmec_confirmed$species,RColorBrewer::brewer.pal(12,"Paired")[c(2,4,6,8,10,12,1,3,5,7,9,11)],12)
+
+allu_table = as.data.frame(table(SCCmec_confirmed$ccrA_types,SCCmec_confirmed$ccrB_types,SCCmec_confirmed$ccrC_types,SCCmec_confirmed$mec_class,SCCmec_confirmed$SCCmec_type,SCCmec_confirmed$species_color))
+allu_table$logfreq = log(allu_table$Freq+1,10)
+allu_table = allu_table[which(allu_table$Freq>1),]
+
+
+alluvial(allu_table[,1:5], freq=allu_table$logfreq,
+            col = allu_table$Var6,
+            border = allu_table$Var6,
+            alpha = 0.6
+            #hide = tit$Freq == 0,
+            #cex = 0.7
+)
+
+
+setup_top_n_color = function(vec,col_vec,n) {
+  return_vec = rep(col_vec[n],length(vec))
+  counts = sort(table(vec),decreasing = T)
+  print(counts)
+  for (i in 1:(n-1)) {
+    print(i)
+    return_vec[which(vec == names(counts)[i])] = col_vec[i]
+  }
+  return(return_vec)
+}
+
+
+test_cols = setup_top_n_color(allu_table$Var6,triplet_color_vec,15)
+
+sankey_data = setup_sankey(SCCmec_confirmed,c("ccrA_types","ccrB_types","ccrC_types","mec_class","SCCmec_type","species"))
+sankey_data$df$logvalue = log(sankey_data$df$value+1,10)
+fig <- plot_ly(
+  type = "sankey",
+  orientation = "h",
+  
+  node = list(
+    label = sankey_data$labels,
+    color = c("blue", "blue", "blue", "blue", "blue", "blue"),
+    pad = 15,
+    thickness = 20,
+    line = list(
+      color = "black",
+      width = 0.5
+    )
+  ),
+  
+  link = list(
+    source = sankey_data$df$source,
+    target = sankey_data$df$target,
+    value =  sankey_data$df$logvalue
+  )
+)
+fig <- fig %>% layout(
+  title = "Basic Sankey Diagram",
+  font = list(
+    size = 10
+  )
+)
+
+fig
+
