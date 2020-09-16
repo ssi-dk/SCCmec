@@ -77,7 +77,7 @@ tbl = mecA_tbl
 add_data_columns <- function(tbl) {
   tbl$species = unlist(lapply(as.vector(tbl$subject),function(x) strsplit(x,"__GCF")[[1]][1]))
   tbl$assembly_ID = unlist(lapply(as.vector(tbl$subject),function(x) strsplit(x,"__")[[1]][2]))
-  tbl$GCF_ID = unlist(lapply(as.vector(tbl$assembly_ID),function(x) strsplit(x,"_")[[1]][2]))
+  tbl$GCF_ID = paste0("GCF_",unlist(lapply(as.vector(tbl$assembly_ID),function(x) strsplit(x,"_")[[1]][2])))
   contig_temp = unlist(lapply(as.vector(tbl$subject),function(x) strsplit(x,"|",fixed = TRUE)[[1]][2]))
   tbl$contig = unlist(lapply(as.vector(contig_temp),function(x) strsplit(x,"_cds")[[1]][1]))
   loc_temp = unlist(lapply(as.vector(tbl$subject),function(x) strsplit(x,"loc=")[[1]][2]))
@@ -130,6 +130,10 @@ setup_sankey = function(d,groups) {
 }
 
 #### load data ####
+
+### blastn -db /srv/data/MPV/projects/SCCmec/blast_DB/assembly_SCCmec_QC -outfmt "6 qseqid sseqid pident length qlen slen mismatch gapopen qstart qend sstart send evalue bitscore sstrand" -num_alignments 10000000 -query references_mec/mecR1_typeII_D86934.fasta -out assembly_blast/mecRtype2_assembly_blast.txt
+
+
 mecA_tbl = read.table("mecA_cds_blast.txt",sep = "\t", header = F)
 colnames(mecA_tbl) = blast_header
 mecA_tbl = add_data_columns(mecA_tbl)
@@ -154,6 +158,21 @@ mecR5_tbl = read.table("mecRtype5_cds_blast.txt",sep = "\t", header = F)
 colnames(mecR5_tbl) = blast_header
 mecR5_tbl = add_data_columns(mecR5_tbl)
 
+mecR2_assemblytbl = read.table("/Volumes/data/MPV/projects/git.repositories/SCCmec/mec_complex/assembly_blast/mecRtype2_assembly_blast.txt",sep = "\t", header = F)
+colnames(mecR2_assemblytbl) = blast_header
+mecR2_assemblytbl$species = unlist(lapply(as.vector(mecR2_assemblytbl$subject),function(x) strsplit(x,"__GCF")[[1]][1]))
+mecR2_assemblytbl$assembly_ID = unlist(lapply(as.vector(mecR2_assemblytbl$subject),function(x) strsplit(x,"__")[[1]][2]))
+mecR2_assemblytbl$GCF_ID = paste0("GCF_",unlist(lapply(as.vector(mecR2_assemblytbl$assembly_ID),function(x) strsplit(x,"_")[[1]][2])))
+mecR2_assemblytbl$contig = unlist(lapply(as.vector(mecR2_assemblytbl$subject),function(x) strsplit(x,"__")[[1]][3]))
+mecR2_assemblytbl$gene_start_num = mecR2_assemblytbl$sstart
+mecR2_assemblytbl$gene_end_num = mecR2_assemblytbl$send
+mecR2_assemblytbl$gene_start_num[which(mecR2_assemblytbl$sstrand=="minus")] = mecR2_assemblytbl$send[which(mecR2_assemblytbl$sstrand=="minus")]
+mecR2_assemblytbl$gene_end_num[which(mecR2_assemblytbl$sstrand=="minus")] = mecR2_assemblytbl$sstart[which(mecR2_assemblytbl$sstrand=="minus")]
+mecR2_assemblytbl$gene_start_pos = mecR2_assemblytbl$gene_start_num
+mecR2_assemblytbl$gene_end_pos = mecR2_assemblytbl$gene_end_num
+mecR2_assemblytbl$assembly_strand = mecR2_assemblytbl$sstrand
+
+
 IS1272_tbl = read.table("IS1272_cds_blast.txt",sep = "\t", header = F)
 colnames(IS1272_tbl) = blast_header
 IS1272_tbl = add_data_columns(IS1272_tbl)
@@ -162,11 +181,60 @@ IS431_tbl = read.table("IS431_cds_blast.txt",sep = "\t", header = F)
 colnames(IS431_tbl) = blast_header
 IS431_tbl = add_data_columns(IS431_tbl)
 
+
+##blastn -db /srv/data/MPV/projects/SCCmec/blast_DB/assembly_SCCmec_QC -outfmt "6 qseqid sseqid pident length qlen slen mismatch gapopen qstart qend sstart send evalue bitscore sstrand" -num_alignments 10000000 -query references_mec/IS431mec_typeIVb_AB063173.fa -out assembly_blast/IS431_assembly_blast.txt -word_size 10 -evalue 10000000000
+
+
+# IS431_assemblytbl = read.table("/Volumes/data/MPV/projects/git.repositories/SCCmec/mec_complex/assembly_blast/IS431_assembly_blast.txt",sep = "\t", header = F)
+# colnames(IS431_assemblytbl) = blast_header
+# IS431_assemblytbl$species = unlist(lapply(as.vector(IS431_assemblytbl$subject),function(x) strsplit(x,"__GCF")[[1]][1]))
+# IS431_assemblytbl$assembly_ID = unlist(lapply(as.vector(IS431_assemblytbl$subject),function(x) strsplit(x,"__")[[1]][2]))
+# IS431_assemblytbl$GCF_ID = paste0("GCF_",unlist(lapply(as.vector(IS431_assemblytbl$assembly_ID),function(x) strsplit(x,"_")[[1]][2])))
+# IS431_assemblytbl$contig = unlist(lapply(as.vector(IS431_assemblytbl$subject),function(x) strsplit(x,"__")[[1]][3]))
+# IS431_assemblytbl$gene_start_num = IS431_assemblytbl$sstart
+# IS431_assemblytbl$gene_end_num = IS431_assemblytbl$send
+# IS431_assemblytbl$gene_start_num[which(IS431_assemblytbl$sstrand=="minus")] = IS431_assemblytbl$send[which(IS431_assemblytbl$sstrand=="minus")]
+# IS431_assemblytbl$gene_end_num[which(IS431_assemblytbl$sstrand=="minus")] = IS431_assemblytbl$sstart[which(IS431_assemblytbl$sstrand=="minus")]
+# IS431_assemblytbl$gene_start_pos = IS431_assemblytbl$gene_start_num
+# IS431_assemblytbl$gene_end_pos = IS431_assemblytbl$gene_end_num
+# IS431_assemblytbl$assembly_strand = IS431_assemblytbl$sstrand
+
+IS431_stbl = read.table("/Volumes/data/MPV/projects/git.repositories/SCCmec/mec_complex/assembly_blast/IS431_10bp_s_blast.txt",sep = "\t", header = F)
+colnames(IS431_stbl) = blast_header
+IS431_stbl$species = unlist(lapply(as.vector(IS431_stbl$subject),function(x) strsplit(x,"__GCF")[[1]][1]))
+IS431_stbl$assembly_ID = unlist(lapply(as.vector(IS431_stbl$subject),function(x) strsplit(x,"__")[[1]][2]))
+IS431_stbl$GCF_ID = paste0("GCF_",unlist(lapply(as.vector(IS431_stbl$assembly_ID),function(x) strsplit(x,"_")[[1]][2])))
+IS431_stbl$contig = unlist(lapply(as.vector(IS431_stbl$subject),function(x) strsplit(x,"__")[[1]][3]))
+IS431_stbl$gene_start_num = IS431_stbl$sstart
+IS431_stbl$gene_end_num = IS431_stbl$send
+IS431_stbl$gene_start_num[which(IS431_stbl$sstrand=="minus")] = IS431_stbl$send[which(IS431_stbl$sstrand=="minus")]
+IS431_stbl$gene_end_num[which(IS431_stbl$sstrand=="minus")] = IS431_stbl$sstart[which(IS431_stbl$sstrand=="minus")]
+IS431_stbl$gene_start_pos = IS431_stbl$gene_start_num
+IS431_stbl$gene_end_pos = IS431_stbl$gene_end_num
+IS431_stbl$assembly_strand = IS431_stbl$sstrand
+
+
+IS431_etbl = read.table("/Volumes/data/MPV/projects/git.repositories/SCCmec/mec_complex/assembly_blast/IS431_10bp_e_blast.txt",sep = "\t", header = F)
+colnames(IS431_etbl) = blast_header
+IS431_etbl$species = unlist(lapply(as.vector(IS431_etbl$subject),function(x) strsplit(x,"__GCF")[[1]][1]))
+IS431_etbl$assembly_ID = unlist(lapply(as.vector(IS431_etbl$subject),function(x) strsplit(x,"__")[[1]][2]))
+IS431_etbl$GCF_ID = paste0("GCF_",unlist(lapply(as.vector(IS431_etbl$assembly_ID),function(x) strsplit(x,"_")[[1]][2])))
+IS431_etbl$contig = unlist(lapply(as.vector(IS431_etbl$subject),function(x) strsplit(x,"__")[[1]][3]))
+IS431_etbl$gene_start_num = IS431_etbl$sstart
+IS431_etbl$gene_end_num = IS431_etbl$send
+IS431_etbl$gene_start_num[which(IS431_etbl$sstrand=="minus")] = IS431_etbl$send[which(IS431_etbl$sstrand=="minus")]
+IS431_etbl$gene_end_num[which(IS431_etbl$sstrand=="minus")] = IS431_etbl$sstart[which(IS431_etbl$sstrand=="minus")]
+IS431_etbl$gene_start_pos = IS431_etbl$gene_start_num
+IS431_etbl$gene_end_pos = IS431_etbl$gene_end_num
+IS431_etbl$assembly_strand = IS431_etbl$sstrand
+
+
+
 mecA_assembly_tbl = read.table("../assembly_blast/mecA_assembly_blast.txt",sep = "\t", header = F)
 colnames(mecA_assembly_tbl) = blast_header
 mecA_assembly_tbl$species = unlist(lapply(as.vector(mecA_assembly_tbl$subject), function(x) strsplit(x,'__')[[1]][1]))
 mecA_assembly_tbl$assembly_ID = unlist(lapply(as.vector(mecA_assembly_tbl$subject), function(x) strsplit(x,'__')[[1]][2]))
-mecA_assembly_tbl$GCF_ID = unlist(lapply(as.vector(mecA_assembly_tbl$assembly_ID), function(x) strsplit(x,'_')[[1]][2]))
+mecA_assembly_tbl$GCF_ID = paste0("GCF_",unlist(lapply(as.vector(mecA_assembly_tbl$assembly_ID), function(x) strsplit(x,'_')[[1]][2])))
 mecA_assembly_tbl$contig = unlist(lapply(as.vector(mecA_assembly_tbl$subject), function(x) strsplit(x,'__')[[1]][3]))
 mecA_assembly_sub = mecA_assembly_tbl[which(mecA_assembly_tbl$pident>=98 & mecA_assembly_tbl$len>=1800),]
 table(table(mecA_assembly_sub$subject))
@@ -200,23 +268,30 @@ length(ass_to_cds_idx)
 dim(mecA_sub)
 mecA_sub$contig_length = mecA_assembly_sub$slen[ass_to_cds_idx]
 
+x_vec = c()
+dir_vec = c()
+s_len_vec = c()
+e_len_vec = c()
 
-mat = matrix(nrow=0,ncol=24)
+mat = matrix(nrow=0,ncol=25)
 for (n in 1:nrow(mecA_sub)) {
-  assembly = as.character(as.vector(mecA_sub$assembly_ID)[n])
+  GCF = as.character(as.vector(mecA_sub$GCF_ID)[n])
+  GCF_ID = as.character(as.vector(mecA_sub$GCF_ID)[n])
   contig = as.character(as.vector(mecA_sub$contig)[n])
-  mecA_sub[n,]
   mecA_direction = mecA_sub$assembly_strand[n]
   mecA_start = mecA_sub$gene_start_num[n]
   mecA_end = mecA_sub$gene_end_num[n]
   mecA_len = mecA_sub$slen[n]
   if (mecA_direction == 'plus') {
-    IS431_start_ID_tbl = IS431_tbl[which(IS431_tbl$assembly_ID==assembly & IS431_tbl$contig==contig & IS431_tbl$gene_end_num>=(mecA_start-5000) & IS431_tbl$gene_end_num <= mecA_start ),]
-    IS431_end_ID_tbl = IS431_tbl[which(IS431_tbl$assembly_ID==assembly & IS431_tbl$contig==contig & IS431_tbl$gene_end_num>=mecA_end & IS431_tbl$gene_end_num < (mecA_end+5000) ),]
-    IS1272_ID_tbl = IS1272_tbl[which(IS1272_tbl$assembly_ID==assembly & IS1272_tbl$contig==contig & IS1272_tbl$gene_end_num>=(mecA_start-5000) & IS1272_tbl$gene_end_num <= mecA_start ),]
-    mecI_ID_tbl = mecI_tbl[which(mecI_tbl$assembly_ID==assembly & mecI_tbl$contig==contig & mecI_tbl$gene_end_num>=(mecA_start-5000) & mecI_tbl$gene_end_num <= mecA_start ),]
-    mecR2_ID_tbl = mecR2_tbl[which(mecR2_tbl$assembly_ID==assembly & mecR2_tbl$contig==contig & mecR2_tbl$gene_end_num>=(mecA_start-500) & mecR2_tbl$gene_end_num <= mecA_start ),]
-    mecR4c_ID_tbl = mecR4c_tbl[which(mecR4c_tbl$assembly_ID==assembly & mecR4c_tbl$contig==contig & mecR4c_tbl$gene_end_num>=(mecA_start-500) & mecR4c_tbl$gene_end_num <= mecA_start ),]
+    IS431_ss_ID_tbl = IS431_stbl[which(IS431_stbl$GCF_ID==GCF & IS431_stbl$contig==contig & IS431_stbl$gene_end_num>=(mecA_start-5000) & IS431_stbl$gene_end_num <= mecA_start ),]
+    IS431_se_ID_tbl = IS431_etbl[which(IS431_etbl$GCF_ID==GCF & IS431_etbl$contig==contig & IS431_etbl$gene_end_num>=(mecA_start-5000) & IS431_etbl$gene_end_num <= mecA_start ),]
+    IS431_start_ID_tbl = IS431_tbl[which(IS431_tbl$GCF_ID==GCF & IS431_tbl$contig==contig & IS431_tbl$gene_end_num>=(mecA_start-5000) & IS431_tbl$gene_end_num <= mecA_start ),]
+    IS431_end_ID_tbl = IS431_tbl[which(IS431_tbl$GCF_ID==GCF & IS431_tbl$contig==contig & IS431_tbl$gene_end_num>=mecA_end & IS431_tbl$gene_end_num < (mecA_end+5000) ),]
+    IS1272_ID_tbl = IS1272_tbl[which(IS1272_tbl$GCF_ID==GCF & IS1272_tbl$contig==contig & IS1272_tbl$gene_end_num>=(mecA_start-5000) & IS1272_tbl$gene_end_num <= mecA_start ),]
+    mecI_ID_tbl = mecI_tbl[which(mecI_tbl$GCF_ID==GCF & mecI_tbl$contig==contig & mecI_tbl$gene_end_num>=(mecA_start-5000) & mecI_tbl$gene_end_num <= mecA_start ),]
+    #mecR2_ID_tbl = mecR2_tbl[which(mecR2_tbl$GCF_ID==GCF & mecR2_tbl$contig==contig & mecR2_tbl$gene_end_num>=(mecA_start-500) & mecR2_tbl$gene_end_num <= mecA_start ),]
+    mecR2_ID_tbl = mecR2_assemblytbl[which(mecR2_assemblytbl$GCF_ID==GCF & mecR2_assemblytbl$contig==contig & mecR2_assemblytbl$gene_end_num>=(mecA_start-500) & mecR2_assemblytbl$gene_end_num <= mecA_start ),]
+    mecR4c_ID_tbl = mecR4c_tbl[which(mecR4c_tbl$GCF_ID==assembly & mecR4c_tbl$contig==contig & mecR4c_tbl$gene_end_num>=(mecA_start-500) & mecR4c_tbl$gene_end_num <= mecA_start ),]
     #mecR4e_ID_tbl = mecR4e_tbl[which(mecR4e_tbl$assembly_ID==assembly & mecR4e_tbl$contig==contig),]
     #mecR5_ID_tbl = mecR5_tbl[which(mecR5_tbl$assembly_ID==assembly & mecR5_tbl$contig==contig),]
     if (nrow(IS431_start_ID_tbl)>0) {
@@ -248,9 +323,9 @@ for (n in 1:nrow(mecA_sub)) {
     }
     if (nrow(mecR2_ID_tbl)>0) {
       if (mecR2_ID_tbl$assembly_strand=='minus') {
-        mecR2_vec = c(as.vector(mecR2_ID_tbl$gene_start_pos[1]),as.vector(mecR2_ID_tbl$slen[1]),as.vector(mecR2_ID_tbl$gene_end_pos[1]),'<')
+        mecR2_vec = c(as.vector(mecR2_ID_tbl$gene_start_pos[1]),as.vector(mecR2_ID_tbl$len[1]),as.vector(mecR2_ID_tbl$gene_end_pos[1]),'<')
       } else {
-        mecR2_vec = c(as.vector(mecR2_ID_tbl$gene_start_pos[1]),as.vector(mecR2_ID_tbl$slen[1]),as.vector(mecR2_ID_tbl$gene_end_pos[1]),'>')
+        mecR2_vec = c(as.vector(mecR2_ID_tbl$gene_start_pos[1]),as.vector(mecR2_ID_tbl$len[1]),as.vector(mecR2_ID_tbl$gene_end_pos[1]),'>')
       }
     } else {
       mecR2_vec = c("-","-","-","-")
@@ -264,17 +339,26 @@ for (n in 1:nrow(mecA_sub)) {
     } else {
       IS431_end_vec = c("-","-","-","-")
     }
+    if (nrow(IS431_ss_ID_tbl)>0 | nrow(IS431_se_ID_tbl)>0) {
+      IS431_s_vec = 1
+    } else {
+      IS431_s_vec = 0
+    }
     
     
   } else {
-    IS431_start_ID_tbl = IS431_tbl[which(IS431_tbl$assembly_ID==assembly & IS431_tbl$contig==contig & IS431_tbl$gene_start_num >= mecA_end & IS431_tbl$gene_start_num<(mecA_end+5000) ) ,]
-    IS431_end_ID_tbl = IS431_tbl[which(IS431_tbl$assembly_ID==assembly & IS431_tbl$contig==contig & IS431_tbl$gene_end_num<=mecA_start & IS431_tbl$gene_end_num > (mecA_start-5000) ),]
-    IS1272_ID_tbl = IS1272_tbl[which(IS1272_tbl$assembly_ID==assembly & IS1272_tbl$contig==contig & IS1272_tbl$gene_start_num>=mecA_end & IS1272_tbl$gene_start_num < (mecA_end+5000) ),]
-    mecI_ID_tbl = mecI_tbl[which(mecI_tbl$assembly_ID==assembly & mecI_tbl$contig==contig & mecI_tbl$gene_start_num>=mecA_end & mecI_tbl$gene_start_num < (mecA_end+5000) ),]
-    mecR2_ID_tbl = mecR2_tbl[which(mecR2_tbl$assembly_ID==assembly & mecR2_tbl$contig==contig & mecR2_tbl$gene_start_num>=mecA_end & mecR2_tbl$gene_start_num < (mecA_end+500) ),]
-    mecR4c_ID_tbl = mecR4c_tbl[which(mecR4c_tbl$assembly_ID==assembly & mecR4c_tbl$contig==contig & mecR4c_tbl$gene_start_num>=mecA_end & mecR4c_tbl$gene_start_num < (mecA_end+500) ),]
-    #mecR4e_ID_tbl = mecR4e_tbl[which(mecR4e_tbl$assembly_ID==assembly & mecR4e_tbl$contig==contig),]
-    #mecR5_ID_tbl = mecR5_tbl[which(mecR5_tbl$assembly_ID==assembly & mecR5_tbl$contig==contig),]
+    IS431_ss_ID_tbl = IS431_stbl[which(IS431_stbl$GCF_ID==GCF & IS431_stbl$contig==contig & IS431_stbl$gene_start_num >= mecA_end & IS431_stbl$gene_start_num<(mecA_end+5000) ) ,]
+    IS431_se_ID_tbl = IS431_etbl[which(IS431_etbl$GCF_ID==GCF & IS431_etbl$contig==contig & IS431_etbl$gene_start_num >= mecA_end & IS431_etbl$gene_start_num<(mecA_end+5000) ) ,]
+    IS431_start_ID_tbl = IS431_tbl[which(IS431_tbl$GCF_ID==GCF & IS431_tbl$contig==contig & IS431_tbl$gene_start_num >= mecA_end & IS431_tbl$gene_start_num<(mecA_end+5000) ) ,]
+    IS431_start_ID_tbl = IS431_tbl[which(IS431_tbl$GCF_ID==GCF & IS431_tbl$contig==contig & IS431_tbl$gene_start_num >= mecA_end & IS431_tbl$gene_start_num<(mecA_end+5000) ) ,]
+    IS431_end_ID_tbl = IS431_tbl[which(IS431_tbl$GCF_ID==GCF & IS431_tbl$contig==contig & IS431_tbl$gene_end_num<=mecA_start & IS431_tbl$gene_end_num > (mecA_start-5000) ),]
+    IS1272_ID_tbl = IS1272_tbl[which(IS1272_tbl$GCF_ID==GCF & IS1272_tbl$contig==contig & IS1272_tbl$gene_start_num>=mecA_end & IS1272_tbl$gene_start_num < (mecA_end+5000) ),]
+    mecI_ID_tbl = mecI_tbl[which(mecI_tbl$GCF_ID==GCF & mecI_tbl$contig==contig & mecI_tbl$gene_start_num>=mecA_end & mecI_tbl$gene_start_num < (mecA_end+5000) ),]
+    #mecR2_ID_tbl = mecR2_tbl[which(mecR2_tbl$GCF_ID==GCF & mecR2_tbl$contig==contig & mecR2_tbl$gene_start_num>=mecA_end & mecR2_tbl$gene_start_num < (mecA_end+500) ),]
+    mecR2_ID_tbl = mecR2_assemblytbl[which(mecR2_assemblytbl$GCF_ID==GCF & mecR2_assemblytbl$contig==contig & mecR2_assemblytbl$gene_start_num>=mecA_end & mecR2_assemblytbl$gene_start_num < (mecA_end+500) ),]
+    mecR4c_ID_tbl = mecR4c_tbl[which(mecR4c_tbl$GCF_ID==GCF & mecR4c_tbl$contig==contig & mecR4c_tbl$gene_start_num>=mecA_end & mecR4c_tbl$gene_start_num < (mecA_end+500) ),]
+    #mecR4e_ID_tbl = mecR4e_tbl[which(mecR4e_tbl$GCF_ID==GCF & mecR4e_tbl$contig==contig),]
+    #mecR5_ID_tbl = mecR5_tbl[which(mecR5_tbl$GCF_ID==GCF & mecR5_tbl$contig==contig),]
     if (nrow(IS431_start_ID_tbl)>0) {
       if (IS431_start_ID_tbl$assembly_strand=='minus') {
         IS431_start_vec = c(as.vector(IS431_start_ID_tbl$gene_start_pos[1]),as.vector(IS431_start_ID_tbl$slen[1]),as.vector(IS431_start_ID_tbl$gene_end_pos[1]),'>')
@@ -288,7 +372,7 @@ for (n in 1:nrow(mecA_sub)) {
       if (IS1272_ID_tbl$assembly_strand=='minus') {
         IS1272_vec = c(as.vector(IS1272_ID_tbl$gene_start_pos[1]),as.vector(IS1272_ID_tbl$slen[1]),as.vector(IS1272_ID_tbl$gene_end_pos[1]),'>')
       } else {
-        IS127_vec = c(as.vector(IS1272_ID_tbl$gene_start_pos[1]),as.vector(IS1272_ID_tbl$slen[1]),as.vector(IS1272_ID_tbl$gene_end_pos[1]),'<')
+        IS1272_vec = c(as.vector(IS1272_ID_tbl$gene_start_pos[1]),as.vector(IS1272_ID_tbl$slen[1]),as.vector(IS1272_ID_tbl$gene_end_pos[1]),'<')
       }
     } else {
       IS1272_vec = c("-","-","-","-")
@@ -304,9 +388,9 @@ for (n in 1:nrow(mecA_sub)) {
     }
     if (nrow(mecR2_ID_tbl)>0) {
       if (mecR2_ID_tbl$assembly_strand=='minus') {
-        mecR2_vec = c(as.vector(mecR2_ID_tbl$gene_start_pos[1]),as.vector(mecR2_ID_tbl$slen[1]),as.vector(mecR2_ID_tbl$gene_end_pos[1]),'>')
+        mecR2_vec = c(as.vector(mecR2_ID_tbl$gene_start_pos[1]),as.vector(mecR2_ID_tbl$len[1]),as.vector(mecR2_ID_tbl$gene_end_pos[1]),'>')
       } else {
-        mecR2_vec = c(as.vector(mecR2_ID_tbl$gene_start_pos[1]),as.vector(mecR2_ID_tbl$slen[1]),as.vector(mecR2_ID_tbl$gene_end_pos[1]),'<')
+        mecR2_vec = c(as.vector(mecR2_ID_tbl$gene_start_pos[1]),as.vector(mecR2_ID_tbl$len[1]),as.vector(mecR2_ID_tbl$gene_end_pos[1]),'<')
       }
     } else {
       mecR2_vec = c("-","-","-","-")
@@ -320,29 +404,39 @@ for (n in 1:nrow(mecA_sub)) {
     } else {
       IS431_end_vec = c("-","-","-","-")
     }
+    if (nrow(IS431_ss_ID_tbl)>0 | nrow(IS431_se_ID_tbl)>0) {
+      IS431_s_vec = 1
+    } else {
+      IS431_s_vec = 0
+    }
   }
-  add_vec = c(IS431_start_vec,IS1272_vec,mecI_vec,mecR2_vec,mecA_start,mecA_len,mecA_end,'>',IS431_end_vec)
+  add_vec = c(IS431_start_vec,IS1272_vec,mecI_vec,mecR2_vec,mecA_start,mecA_len,mecA_end,'>',IS431_end_vec,IS431_s_vec)
   mat = rbind(mat,add_vec)
-  
-  #IS431_ID_tbl = IS431_tbl[which(IS431_tbl$assembly_ID==assembly & IS431_tbl$contig==contig),]
-  #IS1272_ID_tbl = IS1272_tbl[which(IS1272_tbl$assembly_ID==assembly & IS1272_tbl$contig==contig),]
-  #mecI_ID_tbl = mecI_tbl[which(mecI_tbl$assembly_ID==assembly & mecI_tbl$contig==contig),]
-  #mecR2_ID_tbl = mecR2_tbl[which(mecR2_tbl$assembly_ID==assembly & mecR2_tbl$contig==contig),]
-  #mecR4c_ID_tbl = mecR4c_tbl[which(mecR4c_tbl$assembly_ID==assembly & mecR4c_tbl$contig==contig),]
-  #mecR4e_ID_tbl = mecR4e_tbl[which(mecR4e_tbl$assembly_ID==assembly & mecR4e_tbl$contig==contig),]
-  #mecR5_ID_tbl = mecR5_tbl[which(mecR5_tbl$assembly_ID==assembly & mecR5_tbl$contig==contig),]
+  x_vec = c(x_vec,IS431_s_vec)
+  dir_vec = c(dir_vec,mecA_direction)
+  s_len_vec = c(s_len_vec,nrow(IS431_ss_ID_tbl))
+  e_len_vec = c(e_len_vec,nrow(IS431_se_ID_tbl))
+  #IS431_ID_tbl = IS431_tbl[which(IS431_tbl$GCF_ID==GCF & IS431_tbl$contig==contig),]
+  #IS1272_ID_tbl = IS1272_tbl[which(IS1272_tbl$GCF_ID==GCF & IS1272_tbl$contig==contig),]
+  #mecI_ID_tbl = mecI_tbl[which(mecI_tbl$GCF_ID==GCF & mecI_tbl$contig==contig),]
+  #mecR2_ID_tbl = mecR2_tbl[which(mecR2_tbl$GCF_ID==GCF & mecR2_tbl$contig==contig),]
+  #mecR4c_ID_tbl = mecR4c_tbl[which(mecR4c_tbl$GCF_ID==GCF & mecR4c_tbl$contig==contig),]
+  #mecR4e_ID_tbl = mecR4e_tbl[which(mecR4e_tbl$GCF_ID==GCF & mecR4e_tbl$contig==contig),]
+  #mecR5_ID_tbl = mecR5_tbl[which(mecR5_tbl$GCF_ID==GCF & mecR5_tbl$contig==contig),]
 }
 
+s_count = s_len_vec+e_len_vec
+s_count[which(s_count>0)] = 1
 dim(mat)
 dim(mecA_sub)
 rownames(mat) = rownames(mecA_sub)
 complex_df = as.data.frame(mat)
 colnames(complex_df) = c("IS431s_start","IS431s_len","IS431s_end","IS431s_dir","IS1272s_start","IS1272s_len","IS1272s_end","IS1272s_dir","mecI_start","mecI_len","mecI_end","mecI_dir",
-                         "mecR_start","mecR_len","mecR_end","mecR_dir","mecA_start","mecA_len","mecA_end","mecA_dir","IS431e_start","IS431e_len","IS431e_end","IS431e_dir")
+                         "mecR_start","mecR_len","mecR_end","mecR_dir","mecA_start","mecA_len","mecA_end","mecA_dir","IS431e_start","IS431e_len","IS431e_end","IS431e_dir","IS431_10bp")
 #rownames(complex_df) = rownames(mecA_sub)
 
 complex_df$assembly = mecA_sub$assembly_ID
-complex_df$GCF_ID = paste0("GCF_",mecA_sub$GCF_ID)
+complex_df$GCF_ID = mecA_sub$GCF_ID
 complex_df$contig = mecA_sub$contig
 complex_df$species = mecA_sub$species
 complex_df$contig_length = mecA_sub$contig_length
@@ -385,7 +479,7 @@ complex_df$mecI_present[which(complex_df$mecI_len=="-")] = 0
 complex_df$IS1272_present = 1
 complex_df$IS1272_present[which(complex_df$IS1272s_len=="-")] = 0
 complex_df$IS431s_present = 1
-complex_df$IS431s_present[which(complex_df$IS431s_len=="-")] = 0
+complex_df$IS431s_present[which(complex_df$IS431s_len=="-" & complex_df$IS431_10bp==0)] = 0
 complex_df$mecR_type = complex_df$mecR_len_simple
 complex_df$ISs_status = "Absent"
 complex_df$ISs_status[which((complex_df$IS431s_present==1 | complex_df$IS1272_present==1) & complex_df$end_length < (as.numeric(complex_df$mecR_len)+1000))]
@@ -395,10 +489,10 @@ complex_df$mec_class = "NT"
 complex_df$mec_class[which(complex_df$mecI_present==1 & complex_df$mecR_type=="type2")] = "A"
 complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==1)] = "B"
 complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==0)] = "C1/D"
-complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==0 & complex_df$IS431s_present==1)] = "C1"
-complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==0 & complex_df$IS431s_present==0 & complex_df$end_length>2000)] = "D"
+complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==0 & complex_df$IS431_10bp==1)] = "C1"
+complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type4" & complex_df$IS1272_present==0 & complex_df$IS431_10bp==0 & complex_df$end_length>2000)] = "D"
 complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="type5" & complex_df$IS1272_present==0)] = "C2"
-complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="-" & complex_df$IS431s_present==1 & complex_df$IS1272_present==0)] = "mecA_only"
+complex_df$mec_class[which(complex_df$mecI_present==0 & complex_df$mecR_type=="-" & complex_df$IS431_10bp==1 & complex_df$IS1272_present==0)] = "mecA_only"
 
 table(complex_df$mec_class)
 
@@ -594,6 +688,7 @@ table(complex_df$ccrA_types)
 
 write.table(complex_df,"/Volumes/data/MPV/projects/SCCmec/SCCmec_master_table.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
+
 SCCmec_single_mecA = complex_df[which(complex_df$mecA_count==1),]
 
 ccr_single_idx = which((SCCmec_single_mecA$ccrA_count==1 & SCCmec_single_mecA$ccrB_count==1 & SCCmec_single_mecA$ccrC_count %in% c(0,1)) | (SCCmec_single_mecA$ccrA_count==0 & SCCmec_single_mecA$ccrB_count==0 & SCCmec_single_mecA$ccrC_count==1))
@@ -619,8 +714,7 @@ table(SCCmec_confirmed$species,SCCmec_confirmed$SCCmec_type)
 
 write.table(SCCmec_confirmed,"/Volumes/data/MPV/projects/SCCmec/SCCmec_master_table_singles.txt",sep = "\t",quote = FALSE,row.names=FALSE)
 
-
-A1_idx = grep('ccrA1',SCCmec_single_mecA$ccrA_types)
+idx = grep('ccrA1',SCCmec_single_mecA$ccrA_types)
 B1_idx = grep('ccrB1',SCCmec_single_mecA$ccrB_types)
 
 which(A1_idx %in% B1_idx)
